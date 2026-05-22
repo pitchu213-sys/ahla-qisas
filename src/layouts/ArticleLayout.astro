@@ -1,0 +1,1062 @@
+---
+// src/layouts/ArticleLayout.astro
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+const fm = Astro.props.frontmatter ?? Astro.props;
+
+const title         = fm.title         ?? '';
+const badge         = fm.badge         ?? '';
+const titleHighlight= fm.titleHighlight ?? '';
+const readTime      = fm.readTime      ?? '';
+const style         = fm.style         ?? '';
+const ageRange      = fm.ageRange      ?? '';
+const author        = fm.author        ?? '';
+const date          = fm.date          ?? '';
+const lastUpdated   = fm.lastUpdated   ?? '';
+const breadcrumb    = fm.breadcrumb    ?? [];
+const stats         = fm.stats         ?? [];
+const toc           = fm.toc           ?? [];
+const faq           = fm.faq           ?? [];
+const references    = fm.references    ?? [];
+const highlightBox  = fm.highlightBox  ?? null;
+const authorBox     = fm.authorBox     ?? null;
+const footerCta     = fm.footerCta     ?? null;
+const footerLinks   = fm.footerLinks   ?? [];
+
+// بناء نص العنوان مع الجزء المميز
+const titleParts = titleHighlight
+  ? title.split(titleHighlight)
+  : [title];
+
+// ألوان FAQ
+const faqColors: Record<string, { header: string; numColor: string; itemBg: string; itemBorder: string }> = {
+  blue:   { header: 'linear-gradient(135deg,#1a3c5e,#1e5276)', numColor: '#1a3c5e', itemBg: '#f0f7ff', itemBorder: '#dce8f0' },
+  orange: { header: 'linear-gradient(135deg,#c87800,#8A3A00)',  numColor: '#c87800', itemBg: '#fff8f0', itemBorder: '#fde8c8' },
+  green:  { header: 'linear-gradient(135deg,#1a5c30,#2d7a4f)', numColor: '#1a5c30', itemBg: '#f0fff4', itemBorder: '#b7e4c7' },
+  purple: { header: 'linear-gradient(135deg,#6a0dad,#9b30d9)', numColor: '#6a0dad', itemBg: '#fdf0ff', itemBorder: '#e2b8f5' },
+  red:    { header: 'linear-gradient(135deg,#c0392b,#e74c3c)', numColor: '#c0392b', itemBg: '#fff0f0', itemBorder: '#f5b8b8' },
+};
+
+// ألوان روابط الكاتب
+const socialColors: Record<string, string> = {
+  website:  '#1a3c5e',
+  about:    '#6b7280',
+  facebook: '#0D56B0',
+  tiktok:   '#010101',
+  whatsapp: '#0C6431',
+  articles: '#7A4F0B',
+};
+
+// بناء Schema FAQPage
+const schemaFAQ = faq ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.map((f: any) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a }
+  }))
+} : null;
+---
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | أحلى القصص للأطفال</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  
+  <link rel="stylesheet" href="/styles/icons.css" />
+  {schemaFAQ && (
+    <script type="application/ld+json" set:html={JSON.stringify(schemaFAQ)} />
+  )}
+
+  <style is:global>
+    :root {
+      --primary: #1a3c5e;
+      --accent:  #8A3A00;
+      --soft:    #e8f4f8;
+      --text:    #2c2c2c;
+      --muted:   #6b7280;
+      --white:   #ffffff;
+      --card-bg: #f9fbfd;
+      --border:  #dce8f0;
+      --green:   #2d7a4f;
+      --red:     #c0392b;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: #f4f8fb;
+      color: var(--text);
+      line-height: 1.9;
+      font-size: 17px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, #0d2b45 0%, #1a3c5e 50%, #1e5276 100%);
+      padding: 60px 20px 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: rgba(244,160,35,0.1);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -40px;
+      width: 220px; height: 220px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(244,160,35,0.18);
+      color: var(--accent);
+      border: 1px solid rgba(244,160,35,0.4);
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-family: 'Amiri', serif;
+      font-size: clamp(26px, 5vw, 42px);
+      color: var(--white);
+      line-height: 1.5;
+      max-width: 750px;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 span { color: #f4a023; }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-meta span { color: rgba(255,255,255,0.65); font-size: 13px; }
+
+    /* ===== CONTAINER ===== */
+    .container { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      padding: 14px 0;
+      font-size: 13px;
+      color: #6b7280;
+    }
+    .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 700; }
+    .breadcrumb .sep { margin: 0 8px; }
+    .breadcrumb .current { color: #f4a023; font-weight: 700; }
+
+    /* ===== INTRO BOX ===== */
+    .intro-box {
+      background: var(--white);
+      border-right: 5px solid var(--accent);
+      border-radius: 12px;
+      padding: 28px 30px;
+      margin: 40px 0;
+      box-shadow: 0 4px 20px rgba(26,60,94,0.07);
+    }
+    .intro-box p { font-size: 16.5px; color: #3a4a5a; margin-bottom: 12px; }
+    .intro-box p:last-child { margin-bottom: 0; }
+    .intro-box strong { color: var(--primary); }
+    .intro-box a { color: var(--primary); font-weight: 700; }
+
+    /* ===== STATS ROW ===== */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .stat-card .num { font-size: 32px; font-weight: 800; color: var(--accent); display: block; }
+    .stat-card .lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+    /* ===== TOC ===== */
+    .toc {
+      background: var(--soft);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin: 36px 0;
+    }
+    .toc-title { font-size: 16px; font-weight: 800; color: var(--primary); margin-bottom: 16px; }
+    .toc ol { padding-right: 20px; }
+    .toc ol li { margin-bottom: 8px; }
+    .toc ol li a { color: var(--primary); text-decoration: none; font-size: 15px; font-weight: 500; }
+    .toc ol li a:hover { color: var(--accent); }
+
+    /* ===== SECTION ===== */
+    .section {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 36px 38px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 16px rgba(26,60,94,0.06);
+    }
+    .section-title {
+  font-family: 'Amiri', serif;
+  font-size: 28px; /* تكبير الخط قليلاً */
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 12px;
+  position: relative; /* لإضافة خط سفلي مميز */
+}
+
+/* إضافة خط سفلي متدرج تحت العنوان */
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80px; /* طول الخط */
+  height: 4px;
+  background: var(--accent); /* لون البرتقالي الخاص بك */
+  border-radius: 10px;
+}
+
+/* تنسيق أيقونة العنوان الفرعي */
+.section-title .icon {
+  background: linear-gradient(135deg, var(--soft), #dce8f0);
+  color: var(--primary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(26,60,94,0.08);
+}
+    .section p { margin-bottom: 16px; }
+
+    /* ===== AAP GRID ===== */
+    .aap-grid-wrap {
+      background: var(--soft);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin: 18px 0;
+    }
+    .aap-grid-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .aap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .aap-card {
+      background: white;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .aap-card-orange { border-top: 3px solid var(--accent); }
+    .aap-card-green  { border-top: 3px solid #2d7a4f; }
+    .aap-card-blue   { border-top: 3px solid #1877f2; }
+    .aap-card-heading { font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+    .aap-card-body    { font-size: 14px; color: #3d4f5f; }
+  /* ========== بطاقات الفوائد ========== */
+.benefit-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 26px;
+  margin-bottom: 20px;
+  border-right: 4px solid var(--accent);
+  transition: box-shadow 0.2s;
+}
+.benefit-card:hover {
+  box-shadow: 0 6px 24px rgba(26,60,94,0.1);
+}
+.benefit-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.benefit-num {
+  background: var(--accent);
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.benefit-header h2 {
+  font-size: 18px;
+  color: var(--primary);
+  font-weight: 700;
+  margin: 0;
+}
+    /* ===== BOXES ===== */
+    /* صندوق قصة الحالة (Case Study) */
+.case-study {
+  background: linear-gradient(135deg, #f0fff4, #e8f8ef);
+  border: 1px solid #b7e4c7;
+  border-right: 4px solid var(--green); /* استخدمنا --green الموجود في الجذر */
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin: 18px 0;
+}
+
+.case-study .cs-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--green);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.case-study p {
+  font-size: 15px;
+  color: #2d4a3e;
+  margin: 0;
+  line-height: 1.8;
+}
+
+/* للشاشات الصغيرة */
+@media (max-width: 768px) {
+  .case-study p {
+    font-size: 14px;
+  }
+}
+    .experience-box {
+      background: #fff9f0;
+      border: 1px solid #f4d080;
+      border-right: 4px solid var(--accent);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin: 18px 0;
+      font-size: 15px;
+      color: #5a4010;
+      font-style: italic;
+    }
+    .experience-box strong { color: #6B4F00; font-style: normal; }
+
+    .tip-box {
+      background: #fffbf0;
+      border: 1px solid #f4d06a;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 15px;
+      color: #6B4F00;
+    }
+    .tip-box strong { color: #6B4F00; }
+     /* ========== قسم الأعمار (ages) ========== */
+.age-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 26px;
+  margin-bottom: 20px;
+  border-right: 4px solid var(--accent);
+  transition: box-shadow 0.2s;
+}
+.age-card:hover { box-shadow: 0 6px 24px rgba(26,60,94,0.1); }
+.age-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.age-badge {
+  background: var(--accent);
+  color: white;
+  padding: 4px 14px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.age-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+.age-feature {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13.5px;
+  color: #2c3e50;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* ========== قسم العلامات (signs) ========== */
+.sign-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 16px;
+}
+.sign-item {
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #1a5c30;
+  font-weight: 600;
+}
+.sign-item .s-icon {
+  font-size: 28px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* ========== قسم الأخطاء (mistakes) ========== */
+.mistake-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.mistake-item:last-child { border-bottom: none; }
+.mistake-x {
+  background: #fdecea;
+  color: var(--red);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ========== قسم النصائح (tips) ========== */
+.check-list { list-style: none; margin: 16px 0; }
+.check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 15.5px;
+  color: #3d4f5f;
+}
+.check-list li:last-child { border-bottom: none; }
+.check-icon {
+  background: #e8f5e9;
+  color: var(--green);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ========== تحسينات للروابط الاجتماعية والمؤلف ========== */
+.social-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.social-links a {
+  display: inline-block;
+  padding: 8px 16px;
+  min-width: 44px;
+  min-height: 44px;
+  text-align: center;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: background 0.2s;
+}
+.social-links a:hover { background: var(--soft); }
+
+/* ========== تذييل الموقع (site-footer) ========== */
+.site-footer {
+  background: white;
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin: 40px 0 20px;
+  box-shadow: 0 2px 16px rgba(26,60,94,0.06);
+  text-align: center;
+}
+    /* ===== ALTERNATIVES ===== */
+    .alternative-item { margin-bottom: 28px; }
+    .alternative-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .link-primary-bold { color: var(--primary); font-weight: 700; }
+
+    /* ===== IMG BOX ===== */
+    .img-box {
+      margin: 24px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(26,60,94,0.1);
+    }
+    .img-box img { max-width: 100%; display: block; height: auto; }
+
+    /* ===== BOUNDARIES ===== */
+    .boundaries-list { margin-right: 20px; margin-bottom: 20px; }
+    .boundaries-list li { margin-bottom: 10px; }
+
+    /* ===== FAQ ===== */
+    .faq-item {
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      border: 1px solid;
+    }
+    .faq-question-header {
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq-question-number {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px;
+      background: white;
+      flex-shrink: 0;
+    }
+    .faq-question-text { color: white; font-size: 16px; font-weight: 700; }
+    .faq-answer { padding: 18px 20px; font-size: 15px; color: #3d4f5f; }
+    /* ========== جداول النوم (كم ساعة نوم يحتاج طفلك؟) ========== */
+.sleep-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 15px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.sleep-table thead tr {
+  background: #1e2d5a;
+  color: white;
+  text-align: right;
+}
+.sleep-table th,
+.sleep-table td {
+  padding: 14px 18px;
+  border: none;
+}
+.sleep-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  background: white;
+}
+.sleep-table tbody tr:nth-child(even) {
+  background: var(--soft);
+}
+.sleep-table tbody tr:last-child {
+  border-bottom: none;
+}
+.sleep-hours {
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 17px;
+}
+
+/* ========== بطاقات الخطوات (7 خطوات روتين النوم) ========== */
+.step-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 26px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 18px;
+  transition: box-shadow 0.2s;
+}
+.step-card:hover {
+  box-shadow: 0 6px 24px rgba(26,60,94,0.1);
+}
+.step-num {
+  background: linear-gradient(135deg, #1e2d5a, #1a3c5e);
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.step-content h2 {
+  font-size: 18px;
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.step-content p {
+  margin: 0;
+  font-size: 15px;
+  color: #3d4f5f;
+}
+
+/* ========== شبكة العلامات (علامات تدل أن روتينك ناجح) ========== */
+.sign-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 16px;
+}
+.sign-item {
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #1a5c30;
+  font-weight: 600;
+}
+.sign-item .s-icon {
+  font-size: 28px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* ========== عناصر الأخطاء (أخطاء تُفسد روتين النوم) ========== */
+.mistake-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.mistake-item:last-child {
+  border-bottom: none;
+}
+.mistake-x {
+  background: #fdecea;
+  color: var(--red);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+    /* ===== REFERENCES ===== */
+    .references-box {
+      background: white;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 16px rgba(26,60,94,0.06);
+    }
+    .references-title {
+      font-size: 18px;
+      color: #1a3c5e;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e8f4f8;
+      font-weight: 800;
+    }
+    .references-list {
+      padding-right: 20px;
+      color: #3d4f5f;
+      font-size: 14px;
+      line-height: 2;
+    }
+    .references-list a { color: #1a3c5e; font-weight: 600; }
+
+    /* ===== HIGHLIGHT BOX ===== */
+    .highlight-box {
+      background: linear-gradient(135deg, #fefce8 0%, #fffbe6 100%);
+      border-left: 6px solid #facc15;
+      border-radius: 12px;
+      padding: 25px 30px;
+      margin: 40px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      box-shadow: 0 4px 18px rgba(244,160,35,0.1);
+    }
+    .highlight-box-emoji { font-size: 36px; line-height: 1; flex-shrink: 0; }
+    .highlight-box-text  { font-size: 16.5px; color: #4a4a4a; line-height: 1.7; }
+
+    /* ===== AUTHOR BOX ===== */
+    .author-box-container {
+      margin-bottom: 28px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(26,60,94,0.13);
+    }
+    .author-box-header {
+      background: linear-gradient(135deg, #0d2b45 0%, #1a3c5e 60%, #1e5276 100%);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .author-box-header-bg-circle {
+      position: absolute;
+      top: -30px; left: -30px;
+      width: 120px; height: 120px;
+      background: rgba(244,160,35,0.1);
+      border-radius: 50%;
+    }
+    .author-box-avatar-wrapper { position: relative; flex-shrink: 0; z-index: 1; }
+    .author-box-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 3px solid #f4a023;
+      box-shadow: 0 0 0 4px rgba(244,160,35,0.25);
+      display: block;
+    }
+    .author-box-avatar-badge {
+      position: absolute;
+      bottom: -2px; right: -2px;
+      background: #f4a023;
+      border-radius: 50%;
+      width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      border: 2px solid white;
+    }
+    .author-box-info { z-index: 1; }
+    .author-box-role { color: #f4a023; font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; }
+    .author-box-name { color: white; font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+    .author-box-description { color: rgba(255,255,255,0.8); font-size: 13px; font-weight: 600; }
+    .author-box-body { background: white; padding: 22px 28px; }
+    .author-box-qualifications {
+      background: #f0f7ff;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      border-right: 4px solid #1a3c5e;
+    }
+    .author-box-qualifications-title { font-size: 13px; font-weight: 800; color: #1a3c5e; margin-bottom: 10px; }
+    .author-box-qualifications-text  { font-size: 13px; color: #3d4f5f; margin-bottom: 12px; line-height: 1.8; }
+    .author-box-skills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .author-box-skill-tag {
+      background: white;
+      border: 1px solid #dce8f0;
+      color: #1a3c5e;
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .author-box-social-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .author-box-social-link {
+      color: white;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    /* ===== FOOTER CTA ===== */
+    .footer-cta {
+      background: linear-gradient(135deg, #e8f4f8 0%, #dce8f0 100%);
+      border-radius: 16px;
+      padding: 30px 25px;
+      text-align: center;
+      margin-top: 40px;
+      box-shadow: 0 6px 20px rgba(26,60,94,0.08);
+    }
+    .footer-cta-title { font-size: 22px; color: var(--primary); margin-bottom: 12px; font-weight: 800; }
+    .footer-cta-text  { font-size: 16px; color: var(--text); margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .cta-btn:hover { background: #e0901e; }
+
+    /* ===== FOOTER LINKS ===== */
+    .footer-links-container {
+      text-align: center;
+      padding: 16px;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .footer-link { color: var(--primary); text-decoration: none; margin: 0 10px; }
+    .footer-link:hover { text-decoration: underline; }
+
+    /* ===== BACK TO TOP ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px; left: 20px;
+      background: var(--accent);
+      color: white;
+      width: 45px; height: 45px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      font-size: 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      z-index: 99;
+      opacity: 0; visibility: hidden;
+    }
+    .back-to-top.show { opacity: 1; visibility: visible; }
+    .back-to-top:hover { background: var(--primary); transform: scale(1.05); }
+
+    @media (max-width: 600px) {
+      .section { padding: 24px 18px; }
+      .hero { padding: 40px 16px 36px; }
+    }
+  </style>
+</head>
+<body id="top">
+<Header />
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-badge">{badge}</div>
+  <h1>
+    {titleHighlight ? (
+      <>
+        {titleParts[0]}<span>{titleHighlight}</span>{titleParts[1]}
+      </>
+    ) : title}
+  </h1>
+  <div class="hero-meta">
+    <span>🕐 وقت القراءة: {readTime}</span>
+    <span>🧠 {style}</span>
+    <span>👶 {ageRange}</span>
+    <span>✍️ {author}</span>
+    <span>📅 {date} · آخر تحديث: {lastUpdated}</span>
+  </div>
+</div>
+
+<!-- ===== CONTAINER ===== -->
+<div class="container">
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" aria-label="مسار التنقل">
+    {breadcrumb.map((crumb: any, i: number) => (
+      <>
+        {i > 0 && <span class="sep">›</span>}
+        {crumb.href && i < breadcrumb.length - 1
+          ? <a href={crumb.href}>{crumb.label}</a>
+          : <span class="current">{crumb.label}</span>
+        }
+      </>
+    ))}
+  </nav>
+
+  {fm.intro && (
+    <div class="intro-box" set:html={fm.intro} />
+  )}
+<!-- Stats -->
+  {stats && stats.length > 0 && (
+    <div class="stats-row">
+      {stats.map((s: any) => (
+        <div class="stat-card">
+          <span class="num">{s.num}</span>
+          <div class="lbl">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  )}
+  {toc && toc.length > 0 && (
+    <div class="toc">
+      <div class="toc-title">📋 محتويات المقالة</div>
+      <ol>
+        {toc.map((item: any) => (
+          <li><a href={`#${item.id}`}>{item.label}</a></li>
+        ))}
+      </ol>
+    </div>
+  )}
+
+  <div class="article-content">
+    <slot />
+  </div>
+
+  <!-- ===== FAQ ===== -->
+  {faq && (
+    <div class="section" id="faq">
+      <div class="section-title"><div class="icon">❓</div>أسئلة شائعة</div>
+      {faq.map((item: any) => {
+        const c = faqColors[item.color] || faqColors.blue;
+        return (
+          <div class="faq-item" style={`background:${c.itemBg};border-color:${c.itemBorder};`}>
+            <div class="faq-question-header" style={`background:${c.header};`}>
+              <div class="faq-question-number" style={`color:${c.numColor};`}>{item.num}</div>
+              <span class="faq-question-text">{item.q}</span>
+            </div>
+            <div class="faq-answer">{item.a}</div>
+          </div>
+        );
+      })}
+    </div>
+  )}
+
+  <!-- ===== REFERENCES ===== -->
+  {references && (
+    <div class="references-box">
+      <h2 class="references-title">📚 المصادر والمراجع</h2>
+      <ol class="references-list">
+        {references.map((ref: any) => (
+          <li>
+            <cite><a href={ref.href} target="_blank" rel="noopener">{ref.label}</a></cite>
+            {ref.note && ` – ${ref.note}`}
+          </li>
+        ))}
+      </ol>
+    </div>
+  )}
+
+  <!-- ===== HIGHLIGHT BOX ===== -->
+  {highlightBox && (
+    <div class="highlight-box">
+      <div class="highlight-box-emoji">{highlightBox.emoji}</div>
+      <p class="highlight-box-text">
+        <strong>{highlightBox.title}</strong><br /><br />
+        {highlightBox.text}
+      </p>
+    </div>
+  )}
+
+  <!-- ===== AUTHOR BOX ===== -->
+  {authorBox && (
+    <div class="author-box-container">
+      <div class="author-box-header">
+        <div class="author-box-header-bg-circle"></div>
+        <div class="author-box-avatar-wrapper">
+          <img src={authorBox.avatar} alt={`شعار ${authorBox.name}`} class="author-box-avatar" />
+          <div class="author-box-avatar-badge">✍️</div>
+        </div>
+        <div class="author-box-info">
+          <div class="author-box-role">{authorBox.role}</div>
+          <div class="author-box-name">{authorBox.name}</div>
+          <div class="author-box-description">{authorBox.desc}</div>
+        </div>
+      </div>
+      <div class="author-box-body">
+        <div class="author-box-qualifications">
+          <div class="author-box-qualifications-title">🎓 المؤهلات والخبرة</div>
+          <p class="author-box-qualifications-text" set:html={authorBox.qualifications} />
+          <div class="author-box-skills">
+            {authorBox.skills.map((skill: string) => (
+              <span class="author-box-skill-tag">{skill}</span>
+            ))}
+          </div>
+        </div>
+        <div class="author-box-social-links">
+          {authorBox.social.map((link: any) => (
+            <a
+              href={link.href}
+              class="author-box-social-link"
+              style={`background:${socialColors[link.cls] || '#1a3c5e'};`}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  )}
+
+  <!-- ===== FOOTER CTA ===== -->
+  {footerCta && (
+    <div class="footer-cta">
+      <h2 class="footer-cta-title">{footerCta.title}</h2>
+      <p class="footer-cta-text">{footerCta.text}</p>
+      <a href={footerCta.btnHref} class="cta-btn">{footerCta.btnLabel}</a>
+    </div>
+  )}
+
+  <!-- ===== FOOTER LINKS ===== -->
+  {footerLinks && (
+    <div class="footer-links-container">
+      {footerLinks.map((link: any) => (
+        <a href={link.href} class="footer-link" rel={link.rel || undefined}>{link.label}</a>
+      ))}
+    </div>
+  )}
+
+</div><!-- /container -->
+ <Footer />
+<a href="#top" class="back-to-top" id="backToTop" aria-label="العودة للأعلى">↑</a>
+
+<script>
+  const btn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (btn) btn.classList.toggle('show', window.scrollY > 300);
+  });
+</script>
+
+</body>
+</html>

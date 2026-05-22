@@ -1,0 +1,26 @@
+---
+import ShortLayout from '../../layouts/ShortLayout.astro';
+
+export async function getStaticPaths() {
+  const shortFiles = import.meta.glob('../../content/shorts/*.md');
+  const paths = [];
+  for (const [path, importFn] of Object.entries(shortFiles)) {
+    const slug = path.split('/').pop()?.replace('.md', '') || '';
+    const mod = await importFn();
+    paths.push({
+      params: { slug },
+      props: {
+        frontmatter: mod.frontmatter,
+        Content: mod.Content
+      }
+    });
+  }
+  return paths;
+}
+
+const { frontmatter, Content } = Astro.props;
+---
+
+<ShortLayout title={frontmatter.title} videoId={frontmatter.videoId}>
+  <Content />
+</ShortLayout>

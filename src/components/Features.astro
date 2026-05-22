@@ -1,0 +1,53 @@
+<section class="features-wrap">
+  <div class="container features">
+    <div class="feature">
+      <div class="f-icon" style="background:#fde8e0; color:#d94f2a;">👤</div>
+      <div>
+        <h3>مناسب لكل الأعمار</h3>
+        <p>من 3 سنوات فما فوق بتصميم محبب للأطفال</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="f-icon" style="background:#fff0d6; color:#d99020;">📖</div>
+      <div>
+        <h3>قصص متنوعة</h3>
+        <p>+10 قصص شيقة تناسب جميع الأعمار</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="f-icon" style="background:#fde0e0; color:#e0354b;">❤</div>
+      <div>
+        <h3>قيم تربوية</h3>
+        <p>قصص تنمي القيم والأخلاق وتعلم بطريقة ممتعة</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="f-icon" style="background:#e8e0f5; color:#6a3fc5;">🛡</div>
+      <div>
+        <h3>آمن وموثوق</h3>
+        <p>محتوى مناسب للأطفال 100% وخالٍ من الإعلانات</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .features-wrap { position: relative; margin-top: -5rem; z-index: 10; padding: 0 1rem; }
+  .features {
+    background: #fff; border-radius: 2rem;
+    box-shadow: 0 20px 60px -20px rgba(26,21,71,.2);
+    padding: 2rem; display: grid;
+    grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+  }
+  .feature { display: flex; gap: .75rem; align-items: flex-start; }
+  .f-icon {
+    width: 48px; height: 48px; border-radius: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+  .feature h3 { font-size: .95rem; font-weight: 900; color: #1a1547; }
+  .feature p { font-size: .8rem; color: #6b6783; margin-top: .25rem; }
+
+  @media (max-width: 1024px) { .features { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .features { grid-template-columns: 1fr; padding: 1.5rem; } }
+</style>

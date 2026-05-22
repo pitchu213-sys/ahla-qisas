@@ -1,0 +1,33 @@
+---
+import VideoLayout from '../../layouts/VideoLayout.astro';
+
+export async function getStaticPaths() {
+  const videoFiles = import.meta.glob('../../content/videos/*.md');
+  const paths = [];
+
+  for (const [path, importFn] of Object.entries(videoFiles)) {
+    const slug = path.split('/').pop()?.replace('.md', '') || '';
+    const mod = await importFn();
+    paths.push({
+      params: { slug },
+      props: {
+        frontmatter: mod.frontmatter,
+        Content: mod.Content
+      }
+    });
+  }
+  return paths;
+}
+
+const { frontmatter, Content } = Astro.props;
+---
+
+<VideoLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  videoId={frontmatter.videoId}
+  date={frontmatter.date}
+  category={frontmatter.category}
+>
+  <Content />
+</VideoLayout>

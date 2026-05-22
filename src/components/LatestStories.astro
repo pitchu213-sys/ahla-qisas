@@ -1,0 +1,118 @@
+---
+// جلب جميع القصص من ملفات Markdown
+const storyFiles = import.meta.glob('../content/stories/*.md', { eager: true });
+const allStories = Object.entries(storyFiles).map(([path, mod]) => ({
+  slug: path.split('/').pop()?.replace('.md', ''),
+  ...mod.frontmatter
+}));
+
+// أحدث 4 قصص فقط
+const latestStories = allStories.slice(0, 4);
+---
+
+<section class="latest-stories">
+  <h2>✨ أحدث القصص ✨</h2>
+  <div class="stories-grid">
+    {latestStories.length === 0 ? (
+      <p style="color:#666; grid-column: 1/-1;">🌟 قريباً جداً... قصص جديدة تنتظركم!</p>
+    ) : (
+      latestStories.map(story => {
+        // استخراج صورة الغلاف (أول صفحة أمامية)
+        const firstPage = story.pages?.[0]?.front || '';
+        const thumbnail = firstPage.startsWith('http')
+          ? firstPage
+          : firstPage
+            ? `/images/stories/${story.slug}/${firstPage}`
+            : '';
+
+        return (
+          <a href={`/stories/${story.slug}`} class="story-card">
+            <div class="card-thumb">
+              {thumbnail ? (
+                <img src={thumbnail} alt={story.title} class="card-img" loading="lazy" />
+              ) : (
+                '📖'
+              )}
+            </div>
+            <div class="story-info">
+              <h3>{story.title}</h3>
+              <p>{story.description ? story.description.substring(0, 80) + '...' : 'اكتشف المغامرة...'}</p>
+            </div>
+          </a>
+        );
+      })
+    )}
+  </div>
+</section>
+
+<style>
+  .latest-stories {
+    padding: 60px 10%;
+    text-align: center;
+    background: #f4f6f9;
+    direction: rtl;
+  }
+  .latest-stories h2 {
+    font-family: 'Lalezar', cursive;
+    font-size: 2.8rem;
+    color: #1a1a4b;
+    margin-bottom: 40px;
+  }
+  .stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .story-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+  }
+  .story-card:hover {
+    transform: translateY(-8px);
+  }
+  .card-thumb {
+    height: 140px;
+    background: linear-gradient(135deg, #f4a023, #ff7043);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: white;
+    overflow: hidden;
+  }
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .story-info {
+    padding: 20px;
+  }
+  .story-info h3 {
+    font-size: 1.1rem;
+    color: #1a3c5e;
+    margin: 0 0 10px;
+  }
+  .story-info p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .latest-stories h2 {
+      font-size: 2rem;
+    }
+    .stories-grid {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+  }
+</style>

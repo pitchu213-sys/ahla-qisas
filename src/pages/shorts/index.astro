@@ -1,0 +1,572 @@
+---
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const shortFiles = import.meta.glob('../../content/shorts/*.md', { eager: true });
+const shorts = Object.entries(shortFiles).map(([path, mod]) => ({
+  slug: path.split('/').pop()?.replace('.md', ''),
+  ...mod.frontmatter
+}));
+
+const catColors = {
+  'صحة':        'cat-p',
+  'ديناصورات':  'cat-g',
+  'فضاء':       'cat-c',
+  'طبيعة':      'cat-g',
+  'جسم الإنسان':'cat-p',
+  'مهارات':     'cat-y',
+};
+---
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>شورتس ريكسو | أحلى القصص للأطفال</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Lalezar&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #1a3c5e;
+      --accent:  #FACC15;
+      --white:   #ffffff;
+      --border:  #dce8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: #f4f8fb;
+      direction: rtl;
+      overflow-x: hidden;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 20px 90px;
+      text-align: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, #7c3aed 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 10%, #ec4899 0%, transparent 45%),
+        radial-gradient(ellipse at 50% 80%, #0891b2 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 70%, #f59e0b 0%, transparent 40%),
+        linear-gradient(160deg, #0f0c29, #1a1060, #0d2b45);
+      animation: bgShift 8s ease-in-out infinite alternate;
+    }
+    @keyframes bgShift {
+      0%   { filter: hue-rotate(0deg)  brightness(1);    }
+      100% { filter: hue-rotate(20deg) brightness(1.15); }
+    }
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.15;
+      animation: floatBubble linear infinite;
+    }
+    @keyframes floatBubble {
+      0%   { transform: translateY(100%) scale(0.8); opacity: 0;    }
+      10%  { opacity: 0.15; }
+      90%  { opacity: 0.1;  }
+      100% { transform: translateY(-120%) scale(1.2); opacity: 0; }
+    }
+    .star-dot {
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+      animation: twinkle ease-in-out infinite;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: .1; transform: scale(.7);  }
+      50%      { opacity: 1;  transform: scale(1.3); }
+    }
+    .poly {
+      position: absolute;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      opacity: 0.08;
+      animation: morphPoly 6s ease-in-out infinite alternate;
+    }
+    @keyframes morphPoly {
+      0%   { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(0deg);  }
+      100% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; transform: rotate(45deg); }
+    }
+    .sparkle {
+      position: absolute;
+      font-size: 16px;
+      animation: sparklePop 2s ease-in-out infinite;
+    }
+    @keyframes sparklePop {
+      0%,100% { transform: scale(0.7) rotate(-10deg); opacity: 0.4; }
+      50%      { transform: scale(1.3) rotate(10deg);  opacity: 1;   }
+    }
+    .hero-content { position: relative; z-index: 5; }
+    .hero-dino {
+      font-size: 72px;
+      display: block;
+      animation: dinoFloat 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(250,204,21,0.5));
+      margin-bottom: 10px;
+    }
+    @keyframes dinoFloat {
+      0%,100% { transform: translateY(0)   rotate(-4deg) scale(1);    }
+      50%      { transform: translateY(-18px) rotate(4deg) scale(1.05); }
+    }
+    .hero-title {
+      font-family: 'Lalezar', cursive;
+      font-size: clamp(28px, 8vw, 46px);
+      background: linear-gradient(135deg, #FACC15, #fb923c, #f472b6, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% auto;
+      animation: titleShine 3s linear infinite;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 0 20px rgba(250,204,21,0.3));
+    }
+    @keyframes titleShine {
+      0%   { background-position: 0%   center; }
+      100% { background-position: 200% center; }
+    }
+    .hero-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 20px;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    }
+    .hero-pills { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+    .pill {
+      padding: 7px 18px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: 'Tajawal', sans-serif;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      animation: pillPop 0.5s ease-out backwards;
+    }
+    .pill:nth-child(1) { animation-delay:0.1s; background:rgba(250,204,21,0.2); border-color:rgba(250,204,21,0.4); color:#FACC15; }
+    .pill:nth-child(2) { animation-delay:0.2s; background:rgba(244,114,182,0.2); border-color:rgba(244,114,182,0.4); color:#f472b6; }
+    .pill:nth-child(3) { animation-delay:0.3s; background:rgba(34,211,238,0.2); border-color:rgba(34,211,238,0.4); color:#22d3ee; }
+    @keyframes pillPop {
+      from { opacity:0; transform:translateY(10px); }
+      to   { opacity:1; transform:translateY(0);    }
+    }
+    .wave-bottom { position: absolute; bottom: 0; left: 0; right: 0; }
+
+    /* ===== STATS ===== */
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 20px;
+      margin-top: -26px;
+      position: relative;
+      z-index: 10;
+    }
+    .stt {
+      background: rgba(30,41,59,0.9);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 14px 18px;
+      text-align: center;
+      flex: 1;
+      max-width: 110px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .stt-num { font-family:'Lalezar',cursive; font-size:22px; display:block; line-height:1; }
+    .stt-lbl { font-size:10px; color:rgba(255,255,255,0.4); margin-top:3px; }
+
+    /* ===== CONTROLS ===== */
+    .controls {
+      max-width: 860px;
+      margin: 24px auto 0;
+      padding: 0 20px;
+    }
+    .sbar {
+      background: #1E293B;
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 10px;
+    }
+    .sbar input {
+      border: none; outline: none;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 13px; flex: 1;
+      background: transparent; color: #fff;
+    }
+    .sbar input::placeholder { color: rgba(255,255,255,0.25); }
+    .filters {
+      display: flex; gap: 7px;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .filters::-webkit-scrollbar { display: none; }
+    .flt {
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 11px; font-weight: 700;
+      cursor: pointer; white-space: nowrap; flex-shrink: 0;
+      transition: all 0.2s;
+      border: 1.5px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.5);
+    }
+    .flt:hover  { border-color:rgba(250,204,21,0.5); color:#FACC15; }
+    .flt.active { background:#FACC15; color:#0B1120; border-color:#FACC15; }
+
+    /* ===== GRID ===== */
+    .grid-wrap {
+      max-width: 860px;
+      margin: 20px auto 0;
+      padding: 0 20px 40px;
+    }
+    .grid-title {
+      font-family: 'Lalezar', cursive;
+      font-size: 17px; color: #1a3c5e;
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .grid-title span { color: #FACC15; }
+    .shorts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 14px;
+    }
+
+    /* ===== CARD ===== */
+    .scard {
+      border-radius: 18px;
+      overflow: visible;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s;
+      position: relative;
+    }
+    .scard:hover { transform: translateY(-5px) scale(1.04); }
+
+    .scard-frame {
+      position: relative;
+      border-radius: 16px;
+      padding: 3px;
+      background: linear-gradient(135deg, #FACC15, #f472b6, #a78bfa, #22d3ee, #FACC15);
+      background-size: 300% 300%;
+      animation: borderSpin 4s linear infinite;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .scard:hover .scard-frame {
+      box-shadow: 0 10px 30px rgba(124,58,237,0.35);
+    }
+    @keyframes borderSpin {
+      0%   { background-position: 0%   50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0%   50%; }
+    }
+    .scard-inner {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9/16;
+    }
+    .scard-thumb-img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .scard-thumb-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px;
+    }
+    .sc-1 { background: linear-gradient(160deg,#7c3aed,#ec4899); }
+    .sc-2 { background: linear-gradient(160deg,#0891b2,#0d9488); }
+    .sc-3 { background: linear-gradient(160deg,#1d4ed8,#7c3aed); }
+    .sc-4 { background: linear-gradient(160deg,#15803d,#0891b2); }
+    .sc-5 { background: linear-gradient(160deg,#b45309,#dc2626); }
+    .sc-6 { background: linear-gradient(160deg,#9333ea,#f59e0b); }
+
+    .scard-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 55%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .play-ring {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: rgba(250,204,21,0.9);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: #0B1120; font-weight: 900;
+      box-shadow: 0 0 0 3px rgba(250,204,21,0.3), 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .scard:hover .play-ring {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 6px rgba(250,204,21,0.25), 0 6px 16px rgba(0,0,0,0.3);
+    }
+    .badge-new {
+      position: absolute; top: 6px; right: 6px;
+      background: linear-gradient(135deg,#ec4899,#f43f5e);
+      color: #fff; font-size: 7px; font-weight: 700;
+      padding: 2px 6px; border-radius: 50px;
+      font-family: 'Tajawal', sans-serif;
+      box-shadow: 0 2px 6px rgba(236,72,153,0.4);
+      z-index: 2;
+    }
+    .scard-dur {
+      position: absolute; bottom: 6px; left: 6px;
+      background: rgba(0,0,0,0.75);
+      color: #fff; font-size: 8px; font-weight: 700;
+      padding: 2px 6px; border-radius: 5px;
+      font-family: 'Tajawal', sans-serif;
+      backdrop-filter: blur(4px);
+      z-index: 2;
+    }
+    .scard-shine {
+      position: absolute;
+      top: -8px; right: -8px;
+      width: 26px; height: 26px;
+      background: radial-gradient(circle, rgba(250,204,21,0.9), transparent 70%);
+      border-radius: 50%;
+      animation: shinePop 2s ease-in-out infinite;
+      z-index: 3;
+    }
+    @keyframes shinePop {
+      0%,100% { transform:scale(0.8); opacity:0.6; }
+      50%      { transform:scale(1.3); opacity:1;   }
+    }
+    .scard-body { padding: 7px 4px 0; }
+    .scard-title {
+      font-size: 10px; font-weight: 700;
+      color: #1a3c5e; line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-align: center;
+    }
+    .scard-cat {
+      display: block;
+      font-size: 8px; font-weight: 700;
+      padding: 2px 8px; border-radius: 50px;
+      margin: 4px auto 0;
+      font-family: 'Tajawal', sans-serif;
+      text-align: center;
+      width: fit-content;
+    }
+    .cat-y { background:#fef9c3; color:#854d0e; }
+    .cat-p { background:#fce7f3; color:#9d174d; }
+    .cat-c { background:#cffafe; color:#164e63; }
+    .cat-g { background:#dcfce7; color:#14532d; }
+
+    /* ===== EMPTY ===== */
+    .empty {
+      text-align: center; padding: 60px 20px;
+      color: rgba(255,255,255,0.5);
+      grid-column: 1 / -1;
+    }
+    .empty p { font-size: 16px; margin-top: 12px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 400px) {
+      .shorts-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      body { padding-bottom: 74px; }
+    }
+  </style>
+</head>
+<body style="background:#0B1120;">
+  <Header />
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+
+    <div class="bubble" style="width:120px;height:120px;background:#7c3aed;left:5%;animation-duration:12s;animation-delay:0s"></div>
+    <div class="bubble" style="width:80px;height:80px;background:#ec4899;left:25%;animation-duration:9s;animation-delay:3s"></div>
+    <div class="bubble" style="width:60px;height:60px;background:#FACC15;left:60%;animation-duration:11s;animation-delay:1s"></div>
+    <div class="bubble" style="width:100px;height:100px;background:#0891b2;left:80%;animation-duration:14s;animation-delay:5s"></div>
+    <div class="bubble" style="width:50px;height:50px;background:#f472b6;left:45%;animation-duration:8s;animation-delay:2s"></div>
+
+    <div class="poly" style="width:200px;height:200px;background:#7c3aed;top:-50px;right:-50px;animation-duration:7s"></div>
+    <div class="poly" style="width:150px;height:150px;background:#ec4899;bottom:20px;left:-40px;animation-duration:9s;animation-delay:2s"></div>
+    <div class="poly" style="width:100px;height:100px;background:#FACC15;top:30%;right:10%;animation-duration:6s;animation-delay:1s"></div>
+
+    <div id="starsHero"></div>
+
+    <div class="sparkle" style="top:15%;left:10%;color:#FACC15">✦</div>
+    <div class="sparkle" style="top:20%;right:12%;color:#FACC15;animation-delay:.7s">★</div>
+    <div class="sparkle" style="top:60%;left:8%;color:#ec4899;animation-delay:1.2s">✦</div>
+    <div class="sparkle" style="top:40%;right:6%;color:#22d3ee;animation-delay:.4s">✦</div>
+    <div class="sparkle" style="top:75%;right:20%;color:#a78bfa;animation-delay:1.5s">★</div>
+    <div class="sparkle" style="top:10%;left:40%;color:#fb923c;animation-delay:.9s">✦</div>
+
+    <div class="hero-content">
+  
+      <h1 class="hero-title">شورتس ريكسو ⚡</h1>
+      <p class="hero-sub">60 ثانية — فكرة واحدة — متعة لا تنتهي! 🌟</p>
+      <div class="hero-pills">
+        <span class="pill">⚡ سريع ومشوّق</span>
+        <span class="pill">🎨 رسوم متحركة</span>
+        <span class="pill">🧠 تعليمي 100%</span>
+      </div>
+    </div>
+
+    <div class="wave-bottom">
+      <svg viewBox="0 0 1200 80" preserveAspectRatio="none" height="80" width="100%">
+        <path d="M0,40 C200,80 400,0 600,40 C800,80 1000,10 1200,40 L1200,80 L0,80 Z" fill="#f4f8fb"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stt">
+      <span class="stt-num" style="color:#FACC15">{shorts.length}</span>
+      <div class="stt-lbl">شورت</div>
+    </div>
+    <div class="stt">
+      <span class="stt-num" style="color:#f472b6">60 ث</span>
+      <div class="stt-lbl">متوسط</div>
+    </div>
+    <div class="stt">
+      <span class="stt-num" style="color:#22d3ee">100%</span>
+      <div class="stt-lbl">مجاني</div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div class="sbar">
+      <span style="font-size:16px;color:rgba(255,255,255,0.3)">🔍</span>
+      <input type="text" id="searchInput" placeholder="ابحث في الشورتس..." />
+    </div>
+    <div class="filters">
+      <button class="flt active" data-cat="all">الكل</button>
+      <button class="flt" data-cat="جسم الإنسان">جسم الإنسان</button>
+      <button class="flt" data-cat="الديناصورات">الديناصورات</button>
+      <button class="flt" data-cat="الفضاء">الفضاء</button>
+      <button class="flt" data-cat="الطبيعة">الطبيعة</button>
+      <button class="flt" data-cat="صحة">صحة</button>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid-wrap">
+    <div class="grid-title">⚡ جميع الشورتس <span>✨</span></div>
+    <div class="shorts-grid" id="shortsGrid">
+      {shorts.length === 0 ? (
+        <div class="empty">
+          <div style="font-size:48px">⚡</div>
+          <p>لا توجد شورتس بعد — قريباً!</p>
+        </div>
+      ) : (
+        shorts.map((short, i) => {
+          const thumb = short.thumbnail
+            || `https://img.youtube.com/vi/${short.videoId}/maxresdefault.jpg`;
+          const catClass = catColors[short.category] || 'cat-y';
+          const bgClasses = ['sc-1','sc-2','sc-3','sc-4','sc-5','sc-6'];
+          const bgClass = bgClasses[i % 6];
+          const isNew = i === 0;
+          return (
+            <a
+              href={`/shorts/${short.slug}`}
+              class="scard"
+              data-title={short.title}
+              data-cat={short.category || ''}
+            >
+              {isNew && <div class="scard-shine"></div>}
+              <div class="scard-frame">
+                <div class="scard-inner">
+                  {short.videoId ? (
+                    <div
+                      style={`background-image:url('${thumb}');background-size:cover;background-position:center;width:100%;height:100%;`}
+                      role="img"
+                      aria-label={short.title}
+                    ></div>
+                  ) : (
+                    <div class={`scard-thumb-placeholder ${bgClass}`}>🎬</div>
+                  )}
+                  <div class="scard-overlay">
+                    <div class="play-ring">▶</div>
+                  </div>
+                  {isNew && <span class="badge-new">جديد</span>}
+                  {short.duration && <span class="scard-dur">{short.duration}</span>}
+                </div>
+              </div>
+              <div class="scard-body">
+                <div class="scard-title">{short.title}</div>
+                {short.category && (
+                  <span class={`scard-cat ${catClass}`}>{short.category}</span>
+                )}
+              </div>
+            </a>
+          );
+        })
+      )}
+    </div>
+  </div>
+
+  <Footer />
+
+  <script>
+    // نجوم الهيرو
+    const hero = document.getElementById('starsHero');
+    if (hero) {
+      for (let i = 0; i < 30; i++) {
+        const s = document.createElement('div');
+        s.className = 'star-dot';
+        const sz = Math.random() * 2.5 + 0.5;
+        s.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;position:absolute;animation-delay:${Math.random()*3}s;animation-duration:${1.5+Math.random()*2}s`;
+        hero.appendChild(s);
+      }
+    }
+
+    // بحث وفلترة
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns  = document.querySelectorAll('.flt');
+    const cards       = document.querySelectorAll('.scard');
+
+    let activeCat = 'all';
+    let searchVal = '';
+
+    function filterCards() {
+      cards.forEach(card => {
+        const title = (card.dataset.title || '').toLowerCase();
+        const cat   = card.dataset.cat || '';
+        const matchSearch = title.includes(searchVal);
+        const matchCat    = activeCat === 'all' || cat === activeCat;
+        card.style.display = matchSearch && matchCat ? 'flex' : 'none';
+      });
+    }
+
+    searchInput?.addEventListener('input', e => {
+      searchVal = e.target.value.toLowerCase();
+      filterCards();
+    });
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCat = btn.dataset.cat || 'all';
+        filterCards();
+      });
+    });
+  </script>
+</body>
+</html>

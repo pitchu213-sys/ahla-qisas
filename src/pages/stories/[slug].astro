@@ -1,0 +1,616 @@
+---
+import BookGallery3D from '../../components/stories/BookGallery3D.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const storyFiles = import.meta.glob('../../content/stories/*.md');
+  const paths = [];
+
+  for (const [path, importFn] of Object.entries(storyFiles)) {
+    const slug = path.split('/').pop()?.replace('.md', '') || '';
+    const mod = await importFn();
+    paths.push({
+      params: { slug },
+      props: {
+        frontmatter: mod.frontmatter,
+        slug: slug
+      }
+    });
+  }
+  return paths;
+}
+
+const { frontmatter, slug } = Astro.props;
+---
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{frontmatter.title} | أحلى القصص للأطفال</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+      :root { --primary: #1a3c5e; --accent: #f4a023; --warm-bg: #fff8e8; --warm-border: #e8d5a0; --warm-text: #4a3000; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: 'Tajawal', sans-serif; direction: rtl; background: #f4f8fb; color: #2c2c2c; line-height: 1.8; }
+      .hero { background: linear-gradient(135deg, rgba(13,43,69,0.88), rgba(26,60,94,0.88)), url({frontmatter.heroImage || ''}) center/cover; padding: 60px 20px 50px; text-align: center; color: white; position: relative; }
+      .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(to top, #f4f8fb, transparent); }
+      .hero-badge { display: inline-block; background: rgba(244,160,35,0.18); color: var(--accent); border: 1px solid rgba(244,160,35,0.4); padding: 6px 18px; border-radius: 50px; font-size: 13px; font-weight: 700; margin-bottom: 20px; }
+      .hero h1 { font-family: 'Amiri', serif; font-size: clamp(26px, 5vw, 42px); margin-bottom: 10px; }
+      .hero-desc { font-size: 1.1rem; color: rgba(255,255,255,0.8); }
+      .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+      .intro { background: var(--warm-bg); border: 2px solid var(--warm-border); border-radius: 20px; padding: 32px 24px; text-align: center; margin-top: -30px; position: relative; z-index: 1; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+      .intro-img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--accent); margin-bottom: 16px; }
+      .intro h2 { font-family: 'Lalezar', sans-serif; font-size: 28px; color: var(--warm-text); margin-bottom: 12px; }
+      .intro p { font-size: 16px; color: #6b4c00; line-height: 1.9; margin-bottom: 24px; }
+      .actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+      .btn { border: none; border-radius: 50px; padding: 14px 28px; font-family: 'Tajawal', sans-serif; font-size: 16px; font-weight: 800; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+      .btn-primary { background: linear-gradient(135deg, #f4a023, #e08c10); color: white; box-shadow: 0 6px 20px rgba(244,160,35,0.4); }
+      .btn-quiz { background: linear-gradient(135deg, #1e2d6e, #2d3d8e); color: white; box-shadow: 0 6px 20px rgba(30,45,110,0.4); }
+      .btn:hover { transform: translateY(-2px); }
+      .story-footer { background: var(--warm-bg); border: 2px solid var(--warm-border); border-radius: 20px; padding: 24px; text-align: center; margin: 30px 0; }
+
+      /* ===== أنماط الاختبار المحسّنة (أكبر وأوضح) ===== */
+      .qz-root { direction: rtl; font-family: 'Tajawal', sans-serif; padding: 0; background: transparent; }
+      .qz-header {
+        background: linear-gradient(135deg, #1a3c5e 0%, #0d2b45 100%);
+        border-radius: 24px 24px 0 0;
+        padding: 24px 20px 32px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .qz-header::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: radial-gradient(circle at 20% 50%, rgba(244,160,35,0.12) 0%, transparent 60%),
+                    radial-gradient(circle at 80% 20%, rgba(100,180,255,0.08) 0%, transparent 50%);
+      }
+      .qz-stars-bg { position: absolute; inset: 0; pointer-events: none; }
+      .qz-star-dot {
+        position: absolute; border-radius: 50%;
+        background: rgba(255,255,255,0.6);
+        animation: twinkle 2s ease-in-out infinite;
+      }
+      @keyframes twinkle { 0%,100%{opacity:0.3;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }
+      .qz-badge {
+        display: inline-block;
+        background: rgba(244,160,35,0.2);
+        color: #ffd166;
+        border: 1px solid rgba(244,160,35,0.4);
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+        position: relative;
+      }
+      .qz-title {
+        font-size: 26px;
+        font-weight: 900;
+        color: white;
+        margin: 0;
+        position: relative;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      }
+      .qz-subtitle {
+        font-size: 15px;
+        color: rgba(255,255,255,0.65);
+        margin: 6px 0 0;
+        position: relative;
+      }
+      .qz-rexo-run {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 24px 14px;
+        background: #0d2b45;
+      }
+      .qz-rexo-emoji {
+        font-size: 34px;
+        flex-shrink: 0;
+        transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      }
+      .qz-track {
+        flex: 1;
+        height: 12px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50px;
+        overflow: hidden;
+      }
+      .qz-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #f4a023, #ffd166);
+        border-radius: 50px;
+        transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+        width: 0%;
+        position: relative;
+      }
+      .qz-fill::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        animation: shimmer 1.5s infinite;
+      }
+      @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(300%)} }
+      .qz-track-end { font-size: 26px; flex-shrink: 0; }
+      .qz-body { background: #f4f8fb; padding: 20px; border-radius: 0 0 24px 24px; }
+      .qz-qcard {
+        background: white;
+        border-radius: 24px;
+        padding: 24px 22px;
+        box-shadow: 0 4px 20px rgba(26,60,94,0.08);
+        animation: slideUp 0.4s ease-out;
+      }
+      @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+      .qz-qnum {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #1a3c5e, #2a5c8e);
+        color: white;
+        padding: 6px 18px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .qz-qnum-dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #f4a023;
+        flex-shrink: 0;
+      }
+      .qz-qtext {
+        font-size: 22px;
+        font-weight: 800;
+        color: #1a3c5e;
+        line-height: 1.6;
+        margin-bottom: 22px;
+        text-align: right;
+      }
+      .qz-options { display: flex; flex-direction: column; gap: 14px; }
+      .qz-opt {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        border: 2.5px solid #dce8f0;
+        border-radius: 18px;
+        padding: 18px 20px;
+        font-family: 'Tajawal', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: #2c3e50;
+        cursor: pointer;
+        background: #ffffff;
+        text-align: right;
+        transition: all 0.18s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      }
+      .qz-opt::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(244,160,35,0.08), transparent);
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+      .qz-opt:hover:not(:disabled) {
+        border-color: #f4a023;
+        transform: translateX(-4px);
+        box-shadow: 0 6px 16px rgba(244,160,35,0.2);
+      }
+      .qz-opt:hover:not(:disabled)::before { opacity: 1; }
+      .qz-opt-letter {
+  width: 42px; height: 42px;
+  border-radius: 14px;
+  background: #f0f7ff;
+  border: 2px solid #dce8f0;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1;
+  color: #1a3c5e;
+  flex-shrink: 0;
+  font-family: 'Tajawal', sans-serif;
+  /* هذان السطران هما الإصلاح */
+  padding-top: 3px;
+  text-align: center;
+}
+      .qz-opt-text { flex: 1; font-size: 19px; }
+      .qz-opt.correct {
+        border-color: #2e7d32;
+        background: #f1faf2;
+        color: #1b5e20;
+        animation: correctPop 0.4s ease-out;
+      }
+      .qz-opt.correct .qz-opt-letter { background: #2e7d32; color: white; border-color: #2e7d32; }
+      .qz-opt.wrong {
+        border-color: #c62828;
+        background: #fff5f5;
+        color: #b71c1c;
+        animation: shake 0.4s ease-out;
+      }
+      .qz-opt.wrong .qz-opt-letter { background: #c62828; color: white; border-color: #c62828; }
+      @keyframes correctPop { 0%{transform:scale(1)} 40%{transform:scale(1.03)} 100%{transform:scale(1)} }
+      @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+      .qz-feedback {
+        display: none;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+        padding: 16px 20px;
+        border-radius: 16px;
+        font-weight: 700;
+        font-size: 17px;
+        animation: slideUp 0.3s ease-out;
+      }
+      .qz-feedback.show { display: flex; }
+      .qz-feedback.ok { background: #e8f5e9; color: #2e7d32; }
+      .qz-feedback.bad { background: #ffebee; color: #c62828; }
+      .qz-feedback-icon { font-size: 28px; flex-shrink: 0; }
+      .qz-next {
+        display: none;
+        width: 100%;
+        margin-top: 20px;
+        padding: 18px;
+        background: linear-gradient(135deg, #f4a023, #e08c10);
+        color: white;
+        border: none;
+        border-radius: 18px;
+        font-family: 'Tajawal', sans-serif;
+        font-size: 19px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 4px 12px rgba(244,160,35,0.35);
+        letter-spacing: 0.5px;
+      }
+      .qz-next:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(244,160,35,0.45); }
+      .qz-next:active { transform: scale(0.98); }
+      .qz-result { display: none; text-align: center; animation: slideUp 0.5s ease-out; }
+      .qz-result-inner {
+        background: white;
+        border-radius: 20px;
+        padding: 28px 20px;
+        box-shadow: 0 4px 20px rgba(26,60,94,0.08);
+        position: relative;
+        overflow: hidden;
+      }
+      .qz-result-glow {
+        position: absolute;
+        top: -40px; left: 50%;
+        transform: translateX(-50%);
+        width: 160px; height: 160px;
+        background: radial-gradient(circle, rgba(244,160,35,0.2) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .qz-result-dino { font-size: 64px; margin-bottom: 6px; position: relative; }
+      .qz-result-title { font-size: 25px; font-weight: 900; color: #1a3c5e; margin: 0 0 6px; }
+      .qz-stars { display: flex; justify-content: center; gap: 6px; margin: 12px 0; }
+      .qz-star {
+        font-size: 30px;
+        opacity: 0.25;
+        transform: scale(0.8);
+        transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+        filter: grayscale(1);
+      }
+      .qz-star.lit { opacity: 1; transform: scale(1.15); filter: none; text-shadow: 0 0 12px rgba(244,160,35,0.6); }
+      .qz-score { font-size: 42px; font-weight: 900; color: #f4a023; line-height: 1; margin: 4px 0; }
+      .qz-score-label { font-size: 15px; color: #888; margin-bottom: 12px; }
+      .qz-result-msg { font-size: 17px; color: #555; margin-bottom: 20px; line-height: 1.6; }
+      .qz-result-btns { display: flex; flex-direction: column; gap: 10px; }
+      .qz-btn-retry {
+        padding: 16px;
+        background: linear-gradient(135deg, #f4a023, #e08c10);
+        color: white; border: none;
+        border-radius: 16px;
+        font-family: 'Tajawal', sans-serif;
+        font-size: 17px; font-weight: 800;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 4px 12px rgba(244,160,35,0.3);
+      }
+      .qz-btn-retry:hover { transform: translateY(-2px); }
+      .qz-btn-more {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 16px;
+        background: linear-gradient(135deg, #1a3c5e, #0d2b45);
+        color: white; border: none;
+        border-radius: 16px;
+        font-family: 'Tajawal', sans-serif;
+        font-size: 17px; font-weight: 800;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+      }
+      .qz-btn-more:hover { transform: translateY(-2px); }
+      .qz-confetti-wrap { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+      .qz-conf {
+        position: absolute;
+        width: 10px; height: 10px;
+        top: -10px;
+        border-radius: 3px;
+        animation: confFall linear forwards;
+      }
+      @keyframes confFall { to { transform: translateY(400px) rotate(720deg); opacity: 0; } }
+      .qz-q-area { position: relative; }
+
+      @media (max-width: 600px) {
+        .qz-qtext { font-size: 20px; }
+        .qz-opt { padding: 16px 18px; font-size: 17px; }
+        .qz-opt-letter { width: 38px; height: 38px; font-size: 16px; }
+        .qz-opt-text { font-size: 18px; }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+
+    <header class="hero">
+      <div class="hero-badge">🦖 قصص ريكسو التعليمية</div>
+      <h1>{frontmatter.title}</h1>
+      <p class="hero-desc">{frontmatter.description}</p>
+    </header>
+
+    <main class="container">
+      <section class="intro" id="story-intro">
+        <img class="intro-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGcJTrLMZgvJyOOyvxKrPGWHTkNBiRXsQZqG-Rud90ZeaKRjKzeRW3UN2fco_mH5TCJ6zDfk1RvnWMr8_9sdVaNL1SL6PFjyPMZ2JB4FmWPcFqhZlAaIHFT9TF5IBYQiSKAAFTBL0oRlV5uDlRyjxU_H08vL3qj_Wc1txMrOvTpdgeBJt_oaCBj151r50/s300/1000002869.png" alt="ريكسو" width="90" height="90" />
+        <h2>{frontmatter.title}</h2>
+        <p set:html={frontmatter.introText || ''} />
+        <div class="actions">
+          <button class="btn btn-primary" id="btn-start-story">📖 ابدأ القصة</button>
+          <button class="btn btn-quiz" id="btn-start-quiz">🎯 اختبر ابنك</button>
+        </div>
+      </section>
+
+      <section class="qz-root" id="qz-root" style="display:none;">
+        <div class="qz-header">
+          <div class="qz-stars-bg" id="stars-bg"></div>
+          <div class="qz-badge">🦖 اختبار ريكسو</div>
+          <h2 class="qz-title">هل أنت جاهز للتحدي؟ 🏆</h2>
+          <p class="qz-subtitle">أجب على الأسئلة واكسب النجوم!</p>
+        </div>
+        <div class="qz-rexo-run">
+          <div class="qz-rexo-emoji" id="rexo">🦖</div>
+          <div class="qz-track"><div class="qz-fill" id="prog"></div></div>
+          <div class="qz-track-end">🏆</div>
+        </div>
+        <div class="qz-body">
+          <div class="qz-q-area" id="q-area">
+            <div class="qz-qcard" id="qcard">
+              <div class="qz-qnum">
+                <div class="qz-qnum-dot"></div>
+                <span>سؤال <span id="qnum">1</span> من <span id="qtot">5</span></span>
+              </div>
+              <div class="qz-qtext" id="qtext">جارٍ تحميل الأسئلة...</div>
+              <div class="qz-options" id="opts"></div>
+              <div class="qz-feedback" id="fb"></div>
+              <button class="qz-next" id="nxt">السؤال التالي 🦕</button>
+            </div>
+          </div>
+          <div class="qz-result" id="res">
+            <div class="qz-result-inner">
+              <div class="qz-confetti-wrap" id="conf-wrap"></div>
+              <div class="qz-result-glow"></div>
+              <div class="qz-result-dino" id="res-dino">🦖</div>
+              <h2 class="qz-result-title" id="res-title">أنت بطل القصص!</h2>
+              <div class="qz-stars" id="res-stars">
+                <span class="qz-star">⭐</span><span class="qz-star">⭐</span><span class="qz-star">⭐</span><span class="qz-star">⭐</span><span class="qz-star">⭐</span>
+              </div>
+              <div class="qz-score" id="res-score">0 / 0</div>
+              <div class="qz-score-label">نقاطك</div>
+              <p class="qz-result-msg" id="res-msg">أحسنت!</p>
+              <div class="qz-result-btns">
+                <button class="qz-btn-retry" id="retry-btn">🔄 حاول مرة أخرى</button>
+                <a href="/stories" class="qz-btn-more">📚 اكتشف قصصاً جديدة</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="story-footer">
+        <p>🦕 ريكسو يدعوك لمزيد من القصص!</p>
+        <a href="/stories" class="btn btn-primary" style="text-decoration:none; display:inline-block; margin-top:10px;">📚 اكتشف المزيد من القصص</a>
+      </footer>
+    </main>
+
+    <div id="gallery-wrapper" style="display:none;">
+      <BookGallery3D pages={frontmatter.pages || []} slug={slug} isOpen={true} />
+    </div>
+
+    <Footer />
+
+    <script define:vars={{ quizData: JSON.stringify(frontmatter.quiz || []) }}>
+      const QUIZ_DATA = JSON.parse(quizData);
+
+      document.getElementById('btn-start-story').addEventListener('click', () => {
+        document.getElementById('gallery-wrapper').style.display = 'block';
+      });
+
+      document.getElementById('btn-start-quiz').addEventListener('click', () => {
+        document.getElementById('story-intro').style.display = 'none';
+        document.getElementById('qz-root').style.display = 'block';
+        startQuiz();
+      });
+
+      setTimeout(() => {
+        const closeBtn = document.querySelector('#story-overlay .close-story-btn');
+        if (closeBtn) closeBtn.addEventListener('click', () => {
+          document.getElementById('gallery-wrapper').style.display = 'none';
+        });
+      }, 500);
+
+      const letters = ['أ', 'ب', 'ج', 'د'];
+      let currentIdx = 0;
+      let userScore = 0;
+      let totalQuestions = 0;
+
+      const qnum = document.getElementById('qnum');
+      const qtot = document.getElementById('qtot');
+      const qtext = document.getElementById('qtext');
+      const opts = document.getElementById('opts');
+      const fb = document.getElementById('fb');
+      const nxt = document.getElementById('nxt');
+      const prog = document.getElementById('prog');
+      const rexo = document.getElementById('rexo');
+      const qArea = document.getElementById('q-area');
+      const res = document.getElementById('res');
+      const starsBg = document.getElementById('stars-bg');
+
+      function startQuiz() {
+        if (!QUIZ_DATA || QUIZ_DATA.length === 0) {
+          qtext.textContent = '⚠️ لا توجد أسئلة متاحة لهذه القصة بعد.';
+          return;
+        }
+        totalQuestions = QUIZ_DATA.length;
+        qtot.textContent = totalQuestions;
+        currentIdx = 0;
+        userScore = 0;
+        res.style.display = 'none';
+        qArea.style.display = 'block';
+        rexo.style.transform = '';
+        createStars();
+        showQuestion();
+      }
+
+      function createStars() {
+        starsBg.innerHTML = '';
+        for (let i = 0; i < 18; i++) {
+          const d = document.createElement('div');
+          d.className = 'qz-star-dot';
+          const s = Math.random() * 3 + 1;
+          d.style.cssText = `width:${s}px;height:${s}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*2}s;animation-duration:${1.5+Math.random()*2}s`;
+          starsBg.appendChild(d);
+        }
+      }
+
+      function updateProgress() {
+        const pct = (currentIdx / totalQuestions) * 100;
+        prog.style.width = pct + '%';
+        const shift = pct * 1.8;
+        rexo.style.transform = `translateX(-${shift}px) scaleX(-1)`;
+      }
+
+      function showQuestion() {
+        const q = QUIZ_DATA[currentIdx];
+        qnum.textContent = currentIdx + 1;
+        qtext.textContent = q.q;
+        opts.innerHTML = '';
+        fb.className = 'qz-feedback';
+        fb.innerHTML = '';
+        nxt.style.display = 'none';
+
+        const qcard = document.getElementById('qcard');
+        qcard.style.animation = 'none';
+        void qcard.offsetHeight;
+        qcard.style.animation = 'slideUp 0.4s ease-out';
+
+        const arabicLetters = [' ① ', ' ② ', ' ③ ', ' ④ '];
+
+        q.opts.forEach((o, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'qz-opt';
+          btn.dataset.i = i;
+          const letter = arabicLetters[i] || '•';
+          btn.innerHTML = `<span class="qz-opt-letter">${letter}</span><span class="qz-opt-text">${o}</span>`;
+          btn.addEventListener('click', () => answer(i, q.correct));
+          opts.appendChild(btn);
+        });
+        updateProgress();
+      }
+
+      function answer(chosen, correct) {
+        document.querySelectorAll('.qz-opt').forEach(b => {
+          b.disabled = true;
+          const i = parseInt(b.dataset.i);
+          if (i === correct) b.classList.add('correct');
+          if (i === chosen && chosen !== correct) b.classList.add('wrong');
+        });
+        if (chosen === correct) {
+          userScore++;
+          fb.className = 'qz-feedback ok show';
+          fb.innerHTML = '<span class="qz-feedback-icon">🎉</span><span>ممتاز! إجابة صحيحة يا بطل!</span>';
+          rexo.textContent = '🦖';
+          rexo.style.transform += ' scale(1.3)';
+          setTimeout(() => { rexo.style.transform = rexo.style.transform.replace(' scale(1.3)', ''); }, 300);
+        } else {
+          fb.className = 'qz-feedback bad show';
+          fb.innerHTML = '<span class="qz-feedback-icon">💪</span><span>الإجابة الصحيحة باللون الأخضر — حاول مجدداً!</span>';
+        }
+        nxt.style.display = 'block';
+      }
+
+      nxt.addEventListener('click', () => {
+        currentIdx++;
+        if (currentIdx < totalQuestions) { showQuestion(); }
+        else { finishQuiz(); }
+      });
+
+      document.getElementById('retry-btn').addEventListener('click', () => {
+        currentIdx = 0;
+        userScore = 0;
+        res.style.display = 'none';
+        qArea.style.display = 'block';
+        rexo.style.transform = '';
+        prog.style.width = '0%';
+        showQuestion();
+      });
+
+      function finishQuiz() {
+        qArea.style.display = 'none';
+        res.style.display = 'block';
+        prog.style.width = '100%';
+        rexo.style.transform = `translateX(-${100 * 1.8}px) scaleX(-1)`;
+
+        document.getElementById('res-score').textContent = userScore + ' / ' + totalQuestions;
+
+        const stars = document.querySelectorAll('.qz-star');
+        stars.forEach((s, i) => {
+          if (i < userScore) setTimeout(() => s.classList.add('lit'), i * 220);
+        });
+
+        const pct = userScore / totalQuestions;
+        let dino, title, msg;
+        if (pct === 1) {
+          dino = '🦖🏆'; title = '🌟 أنت بطل القصص!';
+          msg = 'كل الإجابات صحيحة! ريكسو فخور بك جداً وأنت تستحق أكبر تاج!';
+          confetti();
+        } else if (pct >= 0.6) {
+          dino = '🦖⭐'; title = '🎉 رائع جداً!';
+          msg = 'أنت تعرف الكثير عن القصة! حاول مرة أخرى لتحصل على كل النجوم!';
+        } else {
+          dino = '🦖💪'; title = '💪 لا بأس، استمر!';
+          msg = 'اقرأ القصة مرة أخرى وعد للاختبار — ريكسو يؤمن بك!';
+        }
+        document.getElementById('res-dino').textContent = dino;
+        document.getElementById('res-title').textContent = title;
+        document.getElementById('res-msg').textContent = msg;
+      }
+
+      function confetti() {
+        const wrap = document.getElementById('conf-wrap');
+        const colors = ['#f4a023','#ffd166','#4caf50','#2196f3','#e53935','#9c27b0','#ff6f91'];
+        for (let i = 0; i < 60; i++) {
+          const c = document.createElement('div');
+          c.className = 'qz-conf';
+          const size = 6 + Math.random() * 8;
+          c.style.cssText = `width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*colors.length)]};left:${Math.random()*100}%;animation-duration:${1.2+Math.random()*1.8}s;animation-delay:${Math.random()*0.8}s;border-radius:${Math.random()>0.5?'50%':'2px'}`;
+          wrap.appendChild(c);
+        }
+        setTimeout(() => { wrap.innerHTML = ''; }, 4000);
+      }
+    </script>
+  </body>
+</html>

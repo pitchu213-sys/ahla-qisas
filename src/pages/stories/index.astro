@@ -1,0 +1,315 @@
+---
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const storyFiles = import.meta.glob('../../content/stories/*.md', { eager: true });
+const allStories = Object.entries(storyFiles).map(([path, mod]) => ({
+  slug: path.split('/').pop()?.replace('.md', ''),
+  ...mod.frontmatter
+}));
+
+const categories = [...new Set(allStories.map(s => s.category).filter(Boolean))];
+---
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مكتبة القصص | أحلى القصص للأطفال</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Lalezar&display=swap" rel="stylesheet"/>
+  
+  <!-- تنسيقات عامة للصفحة (لا تشمل الكتب) -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(180deg, #1a1a6e, #0d0d40);
+      min-height: 100vh;
+      color: #fff;
+      direction: rtl;
+    }
+
+    #stories-banner {
+      position: relative;
+      background: linear-gradient(135deg, #1a1a6e, #2d1b8e, #1a1a6e);
+      padding: 50px 20px 60px;
+      text-align: center;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    #stories-banner h2 {
+      font-family: 'Lalezar', cursive;
+      font-size: 2.2rem;
+      color: #ffcc00;
+      margin: 0 0 10px;
+      text-shadow: 0 0 20px rgba(255,204,0,0.5);
+    }
+
+    @keyframes twinkle {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.3; transform:scale(0.7); }
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 30px;
+      padding: 20px 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .category-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(145deg, #2a2a72, #1a1a6e);
+      border-radius: 15px;
+      padding: 20px;
+      min-height: 180px;
+      justify-content: center;
+      text-decoration: none;
+      color: #fff;
+      transition: 0.3s;
+    }
+    .category-card:hover { transform: translateY(-10px); }
+    .category-card .icon { font-size: 4rem; margin-bottom: 10px; }
+
+    .back-button {
+      display: block;
+      width: fit-content;
+      margin: 20px auto;
+      background: #1976d2;
+      color: white;
+      padding: 10px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+    }
+  </style>
+
+  <!-- تنسيقات الكتب العالمية (لتطبق على العناصر الديناميكية) -->
+  <style is:global>
+    #booksContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    #booksContainer .book-cell {
+      width: 110px !important;
+      max-width: 110px !important;
+      text-align: center;
+      color: white;
+    }
+
+    #booksContainer .book {
+      width: 110px !important;
+      max-width: 110px !important;
+      height: 160px !important;
+      max-height: 160px !important;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+      filter: drop-shadow(8px 12px 20px rgba(0,0,0,0.5));
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    #booksContainer .book:hover { transform: rotateY(-35deg); }
+
+    #booksContainer .book-front {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 5px 12px 12px 5px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f9a825, #ff7043);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #booksContainer .book-front img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block;
+    }
+
+    #booksContainer .book-spine {
+      position: absolute;
+      width: 22px;
+      height: 100%;
+      left: -11px;
+      background: linear-gradient(to right, #8B3A00, #c75000, #a84000);
+      transform: rotateY(-90deg) translateZ(14px);
+      transform-origin: right center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #booksContainer .book-spine span {
+      writing-mode: vertical-rl;
+      color: #fff;
+      font-size: 8px;
+      transform: rotate(180deg);
+    }
+
+    #booksContainer .book-title {
+      font-size: 12px;
+      margin-top: 8px;
+      line-height: 1.3;
+    }
+
+    #booksContainer .book-read-btn {
+      display: inline-block;
+      background: #f9a825;
+      color: #000;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: bold;
+      text-decoration: none;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <Header />
+
+  <div id="stories-banner">
+    <div style="position:absolute;top:10%;left:5%;font-size:20px;animation:twinkle 2s infinite;">⭐</div>
+    <div style="position:absolute;top:20%;right:8%;font-size:14px;animation:twinkle 2.5s infinite;">✨</div>
+    <div style="font-size:50px;margin-bottom:10px;">🦖</div>
+    <h2>مكتبة ريكسو للقصص</h2>
+    <p>اختر قصتك واستمتع بالقراءة مع ريكسو 📖</p>
+  </div>
+
+  <div id="categories-grid" class="category-grid">
+    {categories.map(cat => (
+      <a href={`?category=${encodeURIComponent(cat)}`} class="category-card">
+        <span class="icon">📚</span>
+        <h3>{cat}</h3>
+      </a>
+    ))}
+  </div>
+
+  <div id="booksContainer" style="display:none;"></div>
+  <a href="?" id="back-btn" class="back-button" style="display:none;">⬅️ عرض كل المكتبات</a>
+
+  <Footer />
+
+  <script define:vars={{
+  storiesJSON: allStories.map(s => {
+  const firstPage = s.pages?.[0]?.front || '';
+  const imageSrc = firstPage
+    ? (firstPage.startsWith('http')
+        ? firstPage                     // رابط خارجي كما هو
+        : `/images/stories/${s.slug}/${firstPage}`) // مسار محلي
+    : '';
+  return {
+    title: s.title,
+    slug: s.slug,
+    category: s.category,
+    image: imageSrc
+  };
+})
+}}>
+    const STORIES = storiesJSON;
+
+    (function() {
+      const categoriesGrid = document.getElementById('categories-grid');
+      const booksContainer = document.getElementById('booksContainer');
+      const backBtn = document.getElementById('back-btn');
+
+      const params = new URLSearchParams(window.location.search);
+      const activeCategory = params.get('category');
+
+      if (activeCategory) {
+        renderBooks(activeCategory);
+      }
+
+      categoriesGrid.addEventListener('click', (e) => {
+        const card = e.target.closest('.category-card');
+        if (!card) return;
+        e.preventDefault();
+        const category = new URL(card.href).searchParams.get('category');
+        if (category) {
+          history.pushState(null, '', `?category=${encodeURIComponent(category)}`);
+          renderBooks(category);
+        }
+      });
+
+      backBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        history.pushState(null, '', '?');
+        resetToCategories();
+      });
+
+      window.addEventListener('popstate', () => {
+        const newParams = new URLSearchParams(window.location.search);
+        const newCategory = newParams.get('category');
+        if (newCategory) {
+          renderBooks(newCategory);
+        } else {
+          resetToCategories();
+        }
+      });
+
+      function resetToCategories() {
+        categoriesGrid.style.display = 'grid';
+        booksContainer.style.display = 'none';
+        backBtn.style.display = 'none';
+      }
+
+      const CATEGORY_BACKGROUNDS = {
+  'الديناصورات': 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp',
+  'مغامرات':   'رابط_الصورة_هنا',
+  'علوم':      'رابط_الصورة_هنا',
+};
+
+function renderBooks(category) {
+  const filtered = STORIES.filter(s => s.category === category);
+  booksContainer.innerHTML = '';
+
+  const bg = CATEGORY_BACKGROUNDS[category] || '';
+
+  if (filtered.length === 0) {
+    booksContainer.innerHTML = '<div style="text-align:center;width:100%;padding:40px;">📚 لا توجد قصص هنا بعد!</div>';
+  } else {
+    filtered.forEach(story => {
+      const cell = document.createElement('div');
+      cell.className = 'book-cell';
+
+      const bgStyle = bg
+        ? `background-image: url('${bg}'); background-size: cover; background-position: center;`
+        : 'background: linear-gradient(135deg, #f9a825, #ff7043);';
+
+      cell.innerHTML = `
+        <div class="book">
+          <div class="book-spine"><span>${story.title}</span></div>
+          <a href="/stories/${story.slug}" class="book-front" style="${bgStyle}">
+            ${story.image ? `<img src="${story.image}" alt="${story.title}">` : '📖'}
+          </a>
+        </div>
+        <div class="book-title">${story.title}</div>
+        <a href="/stories/${story.slug}" class="book-read-btn">اقرأ الآن</a>
+      `;
+      booksContainer.appendChild(cell);
+    });
+  }
+
+  categoriesGrid.style.display = 'none';
+  booksContainer.style.display = 'flex';
+  backBtn.style.display = 'block';
+}
+    })();
+  </script>
+</body>
+</html>

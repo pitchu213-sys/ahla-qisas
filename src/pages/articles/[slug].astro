@@ -1,0 +1,22 @@
+---
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+export async function getStaticPaths() {
+  const articleFiles = import.meta.glob('../../content/articles/*.mdx');
+  const paths = [];
+  for (const [path, importFn] of Object.entries(articleFiles)) {
+    const slug = path.split('/').pop()?.replace('.mdx', '') || '';
+    paths.push({ params: { slug } });
+  }
+  return paths;
+}
+
+const { slug } = Astro.params;
+const articleFiles = import.meta.glob('../../content/articles/*.mdx');
+const matchKey = Object.keys(articleFiles).find(k => k.includes(`/${slug}.mdx`));
+const mod = matchKey ? await articleFiles[matchKey]() : null;
+const Content = mod?.default;
+---
+
+{Content ? <Content /> : <p>المقال غير موجود</p>}

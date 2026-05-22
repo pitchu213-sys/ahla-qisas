@@ -1,0 +1,267 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "من نحن - أحلى القصص للأطفال";
+const pageDescription = "تعرف على فريق ريكسو وقصتنا في تقديم قصص أطفال عربية هادفة وتعليمية للأعمار الصغيرة.";
+const canonicalUrl = "https://a7la-al9isas-lelatfel.blogspot.com/about";
+const ogImage = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGcJTrLMZgvJyOOyvxKrPGWHTkNBiRXsQZqG-Rud90ZeaKRjKzeRW3UN2fco_mH5TCJ6zDfk1RvnWMr8_9sdVaNL1SL6PFjyPMZ2JB4FmWPcFqhZlAaIHFT9TF5IBYQiSKAAFTBL0oRlV5uDlRyjxU_H08vL3qj_Wc1txMrOvTpdgeBJt_oaCBj151r50/s1600/1000002869.png";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <slot slot="head">
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="ar_AR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <script type="application/ld+json" set:html>
+      {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "من نحن - أحلى القصص للأطفال",
+        "description": "{pageDescription}",
+        "url": "{canonicalUrl}",
+        "about": {
+          "@type": "Organization",
+          "name": "أحلى القصص للأطفال",
+          "url": "https://a7la-al9isas-lelatfel.blogspot.com/",
+          "logo": "{ogImage}",
+          "description": "متخصصون في إنتاج محتوى عربي تعليمي وترفيهي للأطفال من 2 إلى 10 سنوات.",
+          "foundingDate": "2026-03-01",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "info@rexo.site",
+            "contactType": "customer service"
+          },
+          "sameAs": [
+            "https://www.facebook.com/profile.php?id=61576170142028",
+            "https://www.tiktok.com/@a7la_al9isas_lelatfel"
+          ]
+        }
+      }
+    </script>
+  </slot>
+
+  <Header />
+
+  <main>
+    <!-- Hero section باستخدام تدرج about-card بدلاً من كتابة جديد -->
+    <section class="about-card" style="border-radius: 0 0 2rem 2rem; margin-bottom: 2rem; text-align: center; padding: 4rem 1rem;">
+      <div class="container">
+        <div class="hero-badge">🦖 تعرّف علينا</div>
+        <h1 style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: #fff; line-height: 1.3;">
+          من نحن؟<br><span style="color: var(--gold);">أحلى القصص للأطفال</span>
+        </h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 1rem auto 1.5rem; color: rgba(255,255,255,0.9);">
+          وجهتك العربية الأولى للقصص والمحتوى التعليمي الترفيهي للأطفال
+        </p>
+        <div class="hero-meta" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; font-size: 0.85rem; opacity: 0.8;">
+          <span>📅 <time datetime="2026-03-26">آخر تحديث: 26 مارس 2026</time></span>
+          <span>✍️ فريق أحلى القصص للأطفال</span>
+          <span>📖 وقت القراءة: 5 دقائق</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- بطاقة ريكسو: نعيد استخدام about-card و about-text -->
+      <div class="about-card" style="text-align: center; margin-bottom: 2rem;">
+        <img src={ogImage} alt="ريكسو - أحلى القصص للأطفال" class="about-img" style="width: 150px; margin: 0 auto 1.5rem;">
+        <div class="about-text">
+          <h2>تعرّف على <span style="color: var(--gold);">ريكسو!</span></h2>
+          <p>ريكسو هو ديناصور صغير ظريف ومحبوب، يُرافق أطفالنا في كل قصة ومغامرة. بأسلوبه المرح وصوته الجميل، يجعل ريكسو كل حلقة تجربة لا تُنسى!</p>
+          <div class="chips" style="justify-content: center;">
+            <button>🎉 مرح ومحبوب</button>
+            <button>📚 يحب القصص</button>
+            <button>🌟 نجم القناة</button>
+            <button>💚 صديق الأطفال</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- قصتنا: استخدام features كبطاقة بيضاء -->
+      <div class="features" style="display: block; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 900; color: var(--night1); margin-bottom: 1rem;">🌟 قصتنا</h2>
+        <p>وُلد موقع <strong>أحلى القصص للأطفال</strong> من حلم بسيط: تقديم محتوى عربي أصيل وآمن وممتع للأطفال الصغار وعائلاتهم في كل مكان.</p>
+        <p>في عالم تسوده الشاشات والمحتوى الرقمي، آمنّا بأن الطفل العربي يستحق قصصاً بلغته، تعكس ثقافته، وتُغذي خياله وتنمّي عقله — وهذا ما نسعى إليه كل يوم.</p>
+        <p>انطلقنا بفكرة شخصية <strong>ريكسو</strong> الديناصور الصغير كرفيق دائم لأطفالنا، ونبني كل يوم مكتبةً متكاملة من القصص والأغاني والمحتوى التعليمي الترفيهي.</p>
+      </div>
+
+      <!-- مهمتنا -->
+      <div class="features" style="display: block; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 900; color: var(--night1); margin-bottom: 1rem;">🎯 مهمتنا</h2>
+        <p>نسعى يومياً لتحقيق ثلاثة أهداف رئيسية:</p>
+        <div class="mission-grid">
+          <div class="mission-item">
+            <span class="m-icon">🧠</span>
+            <h3>تنمية العقل</h3>
+            <p>قصص ومحتوى يُنمّي التفكير والخيال والإبداع</p>
+          </div>
+          <div class="mission-item">
+            <span class="m-icon">❤️</span>
+            <h3>تعزيز القيم</h3>
+            <p>محتوى يغرس الأخلاق الحميدة والقيم التربوية</p>
+          </div>
+          <div class="mission-item">
+            <span class="m-icon">😄</span>
+            <h3>المتعة الحقيقية</h3>
+            <p>ترفيه هادف يجعل كل لحظة مشاهدة ممتعة</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ماذا نقدم -->
+      <div class="features" style="display: block; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 900; color: var(--night1); margin-bottom: 1rem;">📦 ماذا نقدم؟</h2>
+        <p>موقعنا يضم أقساماً متنوعة تلبي كل احتياجات طفلك:</p>
+        <div class="content-grid">
+          <div class="content-item"><span>📖</span><span>قصص مصورة</span></div>
+          <div class="content-item"><span>🎬</span><span>فيديوهات قصيرة</span></div>
+          <div class="content-item"><span>🎵</span><span>أناشيد وأغاني</span></div>
+          <div class="content-item"><span>🎮</span><span>ألعاب تعليمية</span></div>
+          <div class="content-item"><span>📝</span><span>مقالات للآباء</span></div>
+          <div class="content-item"><span>🌙</span><span>قصص قبل النوم</span></div>
+        </div>
+      </div>
+
+      <!-- قيمنا -->
+      <div class="features" style="display: block; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 900; color: var(--night1); margin-bottom: 1rem;">💎 قيمنا ومبادئنا</h2>
+        <div class="value-item">
+          <div class="value-dot">✅</div>
+          <div><strong>المحتوى الآمن أولاً</strong><p>كل محتوى ننشره يمر بمراجعة دقيقة لضمان ملاءمته التامة للأطفال في مختلف الأعمار.</p></div>
+        </div>
+        <div class="value-item">
+          <div class="value-dot">🌍</div>
+          <div><strong>عربي أصيل 100%</strong><p>نؤمن بأن الطفل العربي يستحق محتوى بلغته وثقافته، بعيداً عن الترجمة الحرفية.</p></div>
+        </div>
+        <div class="value-item">
+          <div class="value-dot">📚</div>
+          <div><strong>التعلم من خلال المتعة</strong><p>نُصمم كل قصة وفيديو بحيث يتعلم الطفل بدون أن يشعر أنه في موقف تعليمي.</p></div>
+        </div>
+        <div class="value-item">
+          <div class="value-dot">👨‍👩‍👧</div>
+          <div><strong>الشراكة مع الأسرة</strong><p>نقدم مقالات ونصائح للآباء والأمهات لدعمهم في رحلة تربية أطفالهم.</p></div>
+        </div>
+      </div>
+
+      <!-- إحصائيات -->
+      <div class="features" style="display: block; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 900; color: var(--night1); margin-bottom: 1rem;">📊 أحلى القصص بالأرقام</h2>
+        <div class="stats-grid">
+          <div class="stat-item"><span class="s-num">+10</span><span>قصة مصورة</span></div>
+          <div class="stat-item"><span class="s-num">+10</span><span>مقالة تربوية</span></div>
+          <div class="stat-item"><span class="s-num">+10</span><span>فيديو قصير</span></div>
+          <div class="stat-item"><span class="s-num">100%</span><span>محتوى عربي</span></div>
+        </div>
+        <p style="margin-top: 16px; font-size: 13px; color: var(--muted);">* هذه الأرقام في تزايد مستمر مع إصدار محتوى جديد كل أسبوع.</p>
+      </div>
+
+      <!-- فريق العمل -->
+      <div class="features" style="display: block; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 900; color: var(--night1); margin-bottom: 1rem;">👥 من خلف الكواليس؟</h2>
+        <p>فريق <strong>أحلى القصص للأطفال</strong> يتكون من متخصصين في التربية، تصميم الجرافيك، كتابة المحتوى، وإنتاج الفيديو. نعمل جميعاً بشغف لتقديم الأفضل لأطفالنا.</p>
+        <p>نعتمد في عملنا على أحدث الأبحاث في مجال تنمية الطفل ونموه المعرفي، ونتعاون مع متخصصين في التربية لضمان دقة المحتوى وسلامته.</p>
+        <div class="value-item" style="border-bottom: none; padding-top: 0;">
+          <div class="value-dot">📧</div>
+          <div><strong>تواصل مع الفريق</strong><p>لديك فكرة أو استفسار؟ نحن نرحب بك دائماً عبر صفحة <a href="/contact" style="color: var(--primary); font-weight: 700;">اتصل بنا</a>.</p></div>
+        </div>
+      </div>
+
+      <!-- وعدنا -->
+      <div class="features" style="display: block; margin-bottom: 2rem; background: linear-gradient(135deg, #fdf4ff, #f3e8ff);">
+        <div style="text-align: center;">
+          <h3 style="font-size: 1.6rem; font-weight: 900; color: var(--night1); margin-bottom: 1rem;">🤝 وعدنا لك</h3>
+          <p>نعدك أن كل ما تجده في موقعنا صُنع بحب حقيقي للأطفال العرب. سنواصل يوماً بعد يوم إضافة قصص جديدة، ومحتوى مميز، ومغامرات ريكسو التي لا تنتهي — لأن أطفالنا يستحقون الأفضل دائماً.</p>
+          <div style="font-size: 1.1rem; font-weight: 700; color: var(--primary);">🦖 ريكسو وفريق أحلى القصص</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* تنسيقات بسيطة غير موجودة في global.css */
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .mission-item {
+    background: #f7f5fb;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .m-icon { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+  .mission-item h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--night1); }
+  .mission-item p { font-size: 0.9rem; color: var(--muted); }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .content-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: #f7f5fb;
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: var(--night1);
+  }
+
+  .value-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .value-dot { font-size: 1.3rem; width: 2rem; text-align: center; }
+  .value-item strong { display: block; font-weight: 800; color: var(--night1); margin-bottom: 0.25rem; }
+  .value-item p { font-size: 0.9rem; color: var(--muted); margin: 0; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+  }
+  .stat-item { display: flex; flex-direction: column; gap: 0.5rem; }
+  .s-num { font-size: 2rem; font-weight: 900; color: var(--primary); }
+  .stat-item span:last-child { font-size: 0.9rem; color: var(--muted); }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 999px;
+    padding: 0.4rem 1.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    .mission-grid, .content-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>

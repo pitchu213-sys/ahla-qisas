@@ -1,0 +1,401 @@
+---
+export interface Props {
+  pages: Array<{ front: string; back: string }>;
+  slug: string;
+  isOpen?: boolean;
+}
+
+const { pages, slug, isOpen = true } = Astro.props;
+
+// حماية: إذا لم تكن pages مصفوفة، اجعلها مصفوفة فارغة
+const safePages = Array.isArray(pages) ? pages : [];
+
+// بناء مسار الصورة الذكي (يدعم الروابط الخارجية والمحلية)
+function getImagePath(imageName: string): string {
+  if (!imageName) return '';
+  if (imageName.startsWith('http')) return imageName;
+  return `/images/stories/${slug}/${imageName}`;
+}
+
+const optimizedPages = safePages.map(page => ({
+  front: getImagePath(page.front),
+  back: getImagePath(page.back),
+}));
+---
+
+<div class="gallery-wrapper" id="story-overlay" style={`display:${isOpen ? 'flex' : 'none'}; opacity:1;`}>
+  <div class="cinematic-vignette" aria-hidden="true"></div>
+
+  <button class="close-story-btn" id="closeStoryBtn" aria-label="إغلاق المعرض">✕</button>
+
+  <div class="page-counter" id="pageCounter">1 / {safePages.length}</div>
+
+  <button class="nav-arrow" id="navPrev" aria-label="الصفحة السابقة">→</button>
+  <button class="nav-arrow" id="navNext" aria-label="الصفحة التالية">←</button>
+
+  <button class="music-control paused" id="musicBtnOverlay" aria-label="تشغيل الموسيقى">
+    <div class="music-pulse"></div>
+    <div class="music-icon">
+      <div class="music-bars">
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+      </div>
+    </div>
+  </button>
+  <audio id="bgMusicOverlay" loop preload="none">
+    <source src="https://res.cloudinary.com/dvmkrs2jb/video/upload/v1777372164/Triceratops_Stomp_2_tahpp6.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="scene">
+    <div class="galeria-book-3d" id="gallery-container">
+      {optimizedPages.map((page, index) => (
+        <div class="galeria-book-3d__item" style={`--i:${index}`} data-index={index}>
+          <img src={page.front} alt={`صفحة ${index + 1} - أمامية`} loading="lazy" width="420" height="600" />
+          <img src={page.back} alt={`صفحة ${index + 1} - خلفية`} loading="lazy" width="420" height="600" />
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  .gallery-wrapper {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    width: 100dvw; height: 100dvh; background: #050508; z-index: 9999;
+    display: flex; flex-direction: column; overflow: hidden; opacity: 1;
+  }
+  .cinematic-vignette {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.65) 100%);
+    pointer-events: none; z-index: 9999; animation: vignette-pulse 8s ease-in-out infinite;
+  }
+  @keyframes vignette-pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 0.5; } }
+  .close-story-btn {
+    position: absolute; top: 16px; right: 16px; z-index: 10002;
+    background: rgba(0,0,0,0.45); color: white; border: 1px solid rgba(255,255,255,0.12);
+    width: 46px; height: 46px; border-radius: 50%; font-size: 20px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; backdrop-filter: blur(12px);
+    transition: transform 0.2s, background 0.2s;
+  }
+  .close-story-btn:hover { transform: scale(1.12); background: rgba(229,57,53,0.85); border-color: transparent; }
+  .page-counter {
+    position: absolute; top: 16px; left: 50%; transform: translateX(-50%); z-index: 10001;
+    background: rgba(0,0,0,0.45); backdrop-filter: blur(12px); color: white; padding: 7px 20px;
+    border-radius: 50px; font-size: 14px; font-weight: 700; font-family: 'Tajawal', sans-serif;
+    border: 1px solid rgba(255,255,255,0.1); letter-spacing: 0.5px;
+  }
+  .nav-arrow {
+  position: absolute;
+  top: auto;
+  bottom: 28px;           /* تحت الكتاب مباشرة */
+  transform: none;
+  z-index: 10001;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f4a023, #e08c10);
+  border: none;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(244,160,35,0.5);
+  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), 
+              box-shadow 0.2s, 
+              background 0.2s;
+}
+
+#navPrev { 
+  right: calc(50% - 80px);   /* يسار المركز */
+  left: auto;
+}
+#navNext { 
+  left: calc(50% - 80px);    /* يمين المركز */
+  right: auto;
+}
+
+.nav-arrow:hover { 
+  transform: scale(1.18); 
+  box-shadow: 0 10px 28px rgba(244,160,35,0.65);
+  background: linear-gradient(135deg, #ffb835, #f4a023);
+}
+.nav-arrow:active { 
+  transform: scale(0.93); 
+}
+
+/* نبضة عند التحميل */
+.nav-arrow::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid rgba(244,160,35,0.4);
+  animation: navPulse 2s ease-out infinite;
+}
+@keyframes navPulse {
+  0%   { transform: scale(1); opacity: 0.8; }
+  70%  { transform: scale(1.35); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* موبايل */
+@media (max-width: 600px) {
+  .nav-arrow {
+    width: 54px;
+    height: 54px;
+    font-size: 22px;
+    bottom: 20px;
+  }
+  #navPrev { right: calc(50% - 66px); }
+  #navNext { left: calc(50% - 66px); }
+}
+  .music-control {
+    position: absolute; bottom: 28px; left: 28px; z-index: 10001; width: 56px; height: 56px;
+    border-radius: 50%; background: rgba(0,0,0,0.4); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12); display: flex; justify-content: center; align-items: center;
+    cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  .music-control:hover { background: rgba(255,255,255,0.18); transform: scale(1.08); }
+  .music-bars { display: flex; gap: 4px; align-items: flex-end; }
+  .music-bar { width: 3px; height: 12px; background: rgba(255,255,255,0.8); border-radius: 2px; animation: musicBounce 0.6s ease-in-out infinite; }
+  .music-bar:nth-child(2) { animation-delay: 0.1s; height: 16px; }
+  .music-bar:nth-child(3) { animation-delay: 0.2s; height: 14px; }
+  .music-pulse { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); animation: musicPulse 1.5s ease-out infinite; }
+  @keyframes musicBounce { 0%,100% { transform: scaleY(0.6); opacity: 0.6; } 50% { transform: scaleY(1); opacity: 1; } }
+  @keyframes musicPulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+  .scene {
+    width: 100%; height: 100%; perspective: 1800px; transform-style: preserve-3d;
+    display: flex; justify-content: center; align-items: center; overflow: hidden;
+    position: relative; background: #0a0a12;
+  }
+  .scene::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(26,60,94,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(244,160,35,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(30,82,118,0.12) 0%, transparent 50%);
+    pointer-events: none; z-index: 0;
+  }
+  .galeria-book-3d {
+    position: relative; width: min(92vh * 0.625, 48vw); height: min(92vh, 76.8vw);
+    perspective: 1800px; transform-style: preserve-3d; display: flex;
+    justify-content: center; align-items: center; z-index: 10;
+    --spine-shift: 0px; transform: translateX(var(--spine-shift));
+    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+  .galeria-book-3d.book-open { --spine-shift: calc(min(92vh * 0.625, 48vw) * -0.5); }
+  .galeria-book-3d__item {
+    position: absolute; width: min(92vh * 0.625, 48vw); height: min(92vh, 76.8vw);
+    transform-style: preserve-3d;
+    transform-origin: right center;
+    --page-rotate: 0deg; transform: rotateY(var(--page-rotate));
+    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    cursor: pointer;
+    z-index: calc(10 - var(--i));
+    border-radius: 8px;
+  }
+  .galeria-book-3d__item:hover { box-shadow: 0 12px 50px rgba(0,0,0,0.6), 0 0 30px rgba(244,160,35,0.08); }
+  .galeria-book-3d__item.is-open {
+    --page-rotate: 180deg; transition-delay: 0s, 0s;
+    z-index: calc(20 + var(--i)); box-shadow: 0 16px 60px rgba(0,0,0,0.7);
+  }
+  .galeria-book-3d__item img {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    background: #111; border-radius: 8px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .galeria-book-3d__item img:nth-child(2) {
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  @media (orientation: landscape) and (max-height: 500px) {
+    .galeria-book-3d { width: min(88svh * 0.7, 40vw); height: min(88svh, 57vw); }
+    .galeria-book-3d__item { width: min(88svh * 0.7, 40vw); height: min(88svh, 57vw); }
+  }
+  @media (max-width: 600px) and (orientation: portrait) {
+    .galeria-book-3d { width: 94vw; height: calc(94vw * 1.43); transform: none; --spine-shift: 0px; overflow: visible; }
+    .galeria-book-3d.book-open { --spine-shift: 0px; }
+    .galeria-book-3d__item {
+      width: 94vw; height: calc(94vw * 1.43); transform-origin: center center;
+      transform: translateX(110vw); transition: transform 0.45s cubic-bezier(0.4,0,0.2,1), z-index 0s;
+      --page-rotate: 0deg; border-radius: 6px; overflow: hidden;
+    }
+    .galeria-book-3d__item.portrait-current { transform: translateX(0); z-index: 15; }
+    .galeria-book-3d__item.portrait-done { transform: translateX(-110vw); z-index: 5; }
+    .galeria-book-3d__item.is-open { --page-rotate: 0deg; }
+    .galeria-book-3d__item.show-back img:nth-child(1) { opacity: 0; }
+    .galeria-book-3d__item.show-back img:nth-child(2) { opacity: 1; z-index: 2; }
+  }
+</style>
+
+<script>
+  (function() {
+    const bgMusic = document.getElementById('bgMusicOverlay');
+    const musicBtn = document.getElementById('musicBtnOverlay');
+    const container = document.getElementById('gallery-container');
+    const pageCounter = document.getElementById('pageCounter');
+    const items = document.querySelectorAll('.galeria-book-3d__item');
+    const totalItems = items.length;
+    const totalSlides = totalItems * 2;
+    let isMusicPlaying = false;
+    let isPortraitMode = false;
+    let portraitSlideIndex = 0;
+
+    if (bgMusic) bgMusic.volume = 0.3;
+
+    const PAGE_FLIP_SOUND = new Audio('https://res.cloudinary.com/dvmkrs2jb/video/upload/v1777375791/mixkit-paper-slide-1530_nouyzc.wav');
+    PAGE_FLIP_SOUND.volume = 0.8;
+    function playPageFlip() {
+      try {
+        const snd = PAGE_FLIP_SOUND.cloneNode();
+        snd.volume = 0.8;
+        snd.play().catch(function() {});
+        snd.addEventListener('ended', function() { snd.remove(); });
+      } catch(e) {}
+    }
+
+    musicBtn?.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (!bgMusic) return;
+      if (isMusicPlaying) {
+        bgMusic.pause(); isMusicPlaying = false;
+        musicBtn.classList.add('paused'); musicBtn.setAttribute('aria-label', 'تشغيل الموسيقى');
+      } else {
+        bgMusic.play().then(function() {
+          isMusicPlaying = true;
+          musicBtn.classList.remove('paused'); musicBtn.setAttribute('aria-label', 'إيقاف الموسيقى');
+        }).catch(function() {});
+      }
+    });
+
+    function isPortrait() { return window.innerWidth <= 600 && window.innerHeight > window.innerWidth; }
+    function getItemIndex(slideIdx) { return Math.floor(slideIdx / 2); }
+    function isFrontFace(slideIdx) { return slideIdx % 2 === 0; }
+
+    function updatePageCounter() {
+      if (!pageCounter) return;
+      let currentDisplay;
+      if (isPortraitMode) { currentDisplay = getItemIndex(portraitSlideIndex) + 1; }
+      else {
+        let openCount = 0;
+        items.forEach(function(item) { if (item.classList.contains('is-open')) openCount++; });
+        currentDisplay = openCount + 1;
+      }
+      pageCounter.textContent = currentDisplay + ' / ' + totalItems;
+    }
+
+    function initPortraitSlider() {
+      isPortraitMode = true; portraitSlideIndex = 0;
+      items.forEach(function(item) {
+        item.classList.remove('portrait-current', 'portrait-done', 'is-open', 'show-back');
+        item.style.transform = ''; item.style.zIndex = '';
+      });
+      if (items[0]) items[0].classList.add('portrait-current');
+      updatePageCounter();
+    }
+
+    function goToNextPortrait() {
+      playPageFlip();
+      const currentItemIdx = getItemIndex(portraitSlideIndex);
+      const currentItem = items[currentItemIdx];
+      if (portraitSlideIndex >= totalSlides - 1) {
+        portraitSlideIndex = 0;
+        items.forEach(function(item) { item.classList.remove('portrait-current', 'portrait-done', 'show-back'); });
+        items[0].classList.add('portrait-current');
+        updatePageCounter(); return;
+      }
+      portraitSlideIndex++;
+      const nextItemIdx = getItemIndex(portraitSlideIndex);
+      const showFront = isFrontFace(portraitSlideIndex);
+      if (nextItemIdx === currentItemIdx) { currentItem.classList.add('show-back'); }
+      else {
+        currentItem.classList.remove('portrait-current'); currentItem.classList.add('portrait-done');
+        const nextItem = items[nextItemIdx];
+        nextItem.classList.remove('portrait-done', 'show-back');
+        if (!showFront) nextItem.classList.add('show-back');
+        nextItem.classList.add('portrait-current');
+      }
+      updatePageCounter();
+    }
+
+    function goToPrevPortrait() {
+      if (portraitSlideIndex <= 0) { portraitSlideIndex = totalSlides - 1; }
+      else { portraitSlideIndex--; }
+      items.forEach(function(item) { item.classList.remove('portrait-current', 'portrait-done', 'show-back'); });
+      const currentItemIdx = getItemIndex(portraitSlideIndex);
+      const showFront = isFrontFace(portraitSlideIndex);
+      items[currentItemIdx].classList.add('portrait-current');
+      if (!showFront) items[currentItemIdx].classList.add('show-back');
+      updatePageCounter();
+    }
+
+    function updateContainerState() {
+      const anyOpen = Array.from(items).some(function(i) { return i.classList.contains('is-open'); });
+      container?.classList.toggle('book-open', anyOpen);
+    }
+
+    function toggleBookByIndex(idx) {
+      if (idx >= 0 && idx < totalItems) {
+        playPageFlip();
+        items[idx].classList.toggle('is-open');
+        updateContainerState();
+        updatePageCounter();
+      }
+    }
+
+    document.getElementById('navNext')?.addEventListener('click', function() {
+      if (isPortraitMode) { goToNextPortrait(); return; }
+      for (let i = 0; i < totalItems; i++) { if (!items[i].classList.contains('is-open')) { toggleBookByIndex(i); return; } }
+    });
+
+    document.getElementById('navPrev')?.addEventListener('click', function() {
+      if (isPortraitMode) { goToPrevPortrait(); return; }
+      for (let i = totalItems - 1; i >= 0; i--) { if (items[i].classList.contains('is-open')) { toggleBookByIndex(i); return; } }
+    });
+
+    items.forEach(function(item) {
+      item.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (isPortraitMode) { goToNextPortrait(); return; }
+        toggleBookByIndex(parseInt(item.getAttribute('data-index') || '0', 10));
+      });
+      item.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); e.stopPropagation();
+          if (isPortraitMode) { goToNextPortrait(); return; }
+          toggleBookByIndex(parseInt(item.getAttribute('data-index') || '0', 10));
+        }
+      });
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') { document.getElementById('navNext')?.click(); }
+      if (e.key === 'ArrowRight') { document.getElementById('navPrev')?.click(); }
+    });
+
+    function init() {
+      isPortraitMode = isPortrait();
+      if (isPortraitMode) { initPortraitSlider(); }
+      else { items.forEach(function(item) { item.classList.remove('portrait-current', 'portrait-done'); }); updateContainerState(); }
+      updatePageCounter();
+    }
+    init();
+
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(init, 200);
+    });
+
+    document.getElementById('closeStoryBtn')?.addEventListener('click', () => {
+      const wrapper = document.getElementById('story-overlay');
+      if (wrapper) wrapper.style.display = 'none';
+    });
+  })();
+</script>

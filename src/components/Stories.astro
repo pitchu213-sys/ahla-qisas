@@ -1,0 +1,70 @@
+---
+const stories = [
+  {
+    id: 1,
+    title: 'لطيف: العملاق الهادئ',
+    image: '/assets/story-1.jpg',
+    tag: 'مغامرات',
+    tagColor: '#6a3fc5',
+    time: '5 دقائق',
+    age: '5 سنوات'
+  },
+  {
+    id: 2,
+    title: 'كيف تجعل طفلك يحب القراءة؟ + 6 طرق مجربة',
+    image: '/assets/story-2.jpg',
+    tag: 'تعليمية',
+    tagColor: '#3aa56b',
+    time: '6 دقائق',
+    age: '3 سنوات'
+  },
+  {
+    id: 3,
+    title: 'النشاطات والأطفال: كم الوقت المسموح؟',
+    image: '/assets/story-3.jpg',
+    tag: 'أنشطة',
+    tagColor: '#e08a2b',
+    time: '6 دقائق',
+    age: '6 سنوات'
+  },
+  {
+    id: 4,
+    title: 'تريس: صاحب الظهر المصفح',
+    image: '/assets/story-4.jpg',
+    tag: 'مغامرات',
+    tagColor: '#6a3fc5',
+    time: '5 دقائق',
+    age: '4 سنوات'
+  }
+];
+---
+
+<section class="container stories-section">
+  <div class="section-head">
+    <h2>✨ قصص جديدة ومميزة</h2>
+    <button class="ghost-btn">عرض كل القصص</button>
+  </div>
+  <div class="stories-grid">
+    {stories.map((story) => (
+      <article class="story-card">
+        <div class="story-img">
+          <img src={story.image} alt={story.title} />
+          <span class="tag" style={`background:${story.tagColor}`}>
+            {story.tag}
+          </span>
+          <button class="bookmark">🔖</button>
+        </div>
+        <div class="story-body">
+          <h3>{story.title}</h3>
+          <div class="meta">
+            <span>⏱ {story.time}</span>
+            <span>👥 {story.age}</span>
+          </div>
+          <button class="story-btn" style={`background:${story.tagColor}`}>
+            أقرأ القصة
+          </button>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

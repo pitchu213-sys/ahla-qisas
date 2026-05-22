@@ -1,0 +1,227 @@
+<header>
+  <div class="top-header">
+    <div class="header-right">
+      <img
+        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEje7jDnyJyMrO_gbpfcqlfnTLRLpYo7iJxNH4-ZSZGqImaHNrTYgH1Qd-RVBk3jiGdu0_h8sjYiyKtCyn_4Q3NDSmeTL8JlO5AytBCMlQOEjhW53A31omeP8ulIGXXDRivkEdBAxsE190nEeWQzEm0rRtFVyzlEXUXn_FAyg5gji_DxZH1JlSQL08vYa0k/w320-h320/ChatGPT%20Image%2015%20avr.%202025,%2015_46_45.png"
+        alt="شعار ريكسو"
+        width="45"
+        height="45"
+      />
+      <div class="brand-name">
+        أحلى القصص<span>للأطفال</span>
+      </div>
+    </div>
+    <div class="header-left">
+      <a href="https://wa.me/+21623952911" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.tiktok.com/@a7la_al9isas_lelatfel" class="social-btn tiktok"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.facebook.com/profile.php?id=61576170142028" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="youtube-btn"><i class="fab fa-youtube"></i> يوتيوب</a>
+    </div>
+  </div>
+
+  <nav class="white-nav">
+    <a href="/" class="nav-link"><i class="fas fa-home"></i>الرئيسية</a>
+    <a href="/videos" class="nav-link"><i class="fas fa-play-circle"></i>الفيديوهات</a>
+    <a href="/shorts" class="nav-link"><i class="fas fa-play-circle"></i>shorts</a>
+    <a href="/stories" class="nav-link"><i class="fas fa-book"></i>القصص</a>
+    <a href="/articles" class="nav-link"><i class="fas fa-newspaper"></i>المقالات</a>
+    <a href="#" class="nav-link"><i class="fas fa-music"></i>الأغاني</a>
+    <a href="/about" class="nav-link"><i class="fas fa-question-circle"></i>من نحن</a>
+  </nav>
+</header>
+
+<!-- Bottom Navigation - موبايل فقط -->
+<nav class="bottom-nav" id="bottomNav">
+  <a href="/" class="bnav-item">
+    <span class="bnav-icon">🏠</span>
+    <span class="bnav-label">الرئيسية</span>
+  </a>
+  <a href="/stories" class="bnav-item">
+    <span class="bnav-icon">📚</span>
+    <span class="bnav-label">القصص</span>
+  </a>
+  <a href="/videos" class="bnav-item">
+    <span class="bnav-icon">🎬</span>
+    <span class="bnav-label">فيديوهات</span>
+  </a>
+  <a href="/articles" class="bnav-item">
+    <span class="bnav-icon">📝</span>
+    <span class="bnav-label">مقالات</span>
+  </a>
+  <a href="/about" class="bnav-item">
+    <span class="bnav-icon">👤</span>
+    <span class="bnav-label">من نحن</span>
+  </a>
+</nav>
+
+<style>
+  header {
+    direction: rtl;
+  }
+  .top-header {
+    background: #0a0a35;
+    padding: 10px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-right img {
+    border-radius: 10px;
+    border: 2px solid #00f2ff;
+    object-fit: cover;
+    width: 45px;
+    height: 45px;
+  }
+  .brand-name {
+    font-family: 'Lalezar', cursive;
+    line-height: 1.2;
+    font-size: 1.2rem;
+  }
+  .brand-name span {
+    display: block;
+    font-size: 0.75rem;
+    color: #00f2ff;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .social-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+  }
+  .whatsapp { background: #25D366; }
+  .tiktok { background: #000; }
+  .facebook { background: #1877F2; }
+  .youtube-btn {
+    background: #FF0000;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    text-decoration: none;
+  }
+  .white-nav {
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 12px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    flex-wrap: wrap;
+  }
+  .nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #555;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .nav-link i {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+    color: #ddd;
+  }
+  .nav-link:hover { color: #1a1a4b; }
+  .nav-link:hover i { color: #ffcc00; }
+
+  /* ===== Bottom Nav ===== */
+  .bottom-nav {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .white-nav {
+      display: none;
+    }
+
+    .bottom-nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 68px;
+      background: #ffffff;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+      z-index: 9999;
+      padding: 0 8px;
+      padding-bottom: env(safe-area-inset-bottom);
+      direction: rtl;
+    }
+
+    .bnav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 12px;
+      transition: background 0.2s;
+      flex: 1;
+    }
+
+    .bnav-item:hover,
+    .bnav-item.active {
+      background: #f3f0ff;
+    }
+
+    .bnav-icon {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .bnav-label {
+      font-size: 10px;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 700;
+      color: #64748b;
+    }
+
+    .bnav-item.active .bnav-label {
+      color: #7C3AED;
+    }
+  }
+</style>
+
+<script>
+  const path = window.location.pathname;
+  document.querySelectorAll('.bnav-item').forEach(item => {
+    const href = item.getAttribute('href');
+    if (
+      (href === '/' && path === '/') ||
+      (href !== '/' && path.startsWith(href))
+    ) {
+      item.classList.add('active');
+    }
+  });
+</script>

@@ -1,0 +1,191 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "سياسة الخصوصية";
+const pageDescription = "تعرف على كيفية تعامل موقع أحلى القصص للأطفال مع بياناتك وخصوصيتك. سياسة خصوصية شفافة وآمنة للأطفال والعائلات.";
+const canonicalUrl = "https://a7la-al9isas-lelatfel.blogspot.com/privacy";
+const ogImage = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGcJTrLMZgvJyOOyvxKrPGWHTkNBiRXsQZqG-Rud90ZeaKRjKzeRW3UN2fco_mH5TCJ6zDfk1RvnWMr8_9sdVaNL1SL6PFjyPMZ2JB4FmWPcFqhZlAaIHFT9TF5IBYQiSKAAFTBL0oRlV5uDlRyjxU_H08vL3qj_Wc1txMrOvTpdgeBJt_oaCBj151r50/s1600/1000002869.png";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <slot slot="head">
+    <meta property="og:title" content={`${pageTitle} - أحلى القصص للأطفال`} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="ar_AR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${pageTitle} - أحلى القصص للأطفال`} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <script type="application/ld+json" set:html>
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "سياسة الخصوصية - أحلى القصص للأطفال",
+        "description": "{pageDescription}",
+        "url": "{canonicalUrl}",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "أحلى القصص للأطفال",
+          "url": "https://a7la-al9isas-lelatfel.blogspot.com/"
+        }
+      }
+    </script>
+  </slot>
+
+  <Header />
+
+  <main>
+    <!-- Hero: نستخدم تدرج about-card ليكون متناسقاً -->
+    <section class="about-card" style="border-radius: 0 0 2rem 2rem; margin-bottom: 2rem; text-align: center; padding: 4rem 1rem;">
+      <div class="container">
+        <div class="hero-badge">📄 وثيقة رسمية</div>
+        <h1 style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: #fff;">🔒 سياسة الخصوصية</h1>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; font-size: 0.85rem; opacity: 0.8; color: #fff; margin-top: 1rem;">
+          <span>🏠 <a href="/" style="color: var(--gold);">الرئيسية</a></span>
+          <span>📅 آخر تحديث: <time datetime="2026-03-26">26 مارس 2026</time></span>
+          <span>🦖 أحلى القصص للأطفال — ريكسو</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div style="text-align: center;">
+        <div class="update-date">📅 آخر تحديث: مارس 2026</div>
+      </div>
+
+      <!-- مرحباً بك -->
+      <div class="card">
+        <h2><span class="icon">👋</span> مرحباً بك</h2>
+        <p>نرحب بك في موقع <strong>أحلى القصص للأطفال</strong>. نحن نُولي خصوصيتك أهمية قصوى، وهذه الصفحة تشرح بوضوح كيف نتعامل مع بياناتك عند زيارتك لموقعنا.</p>
+        <p>باستخدامك للموقع، فأنت توافق على الشروط الواردة في هذه السياسة.</p>
+        <div class="highlight">
+          🦖 موقعنا موجّه للأطفال وعائلاتهم، ونلتزم بأعلى معايير الحماية والأمان.
+        </div>
+      </div>
+
+      <!-- المعلومات التي نجمعها -->
+      <div class="card">
+        <h2><span class="icon">📊</span> المعلومات التي نجمعها</h2>
+        <p>لا نقوم بجمع بياناتك الشخصية بشكل مباشر. لكن قد يتم جمع بعض البيانات التلقائية من خلال:</p>
+        <ul style="list-style: disc; padding-right: 20px;">
+          <li><strong>ملفات تعريف الارتباط (Cookies):</strong> تُستخدم لتحسين تجربة التصفح وتذكر تفضيلاتك</li>
+          <li><strong>بيانات التصفح:</strong> مثل نوع المتصفح ونظام التشغيل وعنوان IP بشكل مجهول</li>
+          <li><strong>إحصائيات الزيارات:</strong> عدد الزوار والصفحات الأكثر مشاهدة عبر Google Analytics</li>
+        </ul>
+      </div>
+
+      <!-- كيف نستخدم هذه البيانات -->
+      <div class="card">
+        <h2><span class="icon">🎯</span> كيف نستخدم هذه البيانات</h2>
+        <p>نستخدم البيانات المجمعة فقط من أجل:</p>
+        <ul style="list-style: disc; padding-right: 20px;">
+          <li>تحسين تجربة المستخدم وجودة المحتوى</li>
+          <li>تحليل أداء الموقع وفهم اهتمامات الزوار</li>
+          <li>عرض إعلانات مناسبة عبر Google AdSense</li>
+          <li>تطوير محتوى جديد يلبي احتياجات الأطفال وعائلاتهم</li>
+        </ul>
+        <div class="highlight">
+          ✅ نحن لا نبيع أي بيانات لأطراف ثالثة ولا نستخدمها لأغراض تجارية خارج نطاق الموقع.
+        </div>
+      </div>
+
+      <!-- إعلانات Google AdSense -->
+      <div class="card">
+        <h2><span class="icon">📢</span> إعلانات Google AdSense</h2>
+        <p>يستخدم موقعنا خدمة <strong>Google AdSense</strong> لعرض الإعلانات. قد تستخدم Google ملفات تعريف الارتباط لعرض إعلانات بناءً على زياراتك السابقة لهذا الموقع أو مواقع أخرى.</p>
+        <ul style="list-style: disc; padding-right: 20px;">
+          <li>يمكنك إلغاء تفعيل الإعلانات المخصصة من خلال <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener" style="color:var(--primary);font-weight:600;">إعدادات إعلانات Google</a></li>
+          <li>لمزيد من المعلومات، راجع <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--primary);font-weight:600;">سياسة خصوصية Google</a></li>
+        </ul>
+      </div>
+
+      <!-- ملفات تعريف الارتباط -->
+      <div class="card">
+        <h2><span class="icon">🍪</span> ملفات تعريف الارتباط (Cookies)</h2>
+        <p>ملفات الكوكيز هي ملفات نصية صغيرة تُحفظ على جهازك عند زيارة الموقع. نستخدمها لـ:</p>
+        <ul style="list-style: disc; padding-right: 20px;">
+          <li>تذكر تفضيلاتك وإعداداتك</li>
+          <li>تحليل حركة الزيارات عبر Google Analytics</li>
+          <li>تحسين أداء الموقع وسرعته</li>
+        </ul>
+        <p>يمكنك التحكم في ملفات الكوكيز أو حذفها من خلال إعدادات متصفحك في أي وقت.</p>
+      </div>
+
+      <!-- حماية خصوصية الأطفال -->
+      <div class="card">
+        <h2><span class="icon">👶</span> حماية خصوصية الأطفال</h2>
+        <p>نحن نأخذ حماية خصوصية الأطفال على محمل الجد:</p>
+        <ul style="list-style: disc; padding-right: 20px;">
+          <li>لا نجمع أي معلومات شخصية مباشرة من الأطفال دون سن 13 عاماً</li>
+          <li>محتوى موقعنا موجّه للاستخدام بإشراف الوالدين أو الأوصياء</li>
+          <li>إذا اكتشفنا أننا جمعنا بيانات طفل دون موافقة، سنحذفها فوراً</li>
+        </ul>
+        <div class="highlight">
+          👨‍👩‍👧 نشجع الآباء على مراقبة استخدام أطفالهم للإنترنت والإشراف على تصفحهم للموقع.
+        </div>
+      </div>
+
+      <!-- روابط المواقع الخارجية -->
+      <div class="card">
+        <h2><span class="icon">🔗</span> روابط المواقع الخارجية</h2>
+        <p>قد يحتوي موقعنا على روابط لمواقع خارجية مثل YouTube أو مواقع تعليمية أخرى. نحن غير مسؤولين عن سياسات الخصوصية الخاصة بهذه المواقع، وننصحك بمراجعة سياساتها بشكل مستقل.</p>
+      </div>
+
+      <!-- تحديثات السياسة -->
+      <div class="card">
+        <h2><span class="icon">🔄</span> تحديثات السياسة</h2>
+        <p>قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر لتعكس التغييرات في الموقع أو المتطلبات القانونية. سيتم نشر التاريخ الجديد للتحديث في أعلى هذه الصفحة.</p>
+        <p>نشجعك على مراجعة هذه الصفحة بشكل دوري للاطلاع على أي تغييرات.</p>
+      </div>
+
+      <!-- صندوق التواصل -->
+      <div class="contact-box">
+        <h3>📬 هل لديك استفسار؟</h3>
+        <p>إذا كان لديك أي سؤال حول سياسة الخصوصية، لا تتردد في التواصل معنا عبر صفحة <a href="/contact">تواصل معنا</a> أو عبر البريد الإلكتروني الرسمي للموقع.</p>
+      </div>
+
+      <!-- AUTHOR BIO -->
+      <div class="author-bio" itemscope itemtype="https://schema.org/Person">
+        <img src={ogImage} class="author-img" alt="فريق أحلى القصص للأطفال" itemprop="image">
+        <div class="author-info">
+          <h3 itemprop="name">فريق أحلى القصص للأطفال</h3>
+          <p itemprop="description">متخصصون في إنتاج محتوى عربي تعليمي وترفيهي للأطفال من 2 إلى 10 سنوات. نؤمن أن كل طفل يستحق قصة بلغته الأم مع ريكسو 🦖</p>
+          <div class="author-credentials">
+            <div style="font-weight:800; color:#4a3000;">🎯 التزامنا بالجودة</div>
+            <p style="font-size:12px; margin-top:4px;">نحرص على أن يكون كل محتوى آمن، علمي، وممتع. نعتمد على أبحاث تطوير الطفل في تصميم قصصنا وفيديوهاتنا، ونختبر المواد مع أطفال قبل النشر.</p>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px;">
+            <a href="https://www.facebook.com/profile.php?id=61576170142028" style="color:var(--primary); font-size:13px;">📘 فيسبوك</a>
+            <a href="https://www.tiktok.com/@a7la_al9isas_lelatfel" style="color:var(--primary); font-size:13px;">🎵 تيك توك</a>
+            <a href="/about" style="color:var(--primary); font-size:13px;">👋 من نحن</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER (مؤقت - سيتم استبداله بمكون Footer الفعلي) -->
+      <div class="site-footer">
+        <div class="footer-links">
+          <a href="/">🏠 الرئيسية</a>
+          <a href="/contact">📞 اتصل بنا</a>
+          <a href="/about">👋 من نحن</a>
+          <a href="/terms">📋 شروط الاستخدام</a>
+          <a href="/stories">📚 جميع القصص</a>
+        </div>
+        <div style="margin-top:16px; font-size:12px; color:var(--muted);">
+          © 2026 أحلى القصص للأطفال — كل الحقوق محفوظة
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

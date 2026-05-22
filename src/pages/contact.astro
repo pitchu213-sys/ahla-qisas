@@ -1,0 +1,211 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "تواصل معنا";
+const pageDescription = "صفحة التواصل مع فريق أحلى القصص للأطفال. يمكنك إرسال استفساراتك، اقتراحاتك، أو طلبات التعاون.";
+const canonicalUrl = "https://a7la-al9isas-lelatfel.blogspot.com/contact";
+const ogImage = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGcJTrLMZgvJyOOyvxKrPGWHTkNBiRXsQZqG-Rud90ZeaKRjKzeRW3UN2fco_mH5TCJ6zDfk1RvnWMr8_9sdVaNL1SL6PFjyPMZ2JB4FmWPcFqhZlAaIHFT9TF5IBYQiSKAAFTBL0oRlV5uDlRyjxU_H08vL3qj_Wc1txMrOvTpdgeBJt_oaCBj151r50/s1600/1000002869.png";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <slot slot="head">
+    <meta property="og:title" content={`${pageTitle} - أحلى القصص للأطفال`} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="ar_AR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${pageTitle} - أحلى القصص للأطفال`} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <script type="application/ld+json" set:html>
+      {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "تواصل معنا — أحلى القصص للأطفال",
+        "description": "{pageDescription}",
+        "url": "{canonicalUrl}",
+        "mainEntity": {
+          "@type": "Organization",
+          "name": "أحلى القصص للأطفال",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "email": "a7la.al9isas@gmail.com",
+              "contactType": "customer service",
+              "availableLanguage": "Arabic"
+            }
+          ]
+        }
+      }
+    </script>
+  </slot>
+
+  <Header />
+
+  <main>
+    <!-- Hero -->
+    <section class="about-card" style="border-radius: 0 0 2rem 2rem; margin-bottom: 2rem; text-align: center; padding: 4rem 1rem;">
+      <div class="container">
+        <div class="hero-badge">📬 نحن هنا لك</div>
+        <h1 style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: #fff;">
+          تواصل <span style="color: var(--gold);">معنا</span>
+        </h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 1rem auto 1.5rem; color: rgba(255,255,255,0.9);">
+          لديك سؤال أو اقتراح أو تريد التعاون معنا؟ نسعد بسماعك دائماً!
+        </p>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; font-size: 0.85rem; opacity: 0.8; color: #fff;">
+          <span>📅 <time datetime="2026-03-26">آخر تحديث: 26 مارس 2026</time></span>
+          <span>✍️ فريق أحلى القصص للأطفال</span>
+          <span>⏱️ الرد خلال 24-48 ساعة</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- ترحيب ريكسو -->
+      <div class="rexo-welcome">
+        <img src={ogImage} alt="ريكسو - أحلى القصص للأطفال">
+        <div>
+          <h2>أهلاً! أنا <span>ريكسو</span> 🦖</h2>
+          <p>فريقنا يرحب بك ويسعد بالرد على جميع استفساراتك في أقرب وقت ممكن. لا تتردد في التواصل معنا!</p>
+        </div>
+      </div>
+
+      <!-- قنوات التواصل -->
+      <div class="card">
+        <h2><span class="icon">📡</span> قنوات التواصل</h2>
+        <div class="channels-grid">
+          <a href="mailto:a7la.al9isas@gmail.com" class="channel-item">
+            <span class="ch-icon">📧</span>
+            <h3>البريد الإلكتروني</h3>
+            <p>للاستفسارات الرسمية والتعاون</p>
+            <span class="ch-value">a7la.al9isas@gmail.com</span>
+          </a>
+
+          <a href="https://www.tiktok.com/@a7la_al9isas_lelatfel" target="_blank" rel="noopener" class="channel-item">
+            <span class="ch-icon">🎵</span>
+            <h3>تيك توك</h3>
+            <p>تابعنا لآخر الفيديوهات القصيرة</p>
+            <span class="ch-value">@a7la_al9isas_lelatfel</span>
+          </a>
+
+          <a href="#" class="channel-item">
+            <span class="ch-icon">▶️</span>
+            <h3>يوتيوب</h3>
+            <p>قناتنا الرسمية للقصص والحلقات</p>
+            <span class="ch-value">أحلى القصص للأطفال</span>
+          </a>
+
+          <a href="https://www.facebook.com/profile.php?id=61576170142028" target="_blank" rel="noopener" class="channel-item">
+            <span class="ch-icon">📘</span>
+            <h3>فيسبوك</h3>
+            <p>تابع صفحتنا لأحدث المحتوى</p>
+            <span class="ch-value">أحلى القصص للأطفال</span>
+          </a>
+        </div>
+
+        <div class="response-box">
+          <span class="r-icon">⏱️</span>
+          <p><strong>وقت الرد:</strong> نلتزم بالرد على جميع الرسائل خلال <strong>24 إلى 48 ساعة</strong> في أيام العمل.</p>
+        </div>
+      </div>
+
+      <!-- نموذج الاتصال -->
+      <div class="card">
+        <h2><span class="icon">✉️</span> أرسل لنا رسالة</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>الاسم الكريم <span>*</span></label>
+            <input type="text" placeholder="اكتب اسمك هنا...">
+          </div>
+          <div class="form-group">
+            <label>البريد الإلكتروني <span>*</span></label>
+            <input type="email" placeholder="a7la.al9isas@gmail.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>موضوع الرسالة <span>*</span></label>
+          <select>
+            <option value="" disabled selected>اختر موضوع رسالتك...</option>
+            <option>استفسار عام</option>
+            <option>اقتراح قصة أو محتوى جديد</option>
+            <option>طلب تعاون أو شراكة</option>
+            <option>الإبلاغ عن مشكلة في الموقع</option>
+            <option>سؤال عن الإعلانات</option>
+            <option>أخرى</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>رسالتك <span>*</span></label>
+          <textarea placeholder="اكتب رسالتك هنا بكل تفاصيلها وسنرد عليك في أقرب وقت..."></textarea>
+        </div>
+
+        <button class="submit-btn" onclick="alert('شكراً لتواصلك معنا! سنرد عليك قريباً 🦖')">
+          إرسال الرسالة 📨
+        </button>
+
+        <div class="form-note">
+          🔒 لن نستخدم بريدك الإلكتروني لأي غرض غير التواصل معك. يمكنك مراجعة <a href="/privacy">سياسة الخصوصية</a>.
+        </div>
+      </div>
+
+      <!-- معلومات الفريق -->
+      <div class="card">
+        <h2><span class="icon">👥</span> من سيرد عليك؟</h2>
+        <div class="team-info">
+          <div class="team-icon">🦖</div>
+          <div>
+            <p><strong>فريق أحلى القصص للأطفال</strong> — مجموعة من المتخصصين في التربية وتطوير المحتوى للأطفال. نحرص على الرد على كل رسالة بكل احترام وسرعة.</p>
+            <p style="margin-top: 8px; font-size: 13px;">📧 البريد الرسمي: <strong>a7la.al9isas@gmail.com</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="card">
+        <h2><span class="icon">❓</span> أسئلة شائعة</h2>
+
+        <div class="faq-item" itemscope itemtype="https://schema.org/Question">
+          <div class="faq-q" itemprop="name">كيف يمكنني اقتراح قصة جديدة؟</div>
+          <div class="faq-a" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <span itemprop="text">يسعدنا استقبال اقتراحاتك! أرسل لنا فكرة القصة عبر النموذج أعلاه أو عبر البريد الإلكتروني، وسيراجعها فريقنا بكل اهتمام.</span>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemtype="https://schema.org/Question">
+          <div class="faq-q" itemprop="name">هل يمكنني استخدام قصصكم في الفصل الدراسي؟</div>
+          <div class="faq-a" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <span itemprop="text">نعم! محتوانا متاح للاستخدام التعليمي غير التجاري. للاستخدام التجاري أو النشر، يرجى التواصل معنا أولاً للحصول على الإذن.</span>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemtype="https://schema.org/Question">
+          <div class="faq-q" itemprop="name">كيف أتعاون مع موقعكم إعلانياً؟</div>
+          <div class="faq-a" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <span itemprop="text">نرحب بفرص التعاون مع العلامات التجارية المتوافقة مع محتوى الأطفال. تواصل معنا عبر البريد الإلكتروني مع تفاصيل طلبك.</span>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemtype="https://schema.org/Question">
+          <div class="faq-q" itemprop="name">هل المحتوى مجاني تماماً؟</div>
+          <div class="faq-a" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <span itemprop="text">نعم! جميع قصصنا وفيديوهاتنا وأغانينا متاحة مجاناً لجميع الأطفال وعائلاتهم بدون أي رسوم.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

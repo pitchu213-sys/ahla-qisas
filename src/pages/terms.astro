@@ -1,0 +1,147 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "شروط الاستخدام";
+const pageDescription = "شروط استخدام موقع أحلى القصص للأطفال. اقرأ الشروط بعناية قبل استخدام الموقع.";
+const canonicalUrl = "https://a7la-al9isas-lelatfel.blogspot.com/terms";
+const ogImage = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGcJTrLMZgvJyOOyvxKrPGWHTkNBiRXsQZqG-Rud90ZeaKRjKzeRW3UN2fco_mH5TCJ6zDfk1RvnWMr8_9sdVaNL1SL6PFjyPMZ2JB4FmWPcFqhZlAaIHFT9TF5IBYQiSKAAFTBL0oRlV5uDlRyjxU_H08vL3qj_Wc1txMrOvTpdgeBJt_oaCBj151r50/s1600/1000002869.png";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <slot slot="head">
+    <meta property="og:title" content={`${pageTitle} - أحلى القصص للأطفال`} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="ar_AR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${pageTitle} - أحلى القصص للأطفال`} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <script type="application/ld+json" set:html>
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "شروط الاستخدام - أحلى القصص للأطفال",
+        "description": "{pageDescription}",
+        "url": "{canonicalUrl}",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "أحلى القصص للأطفال",
+          "url": "https://a7la-al9isas-lelatfel.blogspot.com/"
+        }
+      }
+    </script>
+  </slot>
+
+  <Header />
+
+  <main>
+    <!-- Hero: نستخدم تدرج about-card الموجود -->
+    <section class="about-card" style="border-radius: 0 0 2rem 2rem; margin-bottom: 2rem; text-align: center; padding: 4rem 1rem;">
+      <div class="container">
+        <div class="hero-badge">📋 وثيقة رسمية</div>
+        <h1 style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: #fff;">📋 شروط الاستخدام</h1>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; font-size: 0.85rem; opacity: 0.8; color: #fff; margin-top: 1rem;">
+          <span>🏠 <a href="/" style="color: var(--gold);">الرئيسية</a></span>
+          <span>📅 آخر تحديث: <time datetime="2026-03-26">26 مارس 2026</time></span>
+          <span>🦖 أحلى القصص للأطفال — ريكسو</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div style="text-align: center;">
+        <div class="update-date">📅 آخر تحديث: مارس 2026</div>
+      </div>
+
+      <!-- مقدمة -->
+      <div class="card">
+        <h2><span class="icon">📜</span> مقدمة</h2>
+        <p>مرحباً بك في موقع <strong>أحلى القصص للأطفال</strong>. باستخدامك لهذا الموقع، فإنك توافق على الالتزام بشروط الاستخدام التالية. إذا كنت لا توافق على أي بند، يرجى عدم استخدام الموقع.</p>
+        <div class="highlight">
+          🦖 هذا الموقع موجه للأطفال وعائلاتهم، ونحرص على توفير بيئة آمنة وممتعة للجميع.
+        </div>
+      </div>
+
+      <!-- استخدام الموقع -->
+      <div class="card">
+        <h2><span class="icon">👤</span> استخدام الموقع</h2>
+        <ul>
+          <li>يُسمح لك بتصفح الموقع والاستفادة من محتواه المجاني لأغراض شخصية وغير تجارية فقط.</li>
+          <li>يُمنع نسخ أو إعادة نشر أو توزيع أي محتوى من الموقع (قصص، صور، فيديوهات) دون إذن كتابي مسبق.</li>
+          <li>يجب عدم استخدام الموقع بأي طريقة قد تضر بتجربة المستخدمين الآخرين أو تعطل عمل الموقع.</li>
+        </ul>
+      </div>
+
+      <!-- المحتوى -->
+      <div class="card">
+        <h2><span class="icon">🎨</span> حقوق الملكية الفكرية</h2>
+        <p>جميع المحتويات المنشورة على هذا الموقع (بما في ذلك القصص، الرسوم، الفيديوهات، الأغاني، والشخصيات) هي ملكية حصرية لـ <strong>أحلى القصص للأطفال</strong> ومحمية بموجب قوانين حقوق النشر.</p>
+        <p>يمنع استخدام أي جزء من هذا المحتوى لأغراض تجارية أو إعادة نشره دون ترخيص.</p>
+      </div>
+
+      <!-- سلوك المستخدم -->
+      <div class="card">
+        <h2><span class="icon">🤝</span> سلوك المستخدم</h2>
+        <p>باستخدامك للموقع، فإنك تتعهد بعدم:</p>
+        <ul>
+          <li>نشر أي محتوى غير لائق أو مسيء أو ضار بالأطفال.</li>
+          <li>محاولة اختراق الموقع أو الوصول غير المصرح به إلى أنظمته.</li>
+          <li>انتحال شخصية فريق الموقع أو أي شخص آخر.</li>
+        </ul>
+      </div>
+
+      <!-- روابط خارجية -->
+      <div class="card">
+        <h2><span class="icon">🔗</span> روابط خارجية</h2>
+        <p>قد يحتوي الموقع على روابط لمواقع خارجية (مثل YouTube وGoogle). نحن غير مسؤولين عن محتوى أو ممارسات هذه المواقع، ويخضع استخدامك لها لشروطها الخاصة.</p>
+      </div>
+
+      <!-- إخلاء المسؤولية -->
+      <div class="card">
+        <h2><span class="icon">⚠️</span> إخلاء المسؤولية</h2>
+        <p>نحن نعمل بجد لضمان دقة وجودة محتوى الموقع، ولكننا لا نقدم أي ضمانات صريحة أو ضمنية بخصوص اكتمال أو دقة المعلومات. استخدامك للموقع يتم على مسؤوليتك الخاصة.</p>
+      </div>
+
+      <!-- التعديلات -->
+      <div class="card">
+        <h2><span class="icon">🔄</span> تعديلات الشروط</h2>
+        <p>نحتفظ بالحق في تعديل هذه الشروط في أي وقت. سيتم نشر التعديلات على هذه الصفحة مع تاريخ آخر تحديث. استمرارك في استخدام الموقع بعد التعديلات يعتبر قبولاً لها.</p>
+      </div>
+
+      <!-- تواصل -->
+      <div class="contact-box">
+        <h3>📬 هل لديك استفسار عن الشروط؟</h3>
+        <p>إذا كان لديك أي سؤال حول شروط الاستخدام، لا تتردد في التواصل معنا عبر صفحة <a href="/contact">تواصل معنا</a> أو عبر البريد الإلكتروني.</p>
+      </div>
+
+      <!-- AUTHOR BIO -->
+      <div class="author-bio" itemscope itemtype="https://schema.org/Person">
+        <img src={ogImage} class="author-img" alt="فريق أحلى القصص للأطفال" itemprop="image">
+        <div class="author-info">
+          <h3 itemprop="name">فريق أحلى القصص للأطفال</h3>
+          <p itemprop="description">متخصصون في إنتاج محتوى عربي تعليمي وترفيهي للأطفال من 2 إلى 10 سنوات. نؤمن أن كل طفل يستحق قصة بلغته الأم مع ريكسو 🦖</p>
+          <div class="author-credentials">
+            <div style="font-weight:800; color:#4a3000;">🎯 التزامنا بالجودة</div>
+            <p style="font-size:12px; margin-top:4px;">نحرص على أن يكون كل محتوى آمن، علمي، وممتع. نعتمد على أبحاث تطوير الطفل في تصميم قصصنا وفيديوهاتنا، ونختبر المواد مع أطفال قبل النشر.</p>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px;">
+            <a href="https://www.facebook.com/profile.php?id=61576170142028" style="color:var(--primary); font-size:13px;">📘 فيسبوك</a>
+            <a href="https://www.tiktok.com/@a7la_al9isas_lelatfel" style="color:var(--primary); font-size:13px;">🎵 تيك توك</a>
+            <a href="/about" style="color:var(--primary); font-size:13px;">👋 من نحن</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
