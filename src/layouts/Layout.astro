@@ -1,34 +1,103 @@
 ---
 import '../styles/global.css';
 
+// 1. توسيع المتغيرات (Props) لتشمل الوصف والصورة ونوع الصفحة
 interface Props {
-  title: string;
-  description?: string;  // ← جديد: اختياري
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishDate?: string;
 }
 
+// 2. وضع قيم افتراضية (مهم جداً حتى لا يخرب الموقع إذا نسيت كتابتها في صفحة ما)
 const { 
-  title, 
-  description = "قصص تعليمية وترفيهية ممتعة وآمنة لطفلك مع ريكسو الديناصور"  // ← القيمة الافتراضية
+  title = 'الرئيسية', 
+  description = 'قصص تعليمية وترفيهية ممتعة وآمنة لطفلك مع ريكسو الديناصور. اكتشف عالم أحلى القصص!', 
+  image = '/images/default-og.jpg', // يجب أن تنشئ هذه الصورة لاحقاً
+  type = 'website',
+  publishDate = new Date().toISOString()
 } = Astro.props;
+
+// 3. تجهيز الروابط المطلقة (Absolute URLs) الضرورية للـ SEO
+const fullTitle = `${title} - أحلى القصص للأطفال`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const absoluteImageURL = new URL(image, Astro.site).href;
 ---
 
-<!DOCTYPE html>
+<!DOCTYPE html>  
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} - أحلى القصص للأطفال</title>
+    
+    <!-- ========== SEO الأساسي ========== -->
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- ========== Open Graph (لضبط شكل الرابط عند المشاركة في واتساب، فيسبوك، تليجرام) ========== -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={absoluteImageURL} />
+    <meta property="og:locale" content="ar_AR" />
+    <meta property="og:site_name" content="أحلى القصص" />
+
+    <!-- ========== Twitter Card (لضبط شكل الرابط في تويتر/X) ========== -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteImageURL} />
+
+    <!-- ========== خطوط وأيقونات (من إعداداتك الأصلية) ========== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
-    <!-- فتحة لحقن وسوم إضافية من الصفحات (لن تؤثر على الرئيسية) -->
-    <slot name="head" />
+    <!-- أيقونة الموقع (Favicon) - تأكد من وجود ملف favicon.svg في مجلد public -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- ========== بيانات المنظمة Schema (لمساعدة جوجل على فهم الموقع) ========== -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "أحلى قصص",
+      "url": Astro.site?.href,
+      "description": "موقع قصص أطفال تعليمية وترفيهية مع ريكسو الديناصور"
+    })} />
+
+    {/* بيانات إضافية تظهر فقط إذا كانت الصفحة عبارة عن قصة/مقال */}
+    {type === 'article' && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": fullTitle,
+        "image": absoluteImageURL,
+        "author": {
+          "@type": "Organization",
+          "name": "أحلى قصص"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "أحلى قصص",
+          "logo": {
+            "@type": "ImageObject",
+            "url": `${Astro.site?.href}logo.png`
+          }
+        },
+        "datePublished": publishDate,
+        "dateModified": publishDate
+      })} />
+    )}
   </head>
   <body>
     <slot />
+    
+    <!-- نجوم الخلفية (من إعداداتك الأصلية) -->
     <script>
       function makeStars(id, count){
         const c = document.getElementById(id); 
