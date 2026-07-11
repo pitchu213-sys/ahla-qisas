@@ -228,9 +228,34 @@ const optimizedPages = safePages.map(page => ({
     }
     .galeria-book-3d__item.portrait-current { transform: translateX(0); z-index: 15; }
     .galeria-book-3d__item.portrait-done { transform: translateX(-110vw); z-index: 5; }
-    .galeria-book-3d__item.is-open { --page-rotate: 0deg; }
-    .galeria-book-3d__item.show-back img:nth-child(1) { opacity: 0; }
-    .galeria-book-3d__item.show-back img:nth-child(2) { opacity: 1; z-index: 2; }
+    .galeria-book-3d__item.is-open {
+  --page-rotate: 0deg;
+}
+
+/* في الهاتف نعرض الصور بالتبديل بدل الدوران ثلاثي الأبعاد */
+.galeria-book-3d__item img:nth-child(1) {
+  transform: none;
+  opacity: 1;
+  z-index: 2;
+  transition: opacity 0.2s ease;
+}
+
+.galeria-book-3d__item img:nth-child(2) {
+  transform: none;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.2s ease;
+}
+
+.galeria-book-3d__item.show-back img:nth-child(1) {
+  opacity: 0;
+  z-index: 1;
+}
+
+.galeria-book-3d__item.show-back img:nth-child(2) {
+  opacity: 1;
+  z-index: 3;
+}
   }
 </style>
 
