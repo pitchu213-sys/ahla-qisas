@@ -3,22 +3,81 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 
 const storyFiles = import.meta.glob('../../content/stories/*.md', { eager: true });
-const allStories = Object.entries(storyFiles).map(([path, mod]) => ({
-  slug: path.split('/').pop()?.replace('.md', ''),
-  ...mod.frontmatter
-}));
 
-const categories = [...new Set(allStories.map(s => s.category).filter(Boolean))];
+const allStories = Object.entries(storyFiles).map(([path, mod]) => {
+  const slug = path.split('/').pop()?.replace('.md', '') ?? '';
+  const frontmatter = mod.frontmatter ?? {};
+  const firstPage = frontmatter.pages?.[0]?.front || frontmatter.heroImage || '';
+
+  const image = firstPage
+    ? firstPage.startsWith('http') || firstPage.startsWith('/')
+      ? firstPage
+      : `/images/stories/${slug}/${firstPage}`
+    : '';
+
+  return {
+    slug,
+    title: frontmatter.title ?? 'قصة أطفال',
+    description: frontmatter.description ?? '',
+    category: frontmatter.category ?? 'قصص أخرى',
+    image
+  };
+});
+
+const categories = [...new Set(allStories.map((story) => story.category).filter(Boolean))];
+
+const pageTitle = 'قصص أطفال عربية مصورة | مكتبة ريكسو';
+const pageDescription = 'اكتشف مكتبة ريكسو للقصص العربية المصورة والتعليمية للأطفال، واختر قصص الديناصورات وجسم الإنسان والمغامرات الممتعة.';
+const canonicalURL = new URL('/stories', Astro.site);
+const socialImage = new URL('/favicon.svg', Astro.site).href;
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'مكتبة ريكسو للقصص',
+  description: pageDescription,
+  url: canonicalURL.href,
+  inLanguage: 'ar',
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: allStories.length,
+    itemListElement: allStories.map((story, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: story.title,
+      url: new URL(`/stories/${story.slug}`, Astro.site).href
+    }))
+  }
+};
 ---
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مكتبة القصص | أحلى القصص للأطفال</title>
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription} />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} />
+  <meta property="og:image" content={socialImage} />
+  <meta property="og:locale" content="ar_AR" />
+  <meta property="og:site_name" content="أحلى القصص للأطفال" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={pageDescription} />
+  <meta name="twitter:image" content={socialImage} />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Lalezar&display=swap" rel="stylesheet"/>
-  
-  <!-- تنسيقات عامة للصفحة (لا تشمل الكتب) -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Lalezar&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
+
   <style>
     body {
       margin: 0;
@@ -38,17 +97,22 @@ const categories = [...new Set(allStories.map(s => s.category).filter(Boolean))]
       margin-bottom: 30px;
     }
 
-    #stories-banner h2 {
+    #stories-banner h1 {
       font-family: 'Lalezar', cursive;
       font-size: 2.2rem;
       color: #ffcc00;
       margin: 0 0 10px;
-      text-shadow: 0 0 20px rgba(255,204,0,0.5);
+      text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+    }
+
+    #stories-banner p {
+      margin: 0;
+      line-height: 1.8;
     }
 
     @keyframes twinkle {
-      0%,100% { opacity:1; transform:scale(1); }
-      50% { opacity:0.3; transform:scale(0.7); }
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.7); }
     }
 
     .category-grid {
@@ -57,7 +121,7 @@ const categories = [...new Set(allStories.map(s => s.category).filter(Boolean))]
       gap: 30px;
       padding: 20px 16px;
       max-width: 1100px;
-      margin: 0 auto;
+      margin: 0 auto 20px;
     }
 
     .category-card {
@@ -71,61 +135,86 @@ const categories = [...new Set(allStories.map(s => s.category).filter(Boolean))]
       justify-content: center;
       text-decoration: none;
       color: #fff;
-      transition: 0.3s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .category-card:hover { transform: translateY(-10px); }
-    .category-card .icon { font-size: 4rem; margin-bottom: 10px; }
 
-    .back-button {
-      display: block;
-      width: fit-content;
-      margin: 20px auto;
-      background: #1976d2;
-      color: white;
-      padding: 10px 25px;
-      border-radius: 30px;
-      text-decoration: none;
+    .category-card:hover,
+    .category-card:focus-visible {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+      outline: 3px solid #ffcc00;
+      outline-offset: 3px;
     }
-  </style>
 
-  <!-- تنسيقات الكتب العالمية (لتطبق على العناصر الديناميكية) -->
-  <style is:global>
+    .category-card .icon {
+      font-size: 4rem;
+      margin-bottom: 10px;
+    }
+
+    .category-card h2 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .books-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 16px 50px;
+    }
+
+    .books-heading {
+      text-align: center;
+      margin: 10px 0 20px;
+    }
+
+    .books-heading h2 {
+      color: #ffcc00;
+      margin: 0 0 6px;
+      font-size: 1.8rem;
+    }
+
+    .books-heading p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
     #booksContainer {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
-      padding: 20px 16px;
-      max-width: 1100px;
-      margin: 0 auto;
+      gap: 24px 20px;
+      padding: 20px 0;
     }
 
-    #booksContainer .book-cell {
-      width: 110px !important;
-      max-width: 110px !important;
+    .book-cell {
+      width: 110px;
+      max-width: 110px;
       text-align: center;
       color: white;
     }
 
-    #booksContainer .book {
-      width: 110px !important;
-      max-width: 110px !important;
-      height: 160px !important;
-      max-height: 160px !important;
+    .book-cell[hidden] {
+      display: none !important;
+    }
+
+    .book {
+      width: 110px;
+      height: 160px;
       position: relative;
       transform-style: preserve-3d;
       transition: transform 0.6s ease;
-      filter: drop-shadow(8px 12px 20px rgba(0,0,0,0.5));
+      filter: drop-shadow(8px 12px 20px rgba(0, 0, 0, 0.5));
       margin: 0 auto;
       overflow: hidden;
     }
 
-    #booksContainer .book:hover { transform: rotateY(-35deg); }
+    .book-cell:hover .book {
+      transform: rotateY(-25deg);
+    }
 
-    #booksContainer .book-front {
+    .book-front {
       position: absolute;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       border-radius: 5px 12px 12px 5px;
       overflow: hidden;
       background: linear-gradient(135deg, #f9a825, #ff7043);
@@ -134,19 +223,19 @@ const categories = [...new Set(allStories.map(s => s.category).filter(Boolean))]
       justify-content: center;
     }
 
-    #booksContainer .book-front img {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
+    .book-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
     }
 
-    #booksContainer .book-spine {
+    .book-spine {
       position: absolute;
       width: 22px;
       height: 100%;
       left: -11px;
-      background: linear-gradient(to right, #8B3A00, #c75000, #a84000);
+      background: linear-gradient(to right, #8b3a00, #c75000, #a84000);
       transform: rotateY(-90deg) translateZ(14px);
       transform-origin: right center;
       display: flex;
@@ -154,162 +243,162 @@ const categories = [...new Set(allStories.map(s => s.category).filter(Boolean))]
       justify-content: center;
     }
 
-    #booksContainer .book-spine span {
+    .book-spine span {
       writing-mode: vertical-rl;
       color: #fff;
       font-size: 8px;
       transform: rotate(180deg);
     }
 
-    #booksContainer .book-title {
+    .book-title {
       font-size: 12px;
       margin-top: 8px;
-      line-height: 1.3;
+      line-height: 1.4;
+      min-height: 34px;
     }
 
-    #booksContainer .book-read-btn {
+    .book-read-btn {
       display: inline-block;
       background: #f9a825;
       color: #000;
-      padding: 4px 10px;
+      padding: 5px 11px;
       border-radius: 20px;
       font-size: 10px;
       font-weight: bold;
       text-decoration: none;
-      margin-top: 4px;
+      margin-top: 5px;
+    }
+
+    .book-read-btn:focus-visible,
+    .book-front:focus-visible,
+    .back-button:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
+    .back-button {
+      display: block;
+      width: fit-content;
+      margin: 20px auto 0;
+      background: #1976d2;
+      color: white;
+      padding: 10px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+    }
+
+    .back-button[hidden],
+    #empty-message[hidden] {
+      display: none;
+    }
+
+    #empty-message {
+      text-align: center;
+      width: 100%;
+      padding: 40px 10px;
     }
   </style>
 </head>
 <body>
   <Header />
 
-  <div id="stories-banner">
-    <div style="position:absolute;top:10%;left:5%;font-size:20px;animation:twinkle 2s infinite;">⭐</div>
-    <div style="position:absolute;top:20%;right:8%;font-size:14px;animation:twinkle 2.5s infinite;">✨</div>
-    <div style="font-size:50px;margin-bottom:10px;">🦖</div>
-    <h2>مكتبة ريكسو للقصص</h2>
-    <p>اختر قصتك واستمتع بالقراءة مع ريكسو 📖</p>
-  </div>
+  <main>
+    <header id="stories-banner">
+      <div style="position:absolute;top:10%;left:5%;font-size:20px;animation:twinkle 2s infinite;">⭐</div>
+      <div style="position:absolute;top:20%;right:8%;font-size:14px;animation:twinkle 2.5s infinite;">✨</div>
+      <div aria-hidden="true" style="font-size:50px;margin-bottom:10px;">🦖</div>
+      <h1>مكتبة ريكسو للقصص</h1>
+      <p>اختر قصتك واستمتع بالقراءة مع ريكسو 📖</p>
+    </header>
 
-  <div id="categories-grid" class="category-grid">
-    {categories.map(cat => (
-      <a href={`?category=${encodeURIComponent(cat)}`} class="category-card">
-        <span class="icon">📚</span>
-        <h3>{cat}</h3>
-      </a>
-    ))}
-  </div>
+    <nav id="categories-grid" class="category-grid" aria-label="تصنيفات القصص">
+      {categories.map((category) => (
+        <a href={`?category=${encodeURIComponent(category)}`} class="category-card" data-category-link={category}>
+          <span class="icon" aria-hidden="true">📚</span>
+          <h2>{category}</h2>
+        </a>
+      ))}
+    </nav>
 
-  <div id="booksContainer" style="display:none;"></div>
-  <a href="?" id="back-btn" class="back-button" style="display:none;">⬅️ عرض كل المكتبات</a>
+    <section class="books-section" aria-labelledby="books-heading">
+      <div class="books-heading">
+        <h2 id="books-heading">جميع القصص</h2>
+        <p id="books-count">{allStories.length} قصة متاحة</p>
+      </div>
+
+      <div id="booksContainer">
+        {allStories.map((story) => (
+          <article class="book-cell" data-category={story.category}>
+            <div class="book">
+              <div class="book-spine" aria-hidden="true"><span>{story.title}</span></div>
+              <a href={`/stories/${story.slug}`} class="book-front" aria-label={`اقرأ قصة ${story.title}`}>
+                {story.image
+                  ? <img src={story.image} alt={`غلاف قصة ${story.title}`} loading="lazy" decoding="async" width="110" height="160" />
+                  : <span aria-hidden="true">📖</span>}
+              </a>
+            </div>
+            <h3 class="book-title">{story.title}</h3>
+            <a href={`/stories/${story.slug}`} class="book-read-btn">اقرأ الآن</a>
+          </article>
+        ))}
+      </div>
+
+      <p id="empty-message" hidden>📚 لا توجد قصص في هذا التصنيف بعد.</p>
+      <a href="/stories" id="back-btn" class="back-button" hidden>⬅️ عرض كل المكتبات</a>
+    </section>
+  </main>
 
   <Footer />
 
-  <script define:vars={{
-  storiesJSON: allStories.map(s => {
-  const firstPage = s.pages?.[0]?.front || '';
-  const imageSrc = firstPage
-    ? (firstPage.startsWith('http')
-        ? firstPage                     // رابط خارجي كما هو
-        : `/images/stories/${s.slug}/${firstPage}`) // مسار محلي
-    : '';
-  return {
-    title: s.title,
-    slug: s.slug,
-    category: s.category,
-    image: imageSrc
-  };
-})
-}}>
-    const STORIES = storiesJSON;
+  <script>
+    const categoriesGrid = document.getElementById('categories-grid');
+    const categoryLinks = Array.from(document.querySelectorAll('[data-category-link]'));
+    const storyCards = Array.from(document.querySelectorAll('.book-cell'));
+    const booksHeading = document.getElementById('books-heading');
+    const booksCount = document.getElementById('books-count');
+    const emptyMessage = document.getElementById('empty-message');
+    const backButton = document.getElementById('back-btn');
 
-    (function() {
-      const categoriesGrid = document.getElementById('categories-grid');
-      const booksContainer = document.getElementById('booksContainer');
-      const backBtn = document.getElementById('back-btn');
+    function showStories(category = '') {
+      let visibleCount = 0;
 
-      const params = new URLSearchParams(window.location.search);
-      const activeCategory = params.get('category');
-
-      if (activeCategory) {
-        renderBooks(activeCategory);
-      }
-
-      categoriesGrid.addEventListener('click', (e) => {
-        const card = e.target.closest('.category-card');
-        if (!card) return;
-        e.preventDefault();
-        const category = new URL(card.href).searchParams.get('category');
-        if (category) {
-          history.pushState(null, '', `?category=${encodeURIComponent(category)}`);
-          renderBooks(category);
-        }
+      storyCards.forEach((card) => {
+        const shouldShow = !category || card.dataset.category === category;
+        card.hidden = !shouldShow;
+        if (shouldShow) visibleCount += 1;
       });
 
-      backBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        history.pushState(null, '', '?');
-        resetToCategories();
+      booksHeading.textContent = category ? `قصص ${category}` : 'جميع القصص';
+      booksCount.textContent = `${visibleCount} قصة متاحة`;
+      emptyMessage.hidden = visibleCount !== 0;
+      backButton.hidden = !category;
+      categoriesGrid.style.display = category ? 'none' : 'grid';
+    }
+
+    function categoryFromURL() {
+      return new URLSearchParams(window.location.search).get('category') || '';
+    }
+
+    categoryLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const category = link.dataset.categoryLink || '';
+        history.pushState({}, '', `?category=${encodeURIComponent(category)}`);
+        showStories(category);
       });
-
-      window.addEventListener('popstate', () => {
-        const newParams = new URLSearchParams(window.location.search);
-        const newCategory = newParams.get('category');
-        if (newCategory) {
-          renderBooks(newCategory);
-        } else {
-          resetToCategories();
-        }
-      });
-
-      function resetToCategories() {
-        categoriesGrid.style.display = 'grid';
-        booksContainer.style.display = 'none';
-        backBtn.style.display = 'none';
-      }
-
-      const CATEGORY_BACKGROUNDS = {
-  'الديناصورات': 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp',
-  'مغامرات':   'رابط_الصورة_هنا',
-  'علوم':      'رابط_الصورة_هنا',
-};
-
-function renderBooks(category) {
-  const filtered = STORIES.filter(s => s.category === category);
-  booksContainer.innerHTML = '';
-
-  const bg = CATEGORY_BACKGROUNDS[category] || '';
-
-  if (filtered.length === 0) {
-    booksContainer.innerHTML = '<div style="text-align:center;width:100%;padding:40px;">📚 لا توجد قصص هنا بعد!</div>';
-  } else {
-    filtered.forEach(story => {
-      const cell = document.createElement('div');
-      cell.className = 'book-cell';
-
-      const bgStyle = bg
-        ? `background-image: url('${bg}'); background-size: cover; background-position: center;`
-        : 'background: linear-gradient(135deg, #f9a825, #ff7043);';
-
-      cell.innerHTML = `
-        <div class="book">
-          <div class="book-spine"><span>${story.title}</span></div>
-          <a href="/stories/${story.slug}" class="book-front" style="${bgStyle}">
-            ${story.image ? `<img src="${story.image}" alt="${story.title}">` : '📖'}
-          </a>
-        </div>
-        <div class="book-title">${story.title}</div>
-        <a href="/stories/${story.slug}" class="book-read-btn">اقرأ الآن</a>
-      `;
-      booksContainer.appendChild(cell);
     });
-  }
 
-  categoriesGrid.style.display = 'none';
-  booksContainer.style.display = 'flex';
-  backBtn.style.display = 'block';
-}
-    })();
+    backButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      history.pushState({}, '', '/stories');
+      showStories();
+    });
+
+    window.addEventListener('popstate', () => {
+      showStories(categoryFromURL());
+    });
+
+    showStories(categoryFromURL());
   </script>
 </body>
 </html>
