@@ -1,8 +1,8 @@
 ---
 title: 'نَفَس: مغامرة داخل الرئتين'
-backgroundImage: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578181/photo%20book%20nafas/1_pehcti.jpg'
 description: 'قصة تعليمية مصورة للأطفال يكتشف فيها ريكسو كيف تعمل الرئتان، وكيف يدخل الأكسجين إلى الجسم.'
-category: 'جسم الإنسان'
+category: 'جسم الانسان'
+backgroundImage: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578181/photo%20book%20nafas/1_pehcti.jpg'
 heroImage: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578181/photo%20book%20nafas/1_pehcti.jpg'
 author: 'فريق ريكسو'
 date: '2026-07-12'
