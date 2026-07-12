@@ -15,12 +15,58 @@ const categoryColors = {
   'الطبيعة':     'tag-amber',
   'مهارات':      'tag-purple',
 };
+
+
+const pageTitle = 'فيديوهات تعليمية للأطفال | عالم ريكسو';
+const pageDescription = 'شاهد فيديوهات عربية تعليمية وممتعة للأطفال مع ريكسو عن جسم الإنسان والديناصورات والعلوم بطريقة مبسطة.';
+const canonicalURL = new URL('/videos', Astro.site);
+const pageImage = videos[0]?.thumbnail ??
+  (videos[0]?.videoId ? `https://img.youtube.com/vi/${videos[0].videoId}/hqdefault.jpg` : '/favicon.svg');
+const absoluteImageURL = new URL(pageImage, Astro.site).href;
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": canonicalURL.href,
+  "inLanguage": "ar",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": videos.length,
+    "itemListElement": videos.map((video, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": video.title,
+      "url": new URL(`/videos/${video.slug}`, Astro.site).href
+    }))
+  }
+};
 ---
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مكتبة الفيديوهات | أحلى القصص للأطفال</title>
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription} />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} />
+  <meta property="og:image" content={absoluteImageURL} />
+  <meta property="og:locale" content="ar_AR" />
+  <meta property="og:site_name" content="أحلى القصص للأطفال" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={pageDescription} />
+  <meta name="twitter:image" content={absoluteImageURL} />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
   <style>

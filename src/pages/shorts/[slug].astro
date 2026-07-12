@@ -21,6 +21,13 @@ export async function getStaticPaths() {
 const { frontmatter, Content } = Astro.props;
 ---
 
-<ShortLayout title={frontmatter.title} videoId={frontmatter.videoId}>
+<ShortLayout
+  title={frontmatter.title}
+  videoId={frontmatter.videoId}
+  description={frontmatter.description}
+  date={frontmatter.date}
+  category={frontmatter.category}
+  thumbnail={frontmatter.thumbnail}
+>
   <Content />
 </ShortLayout>
