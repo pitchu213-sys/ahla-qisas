@@ -88,47 +88,172 @@ const teamImage = "/logo.png";
       </div>
 
       <!-- نموذج الاتصال -->
-      <div class="card">
-        <h2><span class="icon">✉️</span> أرسل لنا رسالة</h2>
+<form
+  id="contact-form"
+  class="card"
+  action="https://api.web3forms.com/submit"
+  method="POST"
+>
+  <h2>
+    <span class="icon">✉️</span>
+    أرسل لنا رسالة
+  </h2>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label>الاسم الكريم <span>*</span></label>
-            <input type="text" placeholder="اكتب اسمك هنا...">
-          </div>
-          <div class="form-group">
-            <label>البريد الإلكتروني <span>*</span></label>
-            <input type="email" placeholder="a7la.al9isas@gmail.com">
-          </div>
-        </div>
+  <input
+    type="hidden"
+    name="access_key"
+    value="ff29be77-5ec5-47a8-8668-208eb356f45d"
+  />
 
-        <div class="form-group">
-          <label>موضوع الرسالة <span>*</span></label>
-          <select>
-            <option value="" disabled selected>اختر موضوع رسالتك...</option>
-            <option>استفسار عام</option>
-            <option>اقتراح قصة أو محتوى جديد</option>
-            <option>طلب تعاون أو شراكة</option>
-            <option>الإبلاغ عن مشكلة في الموقع</option>
-            <option>سؤال عن الإعلانات</option>
-            <option>أخرى</option>
-          </select>
-        </div>
+  <input
+    type="hidden"
+    name="subject"
+    value="رسالة جديدة من موقع عالم ريكسو"
+  />
 
-        <div class="form-group">
-          <label>رسالتك <span>*</span></label>
-          <textarea placeholder="اكتب رسالتك هنا بكل تفاصيلها وسنرد عليك في أقرب وقت..."></textarea>
-        </div>
+  <input
+    type="hidden"
+    name="from_name"
+    value="موقع عالم ريكسو"
+  />
 
-        <button class="submit-btn" onclick="alert('شكراً لتواصلك معنا! سنرد عليك قريباً 🦖')">
-          إرسال الرسالة 📨
-        </button>
+  <input
+    type="checkbox"
+    name="botcheck"
+    tabindex="-1"
+    autocomplete="off"
+    style="display: none;"
+  />
 
-        <div class="form-note">
-          🔒 لن نستخدم بريدك الإلكتروني لأي غرض غير التواصل معك. يمكنك مراجعة <a href="/privacy">سياسة الخصوصية</a>.
-        </div>
-      </div>
+  <p class="parents-note">
+    هذا النموذج مخصص للوالدين وأولياء الأمور.
+  </p>
 
+  <div class="form-row">
+    <div class="form-group">
+      <label for="contact-name">
+        الاسم الكريم <span>*</span>
+      </label>
+
+      <input
+        id="contact-name"
+        type="text"
+        name="name"
+        placeholder="اكتب اسمك هنا..."
+        autocomplete="name"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="contact-email">
+        البريد الإلكتروني <span>*</span>
+      </label>
+
+      <input
+        id="contact-email"
+        type="email"
+        name="email"
+        placeholder="a7la.al9isas@gmail.com"
+        autocomplete="email"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="contact-topic">
+      موضوع الرسالة <span>*</span>
+    </label>
+
+    <select
+      id="contact-topic"
+      name="topic"
+      required
+    >
+      <option value="" disabled selected>
+        اختر موضوع رسالتك...
+      </option>
+
+      <option value="استفسار عام">
+        استفسار عام
+      </option>
+
+      <option value="اقتراح قصة أو محتوى جديد">
+        اقتراح قصة أو محتوى جديد
+      </option>
+
+      <option value="طلب تعاون أو شراكة">
+        طلب تعاون أو شراكة
+      </option>
+
+      <option value="الإبلاغ عن مشكلة في الموقع">
+        الإبلاغ عن مشكلة في الموقع
+      </option>
+
+      <option value="سؤال عن الإعلانات">
+        سؤال عن الإعلانات
+      </option>
+
+      <option value="أخرى">
+        أخرى
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="contact-message">
+      رسالتك <span>*</span>
+    </label>
+
+    <textarea
+      id="contact-message"
+      name="message"
+      rows="7"
+      minlength="10"
+      placeholder="اكتب رسالتك هنا بكل تفاصيلها وسنرد عليك في أقرب وقت..."
+      required
+    ></textarea>
+  </div>
+
+  <button
+    class="submit-btn"
+    type="submit"
+  >
+    إرسال الرسالة 📨
+  </button>
+
+  <div class="form-note">
+    🔒 لن نستخدم بريدك الإلكتروني لأي غرض غير التواصل معك.
+    يمكنك مراجعة
+    <a href="/privacy">سياسة الخصوصية</a>.
+  </div>
+</form>
+
+<!-- معلومات الفريق -->
+<div class="card">
+  <h2>
+    <span class="icon">👥</span>
+    من سيرد عليك؟
+  </h2>
+
+  <div class="team-info">
+    <div class="team-icon">🦖</div>
+
+    <div>
+      <p>
+        <strong>فريق أحلى القصص للأطفال</strong>
+        — مجموعة من المتخصصين في التربية وتطوير المحتوى للأطفال.
+        نحرص على الرد على كل رسالة بكل احترام وسرعة.
+      </p>
+
+      <p style="margin-top: 8px; font-size: 13px;">
+        📧 البريد الرسمي:
+        <strong>a7la.al9isas@gmail.com</strong>
+      </p>
+    </div>
+  </div>
+</div>
       <!-- معلومات الفريق -->
       <div class="card">
         <h2><span class="icon">👥</span> من سيرد عليك؟</h2>
