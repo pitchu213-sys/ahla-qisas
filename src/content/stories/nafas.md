@@ -8,7 +8,7 @@ author: 'فريق ريكسو'
 date: '2026-03-24'
 introText: 'هل تتخيلون ديناصوراً رأسه يصل إلى السحاب؟ ☁️<br>اليوم ريكسو يأخذكم لمقابلة أطول صديق في الغابة كلها — إنه "لطيف" البراكيوصور!'
 pages:
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/15_fyfwbn.jpg'
+  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578181/photo%20book%20nafas/1_pehcti.jpg'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/2_rpvtc4.jpg'
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/3_mt9nfm.jpg'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/4_upgzgz.jpg'
