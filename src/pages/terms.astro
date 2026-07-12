@@ -5,41 +5,11 @@ import Footer from '../components/Footer.astro';
 
 const pageTitle = "شروط الاستخدام";
 const pageDescription = "شروط استخدام موقع أحلى القصص للأطفال. اقرأ الشروط بعناية قبل استخدام الموقع.";
-const canonicalUrl = "https://a7la-al9isas-lelatfel.blogspot.com/terms";
-const ogImage = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGcJTrLMZgvJyOOyvxKrPGWHTkNBiRXsQZqG-Rud90ZeaKRjKzeRW3UN2fco_mH5TCJ6zDfk1RvnWMr8_9sdVaNL1SL6PFjyPMZ2JB4FmWPcFqhZlAaIHFT9TF5IBYQiSKAAFTBL0oRlV5uDlRyjxU_H08vL3qj_Wc1txMrOvTpdgeBJt_oaCBj151r50/s1600/1000002869.png";
+const pageImage = "/images/default-og.jpg";
+const teamImage = "/logo.png";
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
-  <slot slot="head">
-    <meta property="og:title" content={`${pageTitle} - أحلى القصص للأطفال`} />
-    <meta property="og:description" content={pageDescription} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="ar_AR" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${pageTitle} - أحلى القصص للأطفال`} />
-    <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:image" content={ogImage} />
-    <link rel="canonical" href={canonicalUrl} />
-
-    <script type="application/ld+json" set:html>
-      {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "شروط الاستخدام - أحلى القصص للأطفال",
-        "description": "{pageDescription}",
-        "url": "{canonicalUrl}",
-        "isPartOf": {
-          "@type": "WebSite",
-          "name": "أحلى القصص للأطفال",
-          "url": "https://a7la-al9isas-lelatfel.blogspot.com/"
-        }
-      }
-    </script>
-  </slot>
+<Layout title={pageTitle} description={pageDescription} image={pageImage}>
 
   <Header />
 
@@ -125,7 +95,7 @@ const ogImage = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGcJ
 
       <!-- AUTHOR BIO -->
       <div class="author-bio" itemscope itemtype="https://schema.org/Person">
-        <img src={ogImage} class="author-img" alt="فريق أحلى القصص للأطفال" itemprop="image">
+        <img src={teamImage} class="author-img" alt="فريق أحلى القصص للأطفال" itemprop="image">
         <div class="author-info">
           <h3 itemprop="name">فريق أحلى القصص للأطفال</h3>
           <p itemprop="description">متخصصون في إنتاج محتوى عربي تعليمي وترفيهي للأطفال من 2 إلى 10 سنوات. نؤمن أن كل طفل يستحق قصة بلغته الأم مع ريكسو 🦖</p>

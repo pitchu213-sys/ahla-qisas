@@ -5,48 +5,11 @@ import Footer from '../components/Footer.astro';
 
 const pageTitle = "تواصل معنا";
 const pageDescription = "صفحة التواصل مع فريق أحلى القصص للأطفال. يمكنك إرسال استفساراتك، اقتراحاتك، أو طلبات التعاون.";
-const canonicalUrl = "https://a7la-al9isas-lelatfel.blogspot.com/contact";
-const ogImage = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGcJTrLMZgvJyOOyvxKrPGWHTkNBiRXsQZqG-Rud90ZeaKRjKzeRW3UN2fco_mH5TCJ6zDfk1RvnWMr8_9sdVaNL1SL6PFjyPMZ2JB4FmWPcFqhZlAaIHFT9TF5IBYQiSKAAFTBL0oRlV5uDlRyjxU_H08vL3qj_Wc1txMrOvTpdgeBJt_oaCBj151r50/s1600/1000002869.png";
+const pageImage = "/images/default-og.jpg";
+const teamImage = "/logo.png";
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
-  <slot slot="head">
-    <meta property="og:title" content={`${pageTitle} - أحلى القصص للأطفال`} />
-    <meta property="og:description" content={pageDescription} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="ar_AR" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${pageTitle} - أحلى القصص للأطفال`} />
-    <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:image" content={ogImage} />
-    <link rel="canonical" href={canonicalUrl} />
-
-    <script type="application/ld+json" set:html>
-      {
-        "@context": "https://schema.org",
-        "@type": "ContactPage",
-        "name": "تواصل معنا — أحلى القصص للأطفال",
-        "description": "{pageDescription}",
-        "url": "{canonicalUrl}",
-        "mainEntity": {
-          "@type": "Organization",
-          "name": "أحلى القصص للأطفال",
-          "contactPoint": [
-            {
-              "@type": "ContactPoint",
-              "email": "a7la.al9isas@gmail.com",
-              "contactType": "customer service",
-              "availableLanguage": "Arabic"
-            }
-          ]
-        }
-      }
-    </script>
-  </slot>
+<Layout title={pageTitle} description={pageDescription} image={pageImage}>
 
   <Header />
 
@@ -72,7 +35,7 @@ const ogImage = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGcJ
     <div class="container">
       <!-- ترحيب ريكسو -->
       <div class="rexo-welcome">
-        <img src={ogImage} alt="ريكسو - أحلى القصص للأطفال">
+        <img src={teamImage} alt="ريكسو - أحلى القصص للأطفال">
         <div>
           <h2>أهلاً! أنا <span>ريكسو</span> 🦖</h2>
           <p>فريقنا يرحب بك ويسعد بالرد على جميع استفساراتك في أقرب وقت ممكن. لا تتردد في التواصل معنا!</p>
