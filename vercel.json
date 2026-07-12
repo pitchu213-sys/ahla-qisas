@@ -1,0 +1,15 @@
+{
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "redirects": [
+      {
+        "source": "/articles/child's-imagination",
+        "destination": "/articles/child-imagination",
+        "permanent": true
+      },
+      {
+        "source": "/articles/story%20suitable",
+        "destination": "/articles/choosing-story-by-age",
+        "permanent": true
+      }
+    ]
+  }
