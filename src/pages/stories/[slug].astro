@@ -41,6 +41,16 @@ const storyImage =
     ? rawStoryImage
     : `/images/stories/${slug}/${rawStoryImage}`;
 
+const heroStyle = `
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(13, 43, 69, 0.88),
+      rgba(26, 60, 94, 0.88)
+    ),
+    url("${storyImage}");
+`;
+
 const storyAuthor =
   frontmatter.author ?? 'فريق ريكسو';
 
@@ -533,14 +543,7 @@ const breadcrumbSchema = {
   <body>
     <Header />
 
-    <header
-  class="hero"
-  style={`background-image: linear-gradient(
-    135deg,
-    rgba(13, 43, 69, 0.88),
-    rgba(26, 60, 94, 0.88)
-  ), url("${storyImage}");}
->
+   <header class="hero" style={heroStyle}>
   <div class="hero-badge">🦖 قصص ريكسو التعليمية</div>
   <h1>{frontmatter.title}</h1>
   <p class="hero-desc">{frontmatter.description}</p>
