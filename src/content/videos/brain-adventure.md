@@ -4,7 +4,7 @@ description: 'انطلق مع ريكسو في ثاني مغامرة داخل ج�
 videoId: 'rTd6qiJUyYA'
 date: '2026-05-15'
 category: 'جسم الإنسان'
-duration: '10:00'
+duration: '03:04'
 thumbnail: 'https://img.youtube.com/vi/rTd6qiJUyYA/maxresdefault.jpg'
 ---
 
