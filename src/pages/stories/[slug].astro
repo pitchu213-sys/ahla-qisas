@@ -30,8 +30,16 @@ const storyDescription =
   frontmatter.description ??
   `قصة أطفال عربية مصورة وممتعة بعنوان ${storyTitle} من عالم ريكسو.`;
 
+const rawStoryImage =
+  frontmatter.pages?.[0]?.front ||
+  frontmatter.heroImage ||
+  '/images/default-og.jpg';
+
 const storyImage =
-  frontmatter.heroImage ?? '/favicon.svg';
+  rawStoryImage.startsWith('http') ||
+  rawStoryImage.startsWith('/')
+    ? rawStoryImage
+    : `/images/stories/${slug}/${rawStoryImage}`;
 
 const storyAuthor =
   frontmatter.author ?? 'فريق ريكسو';
@@ -531,7 +539,7 @@ const breadcrumbSchema = {
     135deg,
     rgba(13, 43, 69, 0.88),
     rgba(26, 60, 94, 0.88)
-  ), url("${frontmatter.heroImage || ''}");`}
+  ), url("${storyImage}");}
 >
   <div class="hero-badge">🦖 قصص ريكسو التعليمية</div>
   <h1>{frontmatter.title}</h1>
