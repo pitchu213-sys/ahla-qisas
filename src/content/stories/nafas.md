@@ -9,24 +9,35 @@ date: '2026-07-12'
 introText: 'ينطلق ريكسو في مغامرة مدهشة داخل جسم الإنسان، حيث يلتقي بنَفَس ويكتشف كيف تعمل الرئتان، وكيف يدخل الهواء ويصل الأكسجين إلى أنحاء الجسم.'
 pages:
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578181/photo%20book%20nafas/1_pehcti.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/2_rpvtc4.jpg'
+    backText: >-
+      مَرْحَبًا يَا أَصْدِقَائِي! أَنَا «رِيكْسُو». الْيَوْمَ سَأُقَدِّمُ لَكُمْ بَطَلَةً حَقِيقِيَّةً... اسْمُهَا «نَفَس»!
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/3_mt9nfm.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/4_upgzgz.jpg'
+    backText: >-
+      تَعِيشُ «نَفَس» فِي صُدُورِنَا، وَتَبْدُو كَقَصْرَيْنِ وَرْدِيَّيْنِ نَاعِمَيْنِ... يَكْبُرَانِ وَيَصْغُرَانِ، كَأَنَّهُمَا مَوْجٌ هَادِئٌ.
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578183/photo%20book%20nafas/5_lkd4o0.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/6_s1vxjp.jpg'
+    backText: >-
+      عِنْدَمَا تَتَنَفَّسُ... تَمْتَلِئُ «نَفَس» بِفُقَّاعَاتٍ لَامِعَةٍ مِنَ الْأُكْسِجِينِ، وَتَحْتَفِظُ بِهَا كَنُجُومٍ صَغِيرَةٍ.
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578183/photo%20book%20nafas/7_ysmfnq.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578183/photo%20book%20nafas/8_qhq3hj.jpg'
+    backText: >-
+      تَحْتَ «نَفَس» يَعْمَلُ صَدِيقٌ قَوِيٌّ... «الْحِجَابُ الْحَاجِزُ»، يَدْفَعُ «نَفَس» لِتَكْبُرَ وَتَتَّسِعَ وَتَمْتَلِئَ بِالنُّجُومِ!
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578183/photo%20book%20nafas/9_ggmsbn.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578181/photo%20book%20nafas/10_dgpnx5.jpg'
+    backText: >-
+      فَجْأَةً... تَأْتِي «قِطَارَاتُ الدَّمِ» الْحَمْرَاءُ! تَأْخُذُ فُقَّاعَاتِ الْأُكْسِجِينِ اللَّامِعَةَ مِنْ «نَفَس»، وَتَنْطَلِقُ بِهَا نَحْوَ كُلِّ أَجْزَاءِ الْجِسْمِ.
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578181/photo%20book%20nafas/11_rzszx2.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578181/photo%20book%20nafas/12_bkgbz6.jpg'
+    backText: >-
+      وَعِنْدَمَا نَرْكُضُ أَوْ نَلْعَبُ... تَعْمَلُ «نَفَس» بِسُرْعَةٍ أَكْبَرَ، لِتُعْطِيَ الْقِطَارَاتِ طَاقَةً أَكْثَرَ!
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578181/photo%20book%20nafas/13_z9vp6w.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578181/photo%20book%20nafas/14_yrutft.jpg'
+    backText: >-
+      ثُمَّ تَعُودُ الْقِطَارَاتُ مَرَّةً أُخْرَى... تَحْمِلُ هَوَاءً قَدِيمًا مِنْ كُلِّ الْجِسْمِ، لِتُسَلِّمَهُ إِلَى «نَفَس».
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/15_fyfwbn.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/16_reb4cg.jpg' 
+    backText: >-
+      تَأْخُذُ «نَفَس» الْهَوَاءَ الْقَدِيمَ وَتَطْرُدُهُ إِلَى الْخَارِجِ... وَإِذَا حَاوَلَ غُبَارٌ الدُّخُولَ، تُطْلِقُ «نَفَس» عُطَاسَةً لِحِمَايَتِكُمْ!
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/17_oacixa.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/18_sq7kod.jpg' 
+    backText: >-
+      «نَفَس» تَكْبُرُ... وَ«نَفَس» تَصْغُرُ... مُغَامَرَةٌ لَا تَنْتَهِي! ضَعُوا أَيْدِيَكُمْ عَلَى صُدُورِكُمْ... هَلْ شَعَرْتُمْ بِحَرَكَةِ «نَفَس»؟
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778578182/photo%20book%20nafas/19_f29lxj.jpg'
+    backText: >-
+      شُكْرًا لِقِرَاءَتِكُمْ قِصَّةَ «نَفَس»! تَنَفَّسُوا بِهُدُوءٍ، وَحَافِظُوا عَلَى رِئَتَيْكُمْ.
 quiz:
   - q: 'ما العضوان اللذان يساعداننا على التنفس؟'
     opts:
