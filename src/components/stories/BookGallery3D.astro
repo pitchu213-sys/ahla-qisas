@@ -5,546 +5,958 @@ export interface Props {
   isOpen?: boolean;
 }
 
-const { pages, slug, isOpen = true } = Astro.props;
+type ReaderSlide = {
+  kind: 'image' | 'text' | 'empty';
+  src?: string;
+  text?: string;
+  alt: string;
+  scene: number;
+  accent: number;
+  density: 'short' | 'medium' | 'dense';
+};
 
-// حماية: إذا لم تكن pages مصفوفة، اجعلها مصفوفة فارغة
+const { pages, slug, isOpen = true } = Astro.props;
 const safePages = Array.isArray(pages) ? pages : [];
 
-// بناء مسار الصورة الذكي (يدعم الروابط الخارجية والمحلية)
 function getImagePath(imageName?: string): string {
   if (!imageName) return '';
   if (imageName.startsWith('http')) return imageName;
   return `/images/stories/${slug}/${imageName}`;
 }
 
-const optimizedPages = safePages.map(page => ({
+function getTextDensity(text?: string): 'short' | 'medium' | 'dense' {
+  const length = text?.trim().length || 0;
+  if (length > 360) return 'dense';
+  if (length > 230) return 'medium';
+  return 'short';
+}
+
+const optimizedPages = safePages.map((page, index) => ({
   front: getImagePath(page.front),
   back: getImagePath(page.back),
   backText: page.backText,
+  scene: index + 1,
+  accent: (index % 3) + 1,
+  density: getTextDensity(page.backText),
 }));
+
+const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
+  const front: ReaderSlide = {
+    kind: 'image',
+    src: page.front,
+    alt: `المشهد ${page.scene} - صورة القصة`,
+    scene: page.scene,
+    accent: page.accent,
+    density: page.density,
+  };
+
+  if (page.backText) {
+    return [front, {
+      kind: 'text',
+      text: page.backText,
+      alt: `المشهد ${page.scene} - نص القصة`,
+      scene: page.scene,
+      accent: page.accent,
+      density: page.density,
+    } satisfies ReaderSlide];
+  }
+
+  if (page.back) {
+    return [front, {
+      kind: 'image',
+      src: page.back,
+      alt: `المشهد ${page.scene} - الصفحة الخلفية`,
+      scene: page.scene,
+      accent: page.accent,
+      density: page.density,
+    } satisfies ReaderSlide];
+  }
+
+  return [front, {
+    kind: 'empty',
+    alt: `المشهد ${page.scene} - صفحة فارغة`,
+    scene: page.scene,
+    accent: page.accent,
+    density: page.density,
+  } satisfies ReaderSlide];
+});
 ---
 
-<div class="gallery-wrapper" id="story-overlay" style={`display:${isOpen ? 'flex' : 'none'}; opacity:1;`}>
+<div
+  class="story-reader"
+  id="story-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-label="قارئ القصة المصوّرة"
+  aria-hidden="true"
+  tabindex="-1"
+  style={`display:${isOpen ? 'flex' : 'none'};`}
+>
+  <div class="reader-ambience" aria-hidden="true"><span></span><span></span><span></span></div>
   <div class="cinematic-vignette" aria-hidden="true"></div>
 
-  <button class="close-story-btn" id="closeStoryBtn" aria-label="إغلاق المعرض">✕</button>
+  <button class="reader-control close-story-btn" id="closeStoryBtn" aria-label="إغلاق القصة">✕</button>
 
-  <div class="page-counter" id="pageCounter">1 / {safePages.length}</div>
+  <div class="reader-status" aria-live="polite">
+    <span class="page-counter" id="pageCounter">الغلاف</span>
+    <span class="reader-progress" aria-hidden="true"><i id="readerProgress"></i></span>
+  </div>
 
-  <button class="nav-arrow" id="navPrev" aria-label="الصفحة السابقة">→</button>
-  <button class="nav-arrow" id="navNext" aria-label="الصفحة التالية">←</button>
+  <button class="nav-arrow nav-arrow--prev" id="navPrev" aria-label="الصفحة السابقة" disabled><span aria-hidden="true">←</span></button>
+  <button class="nav-arrow nav-arrow--next" id="navNext" aria-label="الصفحة التالية"><span aria-hidden="true">→</span></button>
 
-  <button class="music-control paused" id="musicBtnOverlay" aria-label="تشغيل الموسيقى">
-    <div class="music-pulse"></div>
-    <div class="music-icon">
-      <div class="music-bars">
-        <div class="music-bar"></div>
-        <div class="music-bar"></div>
-        <div class="music-bar"></div>
-      </div>
-    </div>
+  <button class="reader-control music-control paused" id="musicBtnOverlay" aria-label="تشغيل الموسيقى">
+    <span class="music-pulse" aria-hidden="true"></span>
+    <span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span>
   </button>
   <audio id="bgMusicOverlay" loop preload="none">
-    <source src="https://res.cloudinary.com/dvmkrs2jb/video/upload/v1777372164/Triceratops_Stomp_2_tahpp6.mp3" type="audio/mpeg">
+    <source src="https://res.cloudinary.com/dvmkrs2jb/video/upload/v1777372164/Triceratops_Stomp_2_tahpp6.mp3" type="audio/mpeg" />
   </audio>
 
-  <div class="scene">
-    <div class="galeria-book-3d" id="gallery-container">
-      {optimizedPages.map((page, index) => (
-        <div class="galeria-book-3d__item" style={`--i:${index}`} data-index={index}>
-          <img class="story-page-face story-page-front" src={page.front} alt={`صفحة ${index + 1} - أمامية`} loading="lazy" width="420" height="600" />
-          {page.backText ? (
-            <div class="story-page-face story-page-back story-text-page" dir="rtl" data-accent={(index % 3) + 1}>
-              <div class="story-text-page__bubbles story-text-page__bubbles--top" aria-hidden="true">
-                <i></i><i></i><i></i>
+  <div class="reader-scene">
+    <div class="desktop-reader" id="desktopReader" aria-label="كتاب مفتوح من اليمين إلى اليسار">
+      <div class="galeria-book-3d" id="gallery-container">
+        <div class="book-base" aria-hidden="true">
+          <span class="book-board book-board--left"></span>
+          <span class="book-board book-board--right"></span>
+          <span class="book-spine"></span>
+        </div>
+
+        {optimizedPages.map((page, index) => (
+          <div class="galeria-book-3d__item" style={`--i:${index}`} data-index={index} aria-hidden={index === 0 ? 'false' : 'true'}>
+            <div class="story-page-face story-page-front">
+              <img
+                src={page.front}
+                alt={`المشهد ${index + 1} - صورة القصة`}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                fetchpriority={index === 0 ? 'high' : 'auto'}
+                width="512"
+                height="800"
+              />
+              <span class="page-light" aria-hidden="true"></span>
+            </div>
+
+            {page.backText ? (
+              <div class="story-page-face story-page-back story-text-page" dir="rtl" data-accent={page.accent} data-density={page.density}>
+                <div class="story-text-page__bubbles story-text-page__bubbles--top" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="story-text-page__content">
+                  <span class="story-text-page__ornament" aria-hidden="true">✦ ❈ ✦</span>
+                  <p>{page.backText}</p>
+                  <span class="story-text-page__breath" aria-hidden="true">〰　✦　〰</span>
+                </div>
+                <div class="story-text-page__bubbles story-text-page__bubbles--bottom" aria-hidden="true"><i></i><i></i><i></i></div>
+                <span class="story-text-page__number" aria-label={`المشهد ${index + 1}`}>{index + 1}</span>
+                <span class="page-light" aria-hidden="true"></span>
               </div>
+            ) : page.back ? (
+              <div class="story-page-face story-page-back">
+                <img src={page.back} alt={`المشهد ${index + 1} - الصفحة الخلفية`} loading="lazy" decoding="async" width="512" height="800" />
+                <span class="page-light" aria-hidden="true"></span>
+              </div>
+            ) : (
+              <div class="story-page-face story-page-back story-page-empty" aria-hidden="true"></div>
+            )}
+            <span class="leaf-edge" aria-hidden="true"></span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="mobile-reader" id="mobileReader" data-slides={JSON.stringify(readerSlides)} aria-label="قارئ القصة على الهاتف">
+      <div class="mobile-book" id="mobileBook">
+        <div class="mobile-page mobile-page--base" id="mobileBasePage" aria-live="polite">
+          <div class="mobile-surface" data-mobile-surface>
+            <img data-mobile-image alt="" width="512" height="800" decoding="async" hidden />
+            <div class="mobile-text-page story-text-page" data-mobile-text-page hidden>
+              <div class="story-text-page__bubbles story-text-page__bubbles--top" aria-hidden="true"><i></i><i></i><i></i></div>
               <div class="story-text-page__content">
                 <span class="story-text-page__ornament" aria-hidden="true">✦ ❈ ✦</span>
-                <p>{page.backText}</p>
+                <p data-mobile-text></p>
                 <span class="story-text-page__breath" aria-hidden="true">〰　✦　〰</span>
               </div>
-              <div class="story-text-page__bubbles story-text-page__bubbles--bottom" aria-hidden="true">
-                <i></i><i></i><i></i>
-              </div>
-              <span class="story-text-page__number" aria-label={`الصفحة ${index + 1}`}>{index + 1}</span>
+              <div class="story-text-page__bubbles story-text-page__bubbles--bottom" aria-hidden="true"><i></i><i></i><i></i></div>
+              <span class="story-text-page__number" data-mobile-number></span>
             </div>
-          ) : page.back ? (
-            <img class="story-page-face story-page-back" src={page.back} alt={`صفحة ${index + 1} - خلفية`} loading="lazy" width="420" height="600" />
-          ) : (
-            <div class="story-page-face story-page-back story-page-empty" aria-hidden="true"></div>
-          )}
+            <div class="mobile-empty-page" data-mobile-empty hidden></div>
+          </div>
         </div>
-      ))}
+
+        <div class="mobile-page mobile-page--turn" id="mobileTurnPage" aria-hidden="true">
+          <div class="mobile-surface" data-mobile-surface>
+            <img data-mobile-image alt="" width="512" height="800" decoding="async" hidden />
+            <div class="mobile-text-page story-text-page" data-mobile-text-page hidden>
+              <div class="story-text-page__bubbles story-text-page__bubbles--top" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="story-text-page__content">
+                <span class="story-text-page__ornament" aria-hidden="true">✦ ❈ ✦</span>
+                <p data-mobile-text></p>
+                <span class="story-text-page__breath" aria-hidden="true">〰　✦　〰</span>
+              </div>
+              <div class="story-text-page__bubbles story-text-page__bubbles--bottom" aria-hidden="true"><i></i><i></i><i></i></div>
+              <span class="story-text-page__number" data-mobile-number></span>
+            </div>
+            <div class="mobile-empty-page" data-mobile-empty hidden></div>
+          </div>
+          <div class="mobile-paper-back" aria-hidden="true"></div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <p class="reading-hint">
+    <span class="reading-hint--desktop">اضغط على الصفحة أو استخدم الأسهم</span>
+    <span class="reading-hint--mobile">اسحب نحو اليمين لمتابعة القصة</span>
+  </p>
 </div>
 
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  .gallery-wrapper {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    width: 100dvw; height: 100dvh; background: #050508; z-index: 9999;
-    display: flex; flex-direction: column; overflow: hidden; opacity: 1;
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+
+  .story-reader {
+    --gold: #f4a023;
+    --ink: #17364b;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
+    z-index: 9999;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+    color: #fff;
+    background:
+      radial-gradient(circle at 50% 42%, rgba(40, 83, 116, 0.32), transparent 42%),
+      linear-gradient(145deg, #07101d 0%, #090812 47%, #12090d 100%);
+    isolation: isolate;
   }
+
+  .reader-ambience { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+  .reader-ambience span {
+    position: absolute;
+    width: clamp(180px, 24vw, 380px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.13;
+    animation: ambience-drift 12s ease-in-out infinite alternate;
+  }
+  .reader-ambience span:nth-child(1) { top: -12%; right: 4%; background: #2d91b0; }
+  .reader-ambience span:nth-child(2) { bottom: -18%; left: 9%; background: #f4a023; animation-delay: -4s; }
+  .reader-ambience span:nth-child(3) { top: 34%; left: 42%; background: #bd6071; animation-delay: -8s; }
+  @keyframes ambience-drift { to { transform: translate3d(22px, -18px, 0) scale(1.08); } }
+
   .cinematic-vignette {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.65) 100%);
-    pointer-events: none; z-index: 9999; animation: vignette-pulse 8s ease-in-out infinite;
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 47%, rgba(0, 0, 0, 0.3) 78%, rgba(0, 0, 0, 0.67) 100%);
   }
-  @keyframes vignette-pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 0.5; } }
-  .close-story-btn {
-    position: absolute; top: 16px; right: 16px; z-index: 10002;
-    background: rgba(0,0,0,0.45); color: white; border: 1px solid rgba(255,255,255,0.12);
-    width: 46px; height: 46px; border-radius: 50%; font-size: 20px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; backdrop-filter: blur(12px);
-    transition: transform 0.2s, background 0.2s;
-  }
-  .close-story-btn:hover { transform: scale(1.12); background: rgba(229,57,53,0.85); border-color: transparent; }
-  .page-counter {
-    position: absolute; top: 16px; left: 50%; transform: translateX(-50%); z-index: 10001;
-    background: rgba(0,0,0,0.45); backdrop-filter: blur(12px); color: white; padding: 7px 20px;
-    border-radius: 50px; font-size: 14px; font-weight: 700; font-family: 'Tajawal', sans-serif;
-    border: 1px solid rgba(255,255,255,0.1); letter-spacing: 0.5px;
-  }
-  .nav-arrow {
-  position: absolute;
-  top: auto;
-  bottom: 28px;           /* تحت الكتاب مباشرة */
-  transform: none;
-  z-index: 10001;
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #f4a023, #e08c10);
-  border: none;
-  color: white;
-  font-size: 26px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 20px rgba(244,160,35,0.5);
-  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), 
-              box-shadow 0.2s, 
-              background 0.2s;
-}
 
-#navPrev { 
-  right: calc(50% - 80px);   /* يسار المركز */
-  left: auto;
-}
-#navNext { 
-  left: calc(50% - 80px);    /* يمين المركز */
-  right: auto;
-}
-
-.nav-arrow:hover { 
-  transform: scale(1.18); 
-  box-shadow: 0 10px 28px rgba(244,160,35,0.65);
-  background: linear-gradient(135deg, #ffb835, #f4a023);
-}
-.nav-arrow:active { 
-  transform: scale(0.93); 
-}
-
-/* نبضة عند التحميل */
-.nav-arrow::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  border: 2px solid rgba(244,160,35,0.4);
-  animation: navPulse 2s ease-out infinite;
-}
-@keyframes navPulse {
-  0%   { transform: scale(1); opacity: 0.8; }
-  70%  { transform: scale(1.35); opacity: 0; }
-  100% { opacity: 0; }
-}
-
-/* موبايل */
-@media (max-width: 600px) {
-  .nav-arrow {
-    width: 54px;
-    height: 54px;
-    font-size: 22px;
-    bottom: 20px;
-  }
-  #navPrev { right: calc(50% - 66px); }
-  #navNext { left: calc(50% - 66px); }
-}
-  .music-control {
-    position: absolute; bottom: 28px; left: 28px; z-index: 10001; width: 56px; height: 56px;
-    border-radius: 50%; background: rgba(0,0,0,0.4); backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.12); display: flex; justify-content: center; align-items: center;
-    cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-  }
-  .music-control:hover { background: rgba(255,255,255,0.18); transform: scale(1.08); }
-  .music-bars { display: flex; gap: 4px; align-items: flex-end; }
-  .music-bar { width: 3px; height: 12px; background: rgba(255,255,255,0.8); border-radius: 2px; animation: musicBounce 0.6s ease-in-out infinite; }
-  .music-bar:nth-child(2) { animation-delay: 0.1s; height: 16px; }
-  .music-bar:nth-child(3) { animation-delay: 0.2s; height: 14px; }
-  .music-pulse { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); animation: musicPulse 1.5s ease-out infinite; }
-  @keyframes musicBounce { 0%,100% { transform: scaleY(0.6); opacity: 0.6; } 50% { transform: scaleY(1); opacity: 1; } }
-  @keyframes musicPulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
-  .scene {
-    width: 100%; height: 100%; perspective: 1800px; transform-style: preserve-3d;
-    display: flex; justify-content: center; align-items: center; overflow: hidden;
-    position: relative; background: #0a0a12;
-  }
-  .scene::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 20% 50%, rgba(26,60,94,0.15) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 30%, rgba(244,160,35,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(30,82,118,0.12) 0%, transparent 50%);
-    pointer-events: none; z-index: 0;
-  }
-  .galeria-book-3d {
-    position: relative; width: min(92vh * 0.625, 48vw); height: min(92vh, 76.8vw);
-    perspective: 1800px; transform-style: preserve-3d; display: flex;
-    justify-content: center; align-items: center; z-index: 10;
-    --spine-shift: 0px; transform: translateX(var(--spine-shift));
-    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
-  }
-  .galeria-book-3d.book-open { --spine-shift: calc(min(92vh * 0.625, 48vw) * -0.5); }
-  .galeria-book-3d__item {
-    position: absolute; width: min(92vh * 0.625, 48vw); height: min(92vh, 76.8vw);
-    transform-style: preserve-3d;
-    transform-origin: right center;
-    --page-rotate: 0deg; transform: rotateY(var(--page-rotate));
-    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+  .reader-control, .nav-arrow { -webkit-tap-highlight-color: transparent; }
+  .reader-control {
+    position: absolute;
+    z-index: 40;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.17);
+    background: rgba(4, 8, 15, 0.58);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(14px);
     cursor: pointer;
-    z-index: calc(10 - var(--i));
-    border-radius: 8px;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
   }
-  .galeria-book-3d__item:hover { box-shadow: 0 12px 50px rgba(0,0,0,0.6), 0 0 30px rgba(244,160,35,0.08); }
-  .galeria-book-3d__item.is-open {
-    --page-rotate: 180deg; transition-delay: 0s, 0s;
-    z-index: calc(20 + var(--i)); box-shadow: 0 16px 60px rgba(0,0,0,0.7);
+  .reader-control:hover, .reader-control:focus-visible {
+    transform: scale(1.08);
+    border-color: rgba(255, 216, 137, 0.55);
+    background: rgba(244, 160, 35, 0.82);
+    outline: none;
   }
+  .close-story-btn { top: max(16px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right)); font-size: 20px; }
+
+  .reader-status {
+    position: absolute;
+    top: max(16px, env(safe-area-inset-top));
+    left: 50%;
+    z-index: 40;
+    width: min(230px, 44vw);
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    pointer-events: none;
+  }
+  .page-counter {
+    min-width: 116px;
+    padding: 7px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 999px;
+    color: #fff;
+    background: rgba(4, 8, 15, 0.56);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(14px);
+    font: 700 13px/1.3 'Tajawal', sans-serif;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .reader-progress { display: block; width: min(190px, 38vw); height: 3px; overflow: hidden; border-radius: 999px; background: rgba(255, 255, 255, 0.15); }
+  .reader-progress i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #ffe2a8, var(--gold));
+    box-shadow: 0 0 12px rgba(244, 160, 35, 0.75);
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.45s ease;
+  }
+
+  .music-control { top: max(16px, env(safe-area-inset-top)); left: max(16px, env(safe-area-inset-left)); display: grid; place-items: center; }
+  .music-bars { display: flex; align-items: flex-end; gap: 3px; height: 17px; }
+  .music-bars i { display: block; width: 3px; height: 11px; border-radius: 2px; background: currentColor; animation: music-bounce 0.65s ease-in-out infinite; }
+  .music-bars i:nth-child(2) { height: 17px; animation-delay: 0.11s; }
+  .music-bars i:nth-child(3) { height: 14px; animation-delay: 0.22s; }
+  .music-control.paused .music-bars i { animation-play-state: paused; transform: scaleY(0.55); opacity: 0.58; }
+  .music-pulse { position: absolute; inset: -1px; border: 1px solid rgba(255, 216, 137, 0.5); border-radius: inherit; opacity: 0; }
+  .music-control:not(.paused) .music-pulse { animation: music-pulse 1.8s ease-out infinite; }
+  @keyframes music-bounce { 0%, 100% { transform: scaleY(0.55); } 50% { transform: scaleY(1); } }
+  @keyframes music-pulse { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.55); opacity: 0; } }
+
+  .nav-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    transform: translateY(-50%);
+    border: 1px solid rgba(255, 230, 177, 0.48);
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(145deg, #ffb63d, #dc7c08);
+    box-shadow: 0 10px 32px rgba(244, 160, 35, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    font: 700 25px/1 sans-serif;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+  }
+  .nav-arrow--prev { left: max(22px, env(safe-area-inset-left)); }
+  .nav-arrow--next { right: max(22px, env(safe-area-inset-right)); }
+  .nav-arrow:hover:not(:disabled), .nav-arrow:focus-visible:not(:disabled) {
+    transform: translateY(-50%) scale(1.09);
+    box-shadow: 0 14px 38px rgba(244, 160, 35, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    outline: none;
+  }
+  .nav-arrow:active:not(:disabled) { transform: translateY(-50%) scale(0.94); }
+  .nav-arrow:disabled { opacity: 0.2; filter: grayscale(0.7); cursor: default; box-shadow: none; }
+
+  .reader-scene {
+    position: relative;
+    z-index: 5;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    padding: 72px 92px 82px;
+    perspective: 2100px;
+    overflow: hidden;
+  }
+  .reader-scene::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    width: min(72vw, 1000px);
+    height: 10%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.46);
+    filter: blur(28px);
+    pointer-events: none;
+  }
+
+  .desktop-reader { position: relative; z-index: 2; display: grid; place-items: center; width: 100%; height: 100%; perspective: 2100px; }
+  .galeria-book-3d {
+    --page-w: min(44vw, 51.2dvh);
+    --spine-shift: 0px;
+    position: relative;
+    width: var(--page-w);
+    aspect-ratio: 16 / 25;
+    z-index: 5;
+    transform: translateX(var(--spine-shift));
+    transform-style: preserve-3d;
+    perspective: 2100px;
+    transition: transform 0.72s cubic-bezier(0.32, 0.72, 0.16, 1);
+  }
+  .galeria-book-3d.book-open { --spine-shift: calc(var(--page-w) * -0.5); }
+
+  .book-base {
+    position: absolute;
+    top: -1.1%;
+    left: -0.9%;
+    width: 201.8%;
+    height: 102.2%;
+    z-index: 1;
+    opacity: 0;
+    transform: translateZ(-8px) scale(0.985);
+    pointer-events: none;
+    transition: opacity 0.42s ease 0.18s, transform 0.62s ease;
+  }
+  .book-open .book-base { opacity: 1; transform: translateZ(-8px) scale(1); }
+  .book-board {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    border: 3px solid rgba(152, 94, 24, 0.9);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent 8%, transparent 92%, rgba(0, 0, 0, 0.14)), linear-gradient(145deg, #cb7b1a, #8e4a10);
+    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.48), inset 0 0 0 2px rgba(255, 218, 138, 0.24);
+  }
+  .book-board--left { left: 0; border-radius: 13px 3px 3px 13px; }
+  .book-board--right { right: 0; border-radius: 3px 13px 13px 3px; }
+  .book-spine {
+    position: absolute;
+    top: 0.8%;
+    bottom: 0.8%;
+    left: 50%;
+    width: 28px;
+    z-index: 3;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.52), rgba(255, 229, 173, 0.2) 48%, rgba(0, 0, 0, 0.45));
+    filter: blur(0.3px);
+    box-shadow: 0 0 17px rgba(0, 0, 0, 0.52);
+  }
+
+  .galeria-book-3d__item {
+    --page-rotate: 0deg;
+    position: absolute;
+    inset: 0;
+    z-index: calc(30 - var(--i));
+    width: 100%;
+    height: 100%;
+    border-radius: 7px 11px 11px 7px;
+    transform: rotateY(var(--page-rotate)) translateZ(1px);
+    transform-origin: right center;
+    transform-style: preserve-3d;
+    will-change: transform;
+    cursor: pointer;
+    transition: transform 0.78s cubic-bezier(0.3, 0.72, 0.16, 1), filter 0.78s ease;
+    filter: drop-shadow(-4px 10px 10px rgba(0, 0, 0, 0.16));
+  }
+  .galeria-book-3d__item.is-open { --page-rotate: 180deg; z-index: calc(40 + var(--i)); filter: drop-shadow(6px 12px 13px rgba(0, 0, 0, 0.19)); }
+  .galeria-book-3d__item.is-returning { z-index: 75; }
+  .galeria-book-3d__item.is-turning { animation: leaf-lift 0.78s ease both; }
+  @keyframes leaf-lift {
+    0%, 100% { filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.15)); }
+    45%, 55% { filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.52)); }
+  }
+
   .story-page-face {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #111; border-radius: 8px;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border: 1px solid rgba(123, 90, 46, 0.25);
+    border-radius: inherit;
+    background: #fffaf0;
+    box-shadow: inset -13px 0 22px rgba(86, 54, 25, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.55);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
   }
-  img.story-page-face { object-fit: cover; }
-  .story-page-back {
-    transform: rotateY(180deg);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+  .story-page-face::before, .mobile-surface::before, .mobile-paper-back::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0.27;
+    background: repeating-linear-gradient(9deg, rgba(89, 60, 27, 0.025) 0 1px, transparent 1px 4px), radial-gradient(circle at 28% 17%, rgba(255, 255, 255, 0.5), transparent 34%);
+    mix-blend-mode: multiply;
   }
+  .story-page-face > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .story-page-back { transform: rotateY(180deg); box-shadow: inset 13px 0 24px rgba(86, 54, 25, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.55); }
+  .page-light { position: absolute; inset: 0; z-index: 8; pointer-events: none; opacity: 0; background: linear-gradient(90deg, transparent 18%, rgba(255, 255, 255, 0.62) 48%, rgba(77, 45, 20, 0.22) 70%, transparent 88%); }
+  .is-turning .page-light { animation: page-light-sweep 0.78s ease both; }
+  @keyframes page-light-sweep {
+    0%, 100% { opacity: 0; transform: translateX(-34%); }
+    46%, 54% { opacity: 0.8; transform: translateX(22%); }
+  }
+  .leaf-edge {
+    position: absolute;
+    top: 1%;
+    bottom: 1%;
+    left: -2px;
+    width: 5px;
+    z-index: 9;
+    border-radius: 5px 0 0 5px;
+    background: repeating-linear-gradient(to right, #f6ecd9 0 1px, #d7c3a2 1px 2px);
+    box-shadow: -3px 0 6px rgba(0, 0, 0, 0.17);
+    backface-visibility: hidden;
+  }
+
   .story-text-page {
     display: flex;
     align-items: center;
     justify-content: center;
     isolation: isolate;
-    overflow: hidden;
-    padding: clamp(42px, 8vmin, 82px) clamp(26px, 5vmin, 58px);
-    color: #16354a;
+    padding: clamp(38px, 6.2vmin, 72px) clamp(25px, 4.6vmin, 52px);
+    color: var(--ink);
     text-align: center;
-    background:
-      radial-gradient(circle at 16% 14%, rgba(113, 193, 205, 0.2) 0 7%, transparent 7.5%),
-      radial-gradient(circle at 88% 82%, rgba(244, 160, 35, 0.15) 0 9%, transparent 9.5%),
-      linear-gradient(145deg, #fffdf5 0%, #fff8e6 52%, #f6ead0 100%);
-    border: 1px solid rgba(170, 120, 55, 0.28);
-    box-shadow: inset 0 0 45px rgba(142, 97, 42, 0.1);
+    background: radial-gradient(circle at 16% 14%, rgba(113, 193, 205, 0.2) 0 7%, transparent 7.5%), radial-gradient(circle at 88% 82%, rgba(244, 160, 35, 0.15) 0 9%, transparent 9.5%), linear-gradient(145deg, #fffef8 0%, #fff8e7 54%, #f3e5c9 100%);
   }
-  .story-text-page::before {
+  .story-text-page::after {
     content: '';
     position: absolute;
-    inset: clamp(12px, 2vmin, 22px);
+    inset: clamp(12px, 2vmin, 20px);
     z-index: -1;
     border: 1px solid rgba(211, 151, 55, 0.42);
-    border-radius: 18px 6px 18px 6px;
+    border-radius: 19px 6px 19px 6px;
+    box-shadow: inset 0 0 26px rgba(155, 103, 37, 0.055);
     pointer-events: none;
   }
-  .story-text-page[data-accent='2'] {
-    background:
-      radial-gradient(circle at 14% 16%, rgba(244, 160, 35, 0.14) 0 7%, transparent 7.5%),
-      radial-gradient(circle at 88% 84%, rgba(117, 188, 203, 0.19) 0 9%, transparent 9.5%),
-      linear-gradient(145deg, #fffdf7 0%, #f7f3df 54%, #e8f3ef 100%);
-  }
-  .story-text-page[data-accent='3'] {
-    background:
-      radial-gradient(circle at 16% 14%, rgba(209, 117, 121, 0.14) 0 7%, transparent 7.5%),
-      radial-gradient(circle at 88% 83%, rgba(244, 160, 35, 0.13) 0 9%, transparent 9.5%),
-      linear-gradient(145deg, #fffdf6 0%, #fbefdf 55%, #f6e4e2 100%);
-  }
-  .story-text-page__content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: clamp(14px, 2.2vmin, 24px);
-    width: 100%;
-    position: relative;
-    z-index: 2;
-  }
+  .story-text-page[data-accent='2'] { background: radial-gradient(circle at 14% 16%, rgba(244, 160, 35, 0.14) 0 7%, transparent 7.5%), radial-gradient(circle at 88% 84%, rgba(117, 188, 203, 0.19) 0 9%, transparent 9.5%), linear-gradient(145deg, #fffef9 0%, #f7f3df 54%, #e7f1ed 100%); }
+  .story-text-page[data-accent='3'] { background: radial-gradient(circle at 16% 14%, rgba(209, 117, 121, 0.14) 0 7%, transparent 7.5%), radial-gradient(circle at 88% 83%, rgba(244, 160, 35, 0.13) 0 9%, transparent 9.5%), linear-gradient(145deg, #fffef8 0%, #fbefdf 55%, #f4e2e0 100%); }
+  .story-text-page__content { position: relative; z-index: 3; display: flex; width: 100%; flex-direction: column; align-items: center; gap: clamp(13px, 2vmin, 22px); }
   .story-text-page__content p {
-    margin: 0;
     max-width: 18em;
+    margin: 0;
     font-family: 'Cairo', 'Tajawal', sans-serif;
-    font-size: clamp(1.1rem, 3.15vmin, 2rem);
+    font-size: clamp(1.06rem, 2.65vmin, 1.72rem);
     font-weight: 700;
-    line-height: 2;
+    line-height: 1.95;
     letter-spacing: 0;
-    text-wrap: balance;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.9);
+    text-wrap: pretty;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
   }
-  .story-text-page__ornament {
-    color: #d4972f;
-    font-size: clamp(1rem, 2.6vmin, 1.55rem);
-    letter-spacing: 0.38em;
-    text-indent: 0.38em;
-  }
-  .story-text-page__breath {
-    color: #5f9dad;
-    font-size: clamp(0.95rem, 2.3vmin, 1.35rem);
-    opacity: 0.8;
-  }
-  .story-text-page__number {
-    position: absolute;
-    bottom: clamp(19px, 3vmin, 32px);
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgba(22, 53, 74, 0.55);
-    font-family: 'Tajawal', sans-serif;
-    font-size: clamp(0.68rem, 1.5vmin, 0.86rem);
-    font-weight: 700;
-  }
-  .story-text-page__bubbles {
-    position: absolute;
-    width: clamp(58px, 10vmin, 94px);
-    height: clamp(58px, 10vmin, 94px);
-    opacity: 0.54;
-  }
+  .story-text-page[data-density='medium'] .story-text-page__content p { font-size: clamp(0.98rem, 2.35vmin, 1.48rem); }
+  .story-text-page[data-density='dense'] .story-text-page__content p { font-size: clamp(0.9rem, 2.08vmin, 1.3rem); line-height: 1.82; }
+  .story-text-page__ornament { color: #d4972f; font-size: clamp(0.92rem, 2.2vmin, 1.38rem); letter-spacing: 0.34em; text-indent: 0.34em; }
+  .story-text-page__breath { color: #5f9dad; font-size: clamp(0.88rem, 1.95vmin, 1.2rem); opacity: 0.82; }
+  .story-text-page__number { position: absolute; bottom: clamp(17px, 2.8vmin, 28px); left: 50%; z-index: 3; transform: translateX(-50%); color: rgba(22, 53, 74, 0.55); font: 700 clamp(0.66rem, 1.35vmin, 0.84rem)/1 'Tajawal', sans-serif; }
+  .story-text-page__bubbles { position: absolute; z-index: 2; width: clamp(56px, 9vmin, 88px); height: clamp(56px, 9vmin, 88px); opacity: 0.5; }
   .story-text-page__bubbles--top { top: 4%; right: 5%; }
   .story-text-page__bubbles--bottom { bottom: 5%; left: 5%; transform: rotate(180deg); }
-  .story-text-page__bubbles i {
-    position: absolute;
-    display: block;
-    border: 2px solid rgba(80, 153, 170, 0.62);
-    border-radius: 50%;
-  }
+  .story-text-page__bubbles i { position: absolute; display: block; border: 2px solid rgba(80, 153, 170, 0.62); border-radius: 50%; }
   .story-text-page__bubbles i:nth-child(1) { width: 31%; height: 31%; top: 2%; right: 6%; }
   .story-text-page__bubbles i:nth-child(2) { width: 18%; height: 18%; top: 38%; right: 38%; }
   .story-text-page__bubbles i:nth-child(3) { width: 11%; height: 11%; top: 68%; right: 13%; }
-  .story-page-empty { background: #111; }
-  @media (orientation: landscape) and (max-height: 500px) {
-    .galeria-book-3d { width: min(88svh * 0.7, 40vw); height: min(88svh, 57vw); }
-    .galeria-book-3d__item { width: min(88svh * 0.7, 40vw); height: min(88svh, 57vw); }
+  .story-page-empty, .mobile-empty-page, .mobile-paper-back { background: radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.72), transparent 36%), linear-gradient(145deg, #fffdf7, #f1e3c7); }
+
+  .mobile-reader { display: none; }
+  .reading-hint {
+    position: absolute;
+    bottom: max(18px, env(safe-area-inset-bottom));
+    left: 50%;
+    z-index: 35;
+    margin: 0;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.66);
+    font: 600 13px/1.4 'Tajawal', sans-serif;
+    white-space: nowrap;
+    transition: opacity 0.35s ease, transform 0.35s ease;
   }
-  @media (max-width: 600px) and (orientation: portrait) {
-    .galeria-book-3d { width: 94vw; height: calc(94vw * 1.43); transform: none; --spine-shift: 0px; overflow: visible; }
-    .galeria-book-3d.book-open { --spine-shift: 0px; }
-    .galeria-book-3d__item {
-      width: 94vw; height: calc(94vw * 1.43); transform-origin: center center;
-      transform: translateX(110vw); transition: transform 0.45s cubic-bezier(0.4,0,0.2,1), z-index 0s;
-      --page-rotate: 0deg; border-radius: 6px; overflow: hidden;
+  .story-reader.has-progress .reading-hint { opacity: 0; transform: translate(-50%, 8px); pointer-events: none; }
+  .reading-hint--mobile { display: none; }
+
+  @media (max-width: 680px) {
+    .reader-scene { padding: 76px 10px 116px; }
+    .reader-scene::after { bottom: 10%; width: 92vw; height: 7%; }
+    .desktop-reader { display: none; }
+    .mobile-reader { position: relative; z-index: 4; display: grid; width: 100%; height: 100%; place-items: center; perspective: 1800px; }
+    .mobile-book {
+      --mobile-page-w: min(92vw, 46.08dvh);
+      position: relative;
+      width: var(--mobile-page-w);
+      aspect-ratio: 16 / 25;
+      border-radius: 8px 13px 13px 8px;
+      perspective: 1800px;
+      transform-style: preserve-3d;
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
     }
-    .galeria-book-3d__item.portrait-current { transform: translateX(0); z-index: 15; }
-    .galeria-book-3d__item.portrait-done { transform: translateX(-110vw); z-index: 5; }
-    .galeria-book-3d__item.is-open {
-  --page-rotate: 0deg;
-}
-
-/* في الهاتف نعرض الصور بالتبديل بدل الدوران ثلاثي الأبعاد */
-.galeria-book-3d__item .story-page-front {
-  transform: none;
-  opacity: 1;
-  z-index: 2;
-  transition: opacity 0.2s ease;
-}
-
-.galeria-book-3d__item .story-page-back {
-  transform: none;
-  opacity: 0;
-  z-index: 1;
-  transition: opacity 0.2s ease;
-}
-
-.galeria-book-3d__item.show-back .story-page-front {
-  opacity: 0;
-  z-index: 1;
-}
-
-.galeria-book-3d__item.show-back .story-page-back {
-  opacity: 1;
-  z-index: 3;
-}
-    .story-text-page {
-      padding: 44px 28px 42px;
+    .mobile-book::before {
+      content: '';
+      position: absolute;
+      inset: -5px -8px -7px -5px;
+      z-index: -2;
+      border: 3px solid #9d5715;
+      border-radius: 11px 17px 17px 11px;
+      background: linear-gradient(145deg, #d78a24, #88420c);
+      box-shadow: 0 22px 46px rgba(0, 0, 0, 0.52), inset 0 0 0 2px rgba(255, 220, 145, 0.25);
     }
-    .story-text-page__content p {
-      font-size: clamp(1.08rem, 4.7vw, 1.38rem);
-      line-height: 1.9;
+    .mobile-book::after {
+      content: '';
+      position: absolute;
+      top: 1.2%;
+      right: -5px;
+      bottom: 1.2%;
+      z-index: -1;
+      width: 9px;
+      border-radius: 0 8px 8px 0;
+      background: repeating-linear-gradient(to right, #fff8e9 0 1px, #d8c39f 1px 2px);
+      box-shadow: 4px 0 7px rgba(0, 0, 0, 0.25);
+    }
+    .mobile-page { position: absolute; inset: 0; overflow: visible; border-radius: inherit; transform-style: preserve-3d; }
+    .mobile-page--base { z-index: 1; overflow: hidden; background: #fffaf0; box-shadow: inset -12px 0 20px rgba(80, 48, 20, 0.11); }
+    .mobile-page--turn { z-index: 3; visibility: hidden; transform-origin: right center; will-change: transform; }
+    .mobile-page--turn.is-animating { visibility: visible; }
+    .mobile-surface, .mobile-paper-back {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border: 1px solid rgba(123, 90, 46, 0.25);
+      border-radius: inherit;
+      background-color: #fffaf0;
+      box-shadow: inset -12px 0 21px rgba(83, 50, 21, 0.12);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .mobile-paper-back { transform: rotateY(180deg); box-shadow: inset 12px 0 22px rgba(83, 50, 21, 0.13); }
+    .mobile-page--turn.is-animating .mobile-surface::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 12;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent 10%, rgba(255, 255, 255, 0.67) 44%, rgba(47, 25, 8, 0.3) 74%, transparent 94%);
+      animation: mobile-page-sheen 0.74s ease both;
+    }
+    @keyframes mobile-page-sheen {
+      0%, 100% { opacity: 0; transform: translateX(-42%); }
+      45%, 55% { opacity: 0.9; transform: translateX(18%); }
+    }
+    .mobile-surface > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .mobile-text-page, .mobile-empty-page { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .mobile-text-page { padding: 42px 26px 40px; }
+    .mobile-text-page .story-text-page__content p { font-size: clamp(1.02rem, 4.55vw, 1.34rem); line-height: 1.9; }
+    .mobile-text-page[data-density='medium'] .story-text-page__content p { font-size: clamp(0.96rem, 4.1vw, 1.2rem); }
+    .mobile-text-page[data-density='dense'] .story-text-page__content p { font-size: clamp(0.86rem, 3.72vw, 1.08rem); line-height: 1.76; }
+    .nav-arrow { top: auto; bottom: max(22px, env(safe-area-inset-bottom)); width: 56px; height: 56px; transform: none; font-size: 23px; }
+    .nav-arrow--prev { left: calc(50% - 72px); }
+    .nav-arrow--next { right: calc(50% - 72px); }
+    .nav-arrow:hover:not(:disabled), .nav-arrow:focus-visible:not(:disabled) { transform: scale(1.07); }
+    .nav-arrow:active:not(:disabled) { transform: scale(0.94); }
+    .reader-control { width: 44px; height: 44px; }
+    .close-story-btn { top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); }
+    .music-control { top: max(12px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); }
+    .reader-status { top: max(12px, env(safe-area-inset-top)); width: min(190px, 50vw); }
+    .page-counter { min-width: 104px; padding: 6px 12px; font-size: 12px; }
+    .reader-progress { width: min(150px, 40vw); }
+    .reading-hint { bottom: max(88px, calc(env(safe-area-inset-bottom) + 76px)); font-size: 12px; }
+    .reading-hint--desktop { display: none; }
+    .reading-hint--mobile { display: inline; }
+  }
+
+  @media (max-width: 390px) {
+    .mobile-text-page { padding: 36px 22px 35px; }
+    .story-text-page__content { gap: 10px; }
+    .story-text-page__ornament { font-size: 0.88rem; }
+    .story-text-page__breath { font-size: 0.82rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reader-ambience span, .music-bars i, .music-pulse, .galeria-book-3d__item, .galeria-book-3d, .reader-progress i, .reading-hint, .page-light {
+      animation: none !important;
+      transition-duration: 0.01ms !important;
     }
   }
 </style>
 
 <script>
-  (function() {
-    const bgMusic = document.getElementById('bgMusicOverlay');
-    const musicBtn = document.getElementById('musicBtnOverlay');
-    const container = document.getElementById('gallery-container');
+  (function enhanceStoryReader() {
+    const overlay = document.getElementById('story-overlay');
+    if (!overlay || overlay.dataset.enhanced === 'true') return;
+    overlay.dataset.enhanced = 'true';
+
+    const gallery = document.getElementById('gallery-container');
+    const desktopReader = document.getElementById('desktopReader');
+    const desktopItems = Array.from(document.querySelectorAll('.galeria-book-3d__item'));
+    const mobileReader = document.getElementById('mobileReader');
+    const mobileBook = document.getElementById('mobileBook');
+    const mobileBasePage = document.getElementById('mobileBasePage');
+    const mobileTurnPage = document.getElementById('mobileTurnPage');
     const pageCounter = document.getElementById('pageCounter');
-    const items = document.querySelectorAll('.galeria-book-3d__item');
-    const totalItems = items.length;
-    const totalSlides = totalItems * 2;
+    const progressBar = document.getElementById('readerProgress');
+    const previousButton = document.getElementById('navPrev');
+    const nextButton = document.getElementById('navNext');
+    const closeButton = document.getElementById('closeStoryBtn');
+    const musicButton = document.getElementById('musicBtnOverlay');
+    const backgroundMusic = document.getElementById('bgMusicOverlay');
+
+    const totalScenes = desktopItems.length;
+    let slides = [];
+    try { slides = JSON.parse(mobileReader?.dataset.slides || '[]'); } catch (_) { slides = []; }
+
+    const mobileMedia = window.matchMedia('(max-width: 680px)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const animationDuration = () => reducedMotion.matches ? 1 : 780;
+
+    let desktopIndex = 0;
+    let mobileIndex = 0;
+    let isAnimating = false;
     let isMusicPlaying = false;
-    let isPortraitMode = false;
-    let portraitSlideIndex = 0;
+    let pointerStart = null;
+    let previousFocus = null;
 
-    if (bgMusic) bgMusic.volume = 0.3;
+    if (backgroundMusic) backgroundMusic.volume = 0.24;
 
-    const PAGE_FLIP_SOUND = new Audio('https://res.cloudinary.com/dvmkrs2jb/video/upload/v1777375791/mixkit-paper-slide-1530_nouyzc.wav');
-    PAGE_FLIP_SOUND.volume = 0.8;
+    const pageFlipSound = new Audio('https://res.cloudinary.com/dvmkrs2jb/video/upload/v1777375791/mixkit-paper-slide-1530_nouyzc.wav');
+    pageFlipSound.volume = 0.5;
+
+    function toArabicDigits(value) {
+      return String(value).replace(/\d/g, (digit) => '٠١٢٣٤٥٦٧٨٩'[Number(digit)]);
+    }
+    function isMobileMode() { return mobileMedia.matches; }
     function playPageFlip() {
       try {
-        const snd = PAGE_FLIP_SOUND.cloneNode();
-        snd.volume = 0.8;
-        snd.play().catch(function() {});
-        snd.addEventListener('ended', function() { snd.remove(); });
-      } catch(e) {}
+        const sound = pageFlipSound.cloneNode();
+        sound.volume = 0.5;
+        sound.play().catch(() => {});
+      } catch (_) {}
+    }
+    function currentScene() {
+      if (!isMobileMode()) return desktopIndex;
+      if (mobileIndex === 0) return 0;
+      return Math.min(totalScenes, Math.ceil((mobileIndex + 1) / 2));
+    }
+    function progressValue() {
+      if (!isMobileMode()) return totalScenes ? desktopIndex / totalScenes : 0;
+      return slides.length > 1 ? mobileIndex / (slides.length - 1) : 0;
+    }
+    function updateDesktopAccessibility() {
+      desktopItems.forEach((item, index) => {
+        const visible = index === desktopIndex || index === desktopIndex - 1;
+        item.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      });
+    }
+    function updateStatus() {
+      const scene = currentScene();
+      if (pageCounter) {
+        pageCounter.textContent = scene === 0 ? 'الغلاف' : `المشهد ${toArabicDigits(scene)} من ${toArabicDigits(totalScenes)}`;
+      }
+      if (progressBar) progressBar.style.transform = `scaleX(${Math.max(0, Math.min(1, progressValue()))})`;
+      const atStart = isMobileMode() ? mobileIndex === 0 : desktopIndex === 0;
+      const atEnd = isMobileMode() ? mobileIndex >= slides.length - 1 : desktopIndex >= totalScenes;
+      if (previousButton) previousButton.disabled = atStart || isAnimating;
+      if (nextButton) nextButton.disabled = atEnd || isAnimating;
+      overlay.classList.toggle('has-progress', !atStart);
+      updateDesktopAccessibility();
     }
 
-    musicBtn?.addEventListener('click', function(e) {
-      e.stopPropagation();
-      if (!bgMusic) return;
-      if (isMusicPlaying) {
-        bgMusic.pause(); isMusicPlaying = false;
-        musicBtn.classList.add('paused'); musicBtn.setAttribute('aria-label', 'تشغيل الموسيقى');
+    function renderMobileSurface(page, slide) {
+      if (!page || !slide) return;
+      const surface = page.querySelector('[data-mobile-surface]');
+      const image = surface?.querySelector('[data-mobile-image]');
+      const textPage = surface?.querySelector('[data-mobile-text-page]');
+      const text = surface?.querySelector('[data-mobile-text]');
+      const number = surface?.querySelector('[data-mobile-number]');
+      const empty = surface?.querySelector('[data-mobile-empty]');
+      if (!surface || !image || !textPage || !text || !number || !empty) return;
+      image.hidden = true;
+      textPage.hidden = true;
+      empty.hidden = true;
+      if (slide.kind === 'image' && slide.src) {
+        image.src = slide.src;
+        image.alt = slide.alt || '';
+        image.hidden = false;
+        surface.dataset.kind = 'image';
+      } else if (slide.kind === 'text') {
+        text.textContent = slide.text || '';
+        number.textContent = toArabicDigits(slide.scene || '');
+        textPage.dataset.accent = String(slide.accent || 1);
+        textPage.dataset.density = slide.density || 'short';
+        textPage.hidden = false;
+        surface.dataset.kind = 'text';
       } else {
-        bgMusic.play().then(function() {
-          isMusicPlaying = true;
-          musicBtn.classList.remove('paused'); musicBtn.setAttribute('aria-label', 'إيقاف الموسيقى');
-        }).catch(function() {});
+        empty.hidden = false;
+        surface.dataset.kind = 'empty';
       }
-    });
-
-    function isPortrait() { return window.innerWidth <= 600 && window.innerHeight > window.innerWidth; }
-    function getItemIndex(slideIdx) { return Math.floor(slideIdx / 2); }
-    function isFrontFace(slideIdx) { return slideIdx % 2 === 0; }
-
-    function updatePageCounter() {
-      if (!pageCounter) return;
-      let currentDisplay;
-      if (isPortraitMode) { currentDisplay = getItemIndex(portraitSlideIndex) + 1; }
-      else {
-        let openCount = 0;
-        items.forEach(function(item) { if (item.classList.contains('is-open')) openCount++; });
-        currentDisplay = openCount + 1;
-      }
-      pageCounter.textContent = currentDisplay + ' / ' + totalItems;
+      page.setAttribute('aria-label', slide.alt || 'صفحة من القصة');
     }
 
-    function initPortraitSlider() {
-      isPortraitMode = true; portraitSlideIndex = 0;
-      items.forEach(function(item) {
-        item.classList.remove('portrait-current', 'portrait-done', 'is-open', 'show-back');
-        item.style.transform = ''; item.style.zIndex = '';
-      });
-      if (items[0]) items[0].classList.add('portrait-current');
-      updatePageCounter();
+    function resetReader() {
+      isAnimating = false;
+      desktopIndex = 0;
+      mobileIndex = 0;
+      desktopItems.forEach((item) => item.classList.remove('is-open', 'is-turning', 'is-returning'));
+      gallery?.classList.remove('book-open');
+      mobileTurnPage?.classList.remove('is-animating');
+      if (mobileTurnPage) {
+        mobileTurnPage.style.transform = '';
+        mobileTurnPage.style.visibility = '';
+      }
+      if (slides[0]) renderMobileSurface(mobileBasePage, slides[0]);
+      updateStatus();
+    }
+    function waitForAnimation() {
+      return new Promise((resolve) => window.setTimeout(resolve, animationDuration() + 30));
     }
 
-    function goToNextPortrait() {
+    async function turnDesktop(direction) {
+      if (isAnimating || totalScenes === 0) return;
+      if (direction === 'next' && desktopIndex >= totalScenes) return;
+      if (direction === 'previous' && desktopIndex <= 0) return;
+      isAnimating = true;
+      const targetIndex = direction === 'next' ? desktopIndex : desktopIndex - 1;
+      const leaf = desktopItems[targetIndex];
+      if (!leaf) { isAnimating = false; return; }
       playPageFlip();
-      const currentItemIdx = getItemIndex(portraitSlideIndex);
-      const currentItem = items[currentItemIdx];
-      if (portraitSlideIndex >= totalSlides - 1) {
-        portraitSlideIndex = 0;
-        items.forEach(function(item) { item.classList.remove('portrait-current', 'portrait-done', 'show-back'); });
-        items[0].classList.add('portrait-current');
-        updatePageCounter(); return;
+      leaf.classList.add('is-turning');
+      if (direction === 'next') {
+        leaf.classList.add('is-open');
+        desktopIndex += 1;
+      } else {
+        leaf.classList.add('is-returning');
+        leaf.classList.remove('is-open');
+        desktopIndex -= 1;
       }
-      portraitSlideIndex++;
-      const nextItemIdx = getItemIndex(portraitSlideIndex);
-      const showFront = isFrontFace(portraitSlideIndex);
-      if (nextItemIdx === currentItemIdx) { currentItem.classList.add('show-back'); }
-      else {
-        currentItem.classList.remove('portrait-current'); currentItem.classList.add('portrait-done');
-        const nextItem = items[nextItemIdx];
-        nextItem.classList.remove('portrait-done', 'show-back');
-        if (!showFront) nextItem.classList.add('show-back');
-        nextItem.classList.add('portrait-current');
+      gallery?.classList.toggle('book-open', desktopIndex > 0);
+      updateStatus();
+      await waitForAnimation();
+      leaf.classList.remove('is-turning', 'is-returning');
+      isAnimating = false;
+      updateStatus();
+    }
+
+    async function turnMobile(direction) {
+      if (isAnimating || !mobileTurnPage || !mobileBasePage || slides.length === 0) return;
+      const nextIndex = direction === 'next' ? mobileIndex + 1 : mobileIndex - 1;
+      if (nextIndex < 0 || nextIndex >= slides.length) return;
+      isAnimating = true;
+      updateStatus();
+      playPageFlip();
+      const duration = animationDuration();
+      if (direction === 'next') {
+        renderMobileSurface(mobileTurnPage, slides[mobileIndex]);
+        renderMobileSurface(mobileBasePage, slides[nextIndex]);
+      } else {
+        renderMobileSurface(mobileTurnPage, slides[nextIndex]);
       }
-      updatePageCounter();
+      mobileTurnPage.classList.add('is-animating');
+      mobileTurnPage.style.visibility = 'visible';
+      const frames = direction === 'next'
+        ? [
+            { transform: 'rotateY(0deg) translateZ(2px)', filter: 'drop-shadow(-2px 9px 8px rgba(0,0,0,.18))' },
+            { transform: 'rotateY(82deg) translateZ(12px) scaleX(.965)', filter: 'drop-shadow(-18px 18px 20px rgba(0,0,0,.5))', offset: 0.48 },
+            { transform: 'rotateY(180deg) translateZ(2px)', filter: 'drop-shadow(4px 10px 9px rgba(0,0,0,.18))' },
+          ]
+        : [
+            { transform: 'rotateY(180deg) translateZ(2px)', filter: 'drop-shadow(4px 10px 9px rgba(0,0,0,.18))' },
+            { transform: 'rotateY(98deg) translateZ(12px) scaleX(.965)', filter: 'drop-shadow(-18px 18px 20px rgba(0,0,0,.5))', offset: 0.52 },
+            { transform: 'rotateY(0deg) translateZ(2px)', filter: 'drop-shadow(-2px 9px 8px rgba(0,0,0,.18))' },
+          ];
+      const animation = mobileTurnPage.animate(frames, { duration, easing: 'cubic-bezier(.3,.72,.16,1)', fill: 'forwards' });
+      try { await animation.finished; } catch (_) {}
+      mobileIndex = nextIndex;
+      renderMobileSurface(mobileBasePage, slides[mobileIndex]);
+      animation.cancel();
+      mobileTurnPage.classList.remove('is-animating');
+      mobileTurnPage.style.visibility = '';
+      mobileTurnPage.style.transform = '';
+      isAnimating = false;
+      updateStatus();
     }
 
-    function goToPrevPortrait() {
-      if (portraitSlideIndex <= 0) { portraitSlideIndex = totalSlides - 1; }
-      else { portraitSlideIndex--; }
-      items.forEach(function(item) { item.classList.remove('portrait-current', 'portrait-done', 'show-back'); });
-      const currentItemIdx = getItemIndex(portraitSlideIndex);
-      const showFront = isFrontFace(portraitSlideIndex);
-      items[currentItemIdx].classList.add('portrait-current');
-      if (!showFront) items[currentItemIdx].classList.add('show-back');
-      updatePageCounter();
-    }
+    function goNext() { return isMobileMode() ? turnMobile('next') : turnDesktop('next'); }
+    function goPrevious() { return isMobileMode() ? turnMobile('previous') : turnDesktop('previous'); }
+    nextButton?.addEventListener('click', goNext);
+    previousButton?.addEventListener('click', goPrevious);
 
-    function updateContainerState() {
-      const anyOpen = Array.from(items).some(function(i) { return i.classList.contains('is-open'); });
-      container?.classList.toggle('book-open', anyOpen);
-    }
-
-    function toggleBookByIndex(idx) {
-      if (idx >= 0 && idx < totalItems) {
-        playPageFlip();
-        items[idx].classList.toggle('is-open');
-        updateContainerState();
-        updatePageCounter();
-      }
-    }
-
-    document.getElementById('navNext')?.addEventListener('click', function() {
-      if (isPortraitMode) { goToNextPortrait(); return; }
-      for (let i = 0; i < totalItems; i++) { if (!items[i].classList.contains('is-open')) { toggleBookByIndex(i); return; } }
+    desktopReader?.addEventListener('click', (event) => {
+      if (isMobileMode() || isAnimating) return;
+      const leaf = event.target.closest('.galeria-book-3d__item');
+      if (!leaf) return;
+      const index = Number(leaf.dataset.index);
+      if (index < desktopIndex) goPrevious();
+      else if (index === desktopIndex) goNext();
     });
 
-    document.getElementById('navPrev')?.addEventListener('click', function() {
-      if (isPortraitMode) { goToPrevPortrait(); return; }
-      for (let i = totalItems - 1; i >= 0; i--) { if (items[i].classList.contains('is-open')) { toggleBookByIndex(i); return; } }
+    mobileBook?.addEventListener('pointerdown', (event) => { pointerStart = { x: event.clientX, y: event.clientY }; });
+    mobileBook?.addEventListener('pointerup', (event) => {
+      if (!pointerStart || isAnimating) return;
+      const dx = event.clientX - pointerStart.x;
+      const dy = event.clientY - pointerStart.y;
+      pointerStart = null;
+      if (Math.abs(dx) < 44 || Math.abs(dx) < Math.abs(dy) * 1.15) return;
+      if (dx > 0) goNext();
+      else goPrevious();
+    });
+    mobileBook?.addEventListener('pointercancel', () => { pointerStart = null; });
+
+    musicButton?.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (!backgroundMusic) return;
+      if (isMusicPlaying) {
+        backgroundMusic.pause();
+        isMusicPlaying = false;
+        musicButton.classList.add('paused');
+        musicButton.setAttribute('aria-label', 'تشغيل الموسيقى');
+      } else {
+        backgroundMusic.play().then(() => {
+          isMusicPlaying = true;
+          musicButton.classList.remove('paused');
+          musicButton.setAttribute('aria-label', 'إيقاف الموسيقى');
+        }).catch(() => {});
+      }
     });
 
-    items.forEach(function(item) {
-      item.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (isPortraitMode) { goToNextPortrait(); return; }
-        toggleBookByIndex(parseInt(item.getAttribute('data-index') || '0', 10));
-      });
-      item.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault(); e.stopPropagation();
-          if (isPortraitMode) { goToNextPortrait(); return; }
-          toggleBookByIndex(parseInt(item.getAttribute('data-index') || '0', 10));
+    function requestClose() {
+      if (backgroundMusic) backgroundMusic.pause();
+      isMusicPlaying = false;
+      musicButton?.classList.add('paused');
+      musicButton?.setAttribute('aria-label', 'تشغيل الموسيقى');
+      overlay.dispatchEvent(new CustomEvent('story-gallery-close', { bubbles: true }));
+    }
+    closeButton?.addEventListener('click', requestClose);
+
+    overlay.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        requestClose();
+        return;
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        goNext();
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        goPrevious();
+      } else if (event.key === 'Tab') {
+        const focusable = Array.from(overlay.querySelectorAll('button:not(:disabled)')).filter((element) => element.offsetParent !== null);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
         }
-      });
+      }
     });
 
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'ArrowLeft') { document.getElementById('navNext')?.click(); }
-      if (e.key === 'ArrowRight') { document.getElementById('navPrev')?.click(); }
+    overlay.addEventListener('story-gallery-open', () => {
+      previousFocus = document.activeElement;
+      overlay.setAttribute('aria-hidden', 'false');
+      resetReader();
+      window.setTimeout(() => closeButton?.focus(), 0);
     });
-
-    function init() {
-      isPortraitMode = isPortrait();
-      if (isPortraitMode) { initPortraitSlider(); }
-      else { items.forEach(function(item) { item.classList.remove('portrait-current', 'portrait-done'); }); updateContainerState(); }
-      updatePageCounter();
-    }
-    init();
-
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(init, 200);
+    overlay.addEventListener('story-gallery-closed', () => {
+      overlay.setAttribute('aria-hidden', 'true');
+      if (previousFocus instanceof HTMLElement) previousFocus.focus();
     });
-
-    document.getElementById('closeStoryBtn')?.addEventListener('click', () => {
-      const wrapper = document.getElementById('story-overlay');
-      if (wrapper) wrapper.style.display = 'none';
+    mobileMedia.addEventListener('change', () => {
+      if (overlay.getAttribute('aria-hidden') === 'false') resetReader();
+      updateStatus();
     });
+    resetReader();
   })();
 </script>
