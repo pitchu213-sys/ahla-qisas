@@ -447,15 +447,15 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
     transform-style: preserve-3d;
     will-change: transform;
     cursor: pointer;
-    transition: transform 0.78s cubic-bezier(0.3, 0.72, 0.16, 1), filter 0.78s ease;
-    filter: drop-shadow(-4px 10px 10px rgba(0, 0, 0, 0.16));
+    transition: transform 0.78s cubic-bezier(0.3, 0.72, 0.16, 1), box-shadow 0.78s ease;
+    box-shadow: -4px 10px 14px rgba(0, 0, 0, 0.16);
   }
-  .galeria-book-3d__item.is-open { --page-rotate: 180deg; z-index: calc(40 + var(--i)); filter: drop-shadow(6px 12px 13px rgba(0, 0, 0, 0.19)); }
+  .galeria-book-3d__item.is-open { --page-rotate: 180deg; z-index: calc(40 + var(--i)); box-shadow: 6px 12px 18px rgba(0, 0, 0, 0.19); }
   .galeria-book-3d__item.is-returning { z-index: 75; }
   .galeria-book-3d__item.is-turning { animation: leaf-lift 0.78s ease both; }
   @keyframes leaf-lift {
-    0%, 100% { filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.15)); }
-    45%, 55% { filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.52)); }
+    0%, 100% { box-shadow: 0 10px 14px rgba(0, 0, 0, 0.15); }
+    45%, 55% { box-shadow: 0 22px 34px rgba(0, 0, 0, 0.52); }
   }
 
   .story-page-face {
@@ -662,7 +662,7 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .reader-ambience span, .music-bars i, .music-pulse, .galeria-book-3d__item, .galeria-book-3d, .reader-progress i, .reading-hint, .page-light {
+    .reader-ambience span, .music-bars i, .music-pulse, .galeria-book-3d__item, .galeria-book-3d, .reader-progress i, .reading-hint, .page-light, .mobile-page--turn.is-animating .mobile-surface::after {
       animation: none !important;
       transition-duration: 0.01ms !important;
     }
@@ -843,14 +843,14 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
       mobileTurnPage.style.visibility = 'visible';
       const frames = direction === 'next'
         ? [
-            { transform: 'rotateY(0deg) translateZ(2px)', filter: 'drop-shadow(-2px 9px 8px rgba(0,0,0,.18))' },
-            { transform: 'rotateY(82deg) translateZ(12px) scaleX(.965)', filter: 'drop-shadow(-18px 18px 20px rgba(0,0,0,.5))', offset: 0.48 },
-            { transform: 'rotateY(180deg) translateZ(2px)', filter: 'drop-shadow(4px 10px 9px rgba(0,0,0,.18))' },
+            { transform: 'rotateY(0deg) translateZ(2px)', boxShadow: '-2px 9px 12px rgba(0,0,0,.18)' },
+            { transform: 'rotateY(82deg) translateZ(12px) scaleX(.965)', boxShadow: '-18px 18px 26px rgba(0,0,0,.5)', offset: 0.48 },
+            { transform: 'rotateY(180deg) translateZ(2px)', boxShadow: '4px 10px 13px rgba(0,0,0,.18)' },
           ]
         : [
-            { transform: 'rotateY(180deg) translateZ(2px)', filter: 'drop-shadow(4px 10px 9px rgba(0,0,0,.18))' },
-            { transform: 'rotateY(98deg) translateZ(12px) scaleX(.965)', filter: 'drop-shadow(-18px 18px 20px rgba(0,0,0,.5))', offset: 0.52 },
-            { transform: 'rotateY(0deg) translateZ(2px)', filter: 'drop-shadow(-2px 9px 8px rgba(0,0,0,.18))' },
+            { transform: 'rotateY(180deg) translateZ(2px)', boxShadow: '4px 10px 13px rgba(0,0,0,.18)' },
+            { transform: 'rotateY(98deg) translateZ(12px) scaleX(.965)', boxShadow: '-18px 18px 26px rgba(0,0,0,.5)', offset: 0.52 },
+            { transform: 'rotateY(0deg) translateZ(2px)', boxShadow: '-2px 9px 12px rgba(0,0,0,.18)' },
           ];
       const animation = mobileTurnPage.animate(frames, { duration, easing: 'cubic-bezier(.3,.72,.16,1)', fill: 'forwards' });
       try { await animation.finished; } catch (_) {}
