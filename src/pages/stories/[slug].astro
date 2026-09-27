@@ -621,22 +621,34 @@ const breadcrumbSchema = {
     <script define:vars={{ quizData: JSON.stringify(frontmatter.quiz || []) }}>
       const QUIZ_DATA = JSON.parse(quizData);
 
-      document.getElementById('btn-start-story').addEventListener('click', () => {
-        document.getElementById('gallery-wrapper').style.display = 'block';
-      });
+      const startStoryButton = document.getElementById('btn-start-story');
+      const galleryWrapper = document.getElementById('gallery-wrapper');
+      const storyOverlay = document.getElementById('story-overlay');
+      let previousBodyOverflow = '';
+
+      function openStoryReader() {
+        if (!galleryWrapper || !storyOverlay) return;
+        previousBodyOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        galleryWrapper.style.display = 'block';
+        storyOverlay.dispatchEvent(new CustomEvent('story-gallery-open'));
+      }
+
+      function closeStoryReader() {
+        if (!galleryWrapper || !storyOverlay) return;
+        galleryWrapper.style.display = 'none';
+        document.body.style.overflow = previousBodyOverflow;
+        storyOverlay.dispatchEvent(new CustomEvent('story-gallery-closed'));
+      }
+
+      startStoryButton?.addEventListener('click', openStoryReader);
+      galleryWrapper?.addEventListener('story-gallery-close', closeStoryReader);
 
       document.getElementById('btn-start-quiz').addEventListener('click', () => {
         document.getElementById('story-intro').style.display = 'none';
         document.getElementById('qz-root').style.display = 'block';
         startQuiz();
       });
-
-      setTimeout(() => {
-        const closeBtn = document.querySelector('#story-overlay .close-story-btn');
-        if (closeBtn) closeBtn.addEventListener('click', () => {
-          document.getElementById('gallery-wrapper').style.display = 'none';
-        });
-      }, 500);
 
       const letters = ['أ', 'ب', 'ج', 'د'];
       let currentIdx = 0;
