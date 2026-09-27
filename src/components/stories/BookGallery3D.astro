@@ -3,6 +3,7 @@ export interface Props {
   pages: Array<{ front: string; back?: string; backText?: string }>;
   slug: string;
   isOpen?: boolean;
+  hasQuiz?: boolean;
 }
 
 type ReaderSlide = {
@@ -15,7 +16,7 @@ type ReaderSlide = {
   density: 'short' | 'medium' | 'dense';
 };
 
-const { pages, slug, isOpen = true } = Astro.props;
+const { pages, slug, isOpen = true, hasQuiz = false } = Astro.props;
 const safePages = Array.isArray(pages) ? pages : [];
 
 function getImagePath(imageName?: string): string {
@@ -200,6 +201,26 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
           <div class="mobile-paper-back" aria-hidden="true"></div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="reader-finale" id="readerFinale" hidden aria-live="polite">
+    <div class="reader-finale__sparkles" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="reader-finale__copy">
+      <span class="reader-finale__eyebrow">أَحْسَنْتَ! أَكْمَلْتَ الْقِصَّةَ</span>
+      <strong>هَلْ تَذَكَّرْتَ تَفَاصِيلَ الْمُغَامَرَةِ؟</strong>
+    </div>
+    <div class="reader-finale__actions">
+      {hasQuiz && (
+        <button class="reader-finale__quiz" id="readerQuizButton" type="button">
+          <span aria-hidden="true">🏆</span>
+          ابدأ تحدّي ريكسو
+        </button>
+      )}
+      <button class="reader-finale__replay" id="readerReplayButton" type="button">
+        <span aria-hidden="true">↻</span>
+        اقرأها مرّة أخرى
+      </button>
     </div>
   </div>
 
@@ -564,6 +585,48 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
   .story-reader.has-progress .reading-hint { opacity: 0; transform: translate(-50%, 8px); pointer-events: none; }
   .reading-hint--mobile { display: none; }
 
+  .reader-finale {
+    position: absolute;
+    right: 50%;
+    bottom: max(18px, env(safe-area-inset-bottom));
+    z-index: 45;
+    display: flex;
+    width: min(760px, calc(100vw - 190px));
+    min-height: 86px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    padding: 15px 18px 15px 24px;
+    transform: translate(50%, 22px) scale(0.96);
+    border: 1px solid rgba(255, 224, 160, 0.42);
+    border-radius: 24px;
+    color: #fff;
+    background:
+      radial-gradient(circle at 10% 30%, rgba(244, 160, 35, 0.2), transparent 30%),
+      linear-gradient(135deg, rgba(18, 47, 70, 0.96), rgba(8, 24, 41, 0.97));
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(18px);
+    opacity: 0;
+    overflow: hidden;
+    animation: finale-arrive 0.52s cubic-bezier(0.2, 0.82, 0.24, 1) forwards;
+  }
+  .reader-finale[hidden] { display: none; }
+  @keyframes finale-arrive { to { opacity: 1; transform: translate(50%, 0) scale(1); } }
+  .reader-finale__sparkles { position: absolute; inset: 0; pointer-events: none; }
+  .reader-finale__sparkles i { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #ffd166; box-shadow: 0 0 12px #ffd166; animation: finale-twinkle 1.8s ease-in-out infinite; }
+  .reader-finale__sparkles i:nth-child(1) { top: 18%; right: 4%; }
+  .reader-finale__sparkles i:nth-child(2) { bottom: 18%; right: 42%; animation-delay: -0.7s; }
+  .reader-finale__sparkles i:nth-child(3) { top: 20%; left: 3%; animation-delay: -1.2s; }
+  @keyframes finale-twinkle { 50% { opacity: 0.25; transform: scale(0.55); } }
+  .reader-finale__copy { position: relative; z-index: 1; display: flex; min-width: 0; flex-direction: column; gap: 4px; text-align: right; }
+  .reader-finale__eyebrow { color: #ffd98a; font: 800 11px/1.3 'Tajawal', sans-serif; letter-spacing: 0.04em; }
+  .reader-finale__copy strong { color: #fff; font: 900 clamp(16px, 1.7vw, 21px)/1.45 'Tajawal', sans-serif; text-wrap: balance; }
+  .reader-finale__actions { position: relative; z-index: 1; display: flex; flex-shrink: 0; gap: 9px; }
+  .reader-finale__actions button { min-height: 48px; border-radius: 15px; padding: 10px 16px; font: 800 14px/1.25 'Tajawal', sans-serif; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+  .reader-finale__actions button:hover, .reader-finale__actions button:focus-visible { transform: translateY(-2px); outline: 3px solid rgba(255, 218, 143, 0.32); outline-offset: 2px; }
+  .reader-finale__quiz { border: 1px solid #ffd37b; color: #3c2604; background: linear-gradient(135deg, #ffd166, #f4a023); box-shadow: 0 8px 22px rgba(244, 160, 35, 0.3); }
+  .reader-finale__replay { border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; background: rgba(255, 255, 255, 0.08); }
+
   @media (max-width: 680px) {
     .reader-scene { padding: 76px 10px 116px; }
     .reader-scene::after { bottom: 10%; width: 92vw; height: 7%; }
@@ -652,6 +715,20 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
     .reading-hint { bottom: max(88px, calc(env(safe-area-inset-bottom) + 76px)); font-size: 12px; }
     .reading-hint--desktop { display: none; }
     .reading-hint--mobile { display: inline; }
+    .reader-finale {
+      bottom: max(91px, calc(env(safe-area-inset-bottom) + 82px));
+      width: calc(100vw - 24px);
+      min-height: 0;
+      flex-direction: column;
+      gap: 12px;
+      padding: 15px;
+      border-radius: 21px;
+      text-align: center;
+    }
+    .reader-finale__copy { align-items: center; text-align: center; }
+    .reader-finale__copy strong { font-size: 17px; }
+    .reader-finale__actions { width: 100%; }
+    .reader-finale__actions button { flex: 1; min-width: 0; padding: 10px 8px; font-size: 13px; }
   }
 
   @media (max-width: 390px) {
@@ -662,10 +739,11 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .reader-ambience span, .music-bars i, .music-pulse, .galeria-book-3d__item, .galeria-book-3d, .reader-progress i, .reading-hint, .page-light, .mobile-page--turn.is-animating .mobile-surface::after {
+    .reader-ambience span, .music-bars i, .music-pulse, .galeria-book-3d__item, .galeria-book-3d, .reader-progress i, .reading-hint, .page-light, .mobile-page--turn.is-animating .mobile-surface::after, .reader-finale, .reader-finale__sparkles i {
       animation: none !important;
       transition-duration: 0.01ms !important;
     }
+    .reader-finale { opacity: 1; transform: translate(50%, 0) scale(1); }
   }
 </style>
 
@@ -689,6 +767,9 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
     const closeButton = document.getElementById('closeStoryBtn');
     const musicButton = document.getElementById('musicBtnOverlay');
     const backgroundMusic = document.getElementById('bgMusicOverlay');
+    const readerFinale = document.getElementById('readerFinale');
+    const quizButton = document.getElementById('readerQuizButton');
+    const replayButton = document.getElementById('readerReplayButton');
 
     const totalScenes = desktopItems.length;
     let slides = [];
@@ -746,7 +827,9 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
       const atEnd = isMobileMode() ? mobileIndex >= slides.length - 1 : desktopIndex >= totalScenes;
       if (previousButton) previousButton.disabled = atStart || isAnimating;
       if (nextButton) nextButton.disabled = atEnd || isAnimating;
+      if (readerFinale) readerFinale.hidden = !atEnd;
       overlay.classList.toggle('has-progress', !atStart);
+      overlay.classList.toggle('at-story-end', atEnd);
       updateDesktopAccessibility();
     }
 
@@ -915,6 +998,16 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
       overlay.dispatchEvent(new CustomEvent('story-gallery-close', { bubbles: true }));
     }
     closeButton?.addEventListener('click', requestClose);
+    replayButton?.addEventListener('click', () => {
+      resetReader();
+      nextButton?.focus();
+    });
+    quizButton?.addEventListener('click', () => {
+      if (backgroundMusic) backgroundMusic.pause();
+      isMusicPlaying = false;
+      musicButton?.classList.add('paused');
+      overlay.dispatchEvent(new CustomEvent('story-quiz-start', { bubbles: true }));
+    });
 
     overlay.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {

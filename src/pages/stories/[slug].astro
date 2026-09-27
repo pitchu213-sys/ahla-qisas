@@ -60,6 +60,11 @@ const storyDate =
 const storyCategory =
   frontmatter.category ?? 'قصص أطفال';
 
+const rexsoImage =
+  'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGcJTrLMZgvJyOOyvxKrPGWHTkNBiRXsQZqG-Rud90ZeaKRjKzeRW3UN2fco_mH5TCJ6zDfk1RvnWMr8_9sdVaNL1SL6PFjyPMZ2JB4FmWPcFqhZlAaIHFT9TF5IBYQiSKAAFTBL0oRlV5uDlRyjxU_H08vL3qj_Wc1txMrOvTpdgeBJt_oaCBj151r50/s300/1000002869.png';
+
+const hasQuiz = Array.isArray(frontmatter.quiz) && frontmatter.quiz.length > 0;
+
 const fullTitle =
   `${storyTitle} | أحلى القصص للأطفال`;
 
@@ -232,77 +237,155 @@ const breadcrumbSchema = {
       .actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
       .btn { border: none; border-radius: 50px; padding: 14px 28px; font-family: 'Tajawal', sans-serif; font-size: 16px; font-weight: 800; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
       .btn-primary { background: linear-gradient(135deg, #f4a023, #e08c10); color: white; box-shadow: 0 6px 20px rgba(244,160,35,0.4); }
-      .btn-quiz { background: linear-gradient(135deg, #1e2d6e, #2d3d8e); color: white; box-shadow: 0 6px 20px rgba(30,45,110,0.4); }
       .btn:hover { transform: translateY(-2px); }
       .story-footer { background: var(--warm-bg); border: 2px solid var(--warm-border); border-radius: 20px; padding: 24px; text-align: center; margin: 30px 0; }
 
-      /* ===== أنماط الاختبار المحسّنة (أكبر وأوضح) ===== */
-      .qz-root { direction: rtl; font-family: 'Tajawal', sans-serif; padding: 0; background: transparent; }
-      .qz-header {
-        background: linear-gradient(135deg, #1a3c5e 0%, #0d2b45 100%);
-        border-radius: 24px 24px 0 0;
-        padding: 24px 20px 32px;
-        text-align: center;
+      /* ===== تحدّي ريكسو بعد نهاية القصة ===== */
+      .qz-root {
+        direction: rtl;
         position: relative;
+        margin: 34px 0;
         overflow: hidden;
+        border: 1px solid rgba(244,160,35,0.32);
+        border-radius: 34px;
+        font-family: 'Tajawal', sans-serif;
+        background: #eef5f7;
+        box-shadow: 0 24px 70px rgba(11, 38, 58, 0.18);
+        isolation: isolate;
+        scroll-margin-top: 20px;
+      }
+      .qz-root[hidden] { display: none; }
+      .qz-header {
+        position: relative;
+        min-height: 240px;
+        overflow: hidden;
+        padding: 28px 34px 66px;
+        color: #fff;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(244,160,35,0.3), transparent 26%),
+          radial-gradient(circle at 88% 12%, rgba(86,178,201,0.24), transparent 31%),
+          linear-gradient(145deg, #173f5b 0%, #0c263d 58%, #081a2a 100%);
       }
       .qz-header::before {
         content: '';
-        position: absolute; inset: 0;
-        background: radial-gradient(circle at 20% 50%, rgba(244,160,35,0.12) 0%, transparent 60%),
-                    radial-gradient(circle at 80% 20%, rgba(100,180,255,0.08) 0%, transparent 50%);
+        position: absolute;
+        right: -10%;
+        bottom: -96px;
+        width: 120%;
+        height: 150px;
+        border-radius: 50%;
+        background: #eef5f7;
+        transform: rotate(-2deg);
       }
       .qz-stars-bg { position: absolute; inset: 0; pointer-events: none; }
       .qz-star-dot {
-        position: absolute; border-radius: 50%;
-        background: rgba(255,255,255,0.6);
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.72);
+        box-shadow: 0 0 8px rgba(255,255,255,0.58);
         animation: twinkle 2s ease-in-out infinite;
       }
       @keyframes twinkle { 0%,100%{opacity:0.3;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }
-      .qz-badge {
-        display: inline-block;
-        background: rgba(244,160,35,0.2);
-        color: #ffd166;
-        border: 1px solid rgba(244,160,35,0.4);
-        padding: 6px 20px;
-        border-radius: 50px;
-        font-size: 14px;
-        font-weight: 700;
-        margin-bottom: 12px;
-        letter-spacing: 1px;
+      .qz-back {
+        position: absolute;
+        top: 18px;
+        left: 20px;
+        z-index: 4;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        min-height: 40px;
+        padding: 8px 14px;
+        border: 1px solid rgba(255,255,255,0.22);
+        border-radius: 999px;
+        color: #fff;
+        background: rgba(255,255,255,0.08);
+        font: 700 13px/1.2 'Tajawal', sans-serif;
+        cursor: pointer;
+        backdrop-filter: blur(12px);
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+      .qz-back:hover, .qz-back:focus-visible { transform: translateY(-2px); background: rgba(255,255,255,0.16); outline: 3px solid rgba(255,215,135,0.24); }
+      .qz-hero {
         position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: 128px minmax(0, 1fr);
+        align-items: center;
+        gap: 24px;
+        max-width: 680px;
+        margin: 14px auto 0;
+      }
+      .qz-guide-wrap { position: relative; display: grid; place-items: center; }
+      .qz-guide-wrap::before { content: ''; position: absolute; width: 118px; height: 118px; border: 1px solid rgba(255,216,137,0.34); border-radius: 42% 58% 63% 37% / 44% 39% 61% 56%; background: rgba(255,255,255,0.07); transform: rotate(-8deg); }
+      .qz-guide {
+        position: relative;
+        width: 112px;
+        height: 112px;
+        object-fit: cover;
+        border: 3px solid rgba(255,218,145,0.72);
+        border-radius: 50%;
+        background: #fff8e8;
+        box-shadow: 0 13px 32px rgba(0,0,0,0.28);
+      }
+      .qz-heading { text-align: right; }
+      .qz-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 8px;
+        padding: 6px 14px;
+        border: 1px solid rgba(244,160,35,0.42);
+        border-radius: 999px;
+        color: #ffd98a;
+        background: rgba(244,160,35,0.14);
+        font-size: 13px;
+        font-weight: 800;
       }
       .qz-title {
-        font-size: 26px;
+        font-size: clamp(27px, 4.5vw, 38px);
         font-weight: 900;
         color: white;
         margin: 0;
-        position: relative;
+        line-height: 1.35;
         text-shadow: 0 2px 8px rgba(0,0,0,0.3);
       }
       .qz-subtitle {
-        font-size: 15px;
-        color: rgba(255,255,255,0.65);
-        margin: 6px 0 0;
-        position: relative;
+        max-width: 38em;
+        font-size: 16px;
+        color: rgba(255,255,255,0.76);
+        margin: 7px 0 0;
+        line-height: 1.7;
       }
       .qz-rexo-run {
+        position: relative;
+        z-index: 3;
         display: flex;
         align-items: center;
         gap: 12px;
-        padding: 18px 24px 14px;
-        background: #0d2b45;
+        width: min(650px, calc(100% - 44px));
+        margin: -27px auto 0;
+        padding: 12px 15px;
+        border: 1px solid rgba(23,63,91,0.12);
+        border-radius: 22px;
+        background: rgba(255,255,255,0.96);
+        box-shadow: 0 13px 34px rgba(12,38,61,0.16);
       }
       .qz-rexo-emoji {
-        font-size: 34px;
+        width: 44px;
+        height: 44px;
+        object-fit: cover;
+        border: 2px solid #f4c46f;
+        border-radius: 50%;
+        background: #fff8e7;
         flex-shrink: 0;
         transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
       }
       .qz-track {
         flex: 1;
-        height: 12px;
-        background: rgba(255,255,255,0.1);
+        height: 13px;
+        border: 1px solid #d8e5eb;
+        background: #eaf1f4;
         border-radius: 50px;
         overflow: hidden;
       }
@@ -323,14 +406,20 @@ const breadcrumbSchema = {
       }
       @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(300%)} }
       .qz-track-end { font-size: 26px; flex-shrink: 0; }
-      .qz-body { background: #f4f8fb; padding: 20px; border-radius: 0 0 24px 24px; }
+      .qz-body { padding: 25px 28px 31px; }
       .qz-qcard {
+        position: relative;
+        max-width: 690px;
+        margin: 0 auto;
+        overflow: hidden;
         background: white;
-        border-radius: 24px;
-        padding: 24px 22px;
-        box-shadow: 0 4px 20px rgba(26,60,94,0.08);
+        border: 1px solid #dfeaed;
+        border-radius: 27px;
+        padding: 27px 28px 28px;
+        box-shadow: 0 11px 34px rgba(26,60,94,0.1);
         animation: slideUp 0.4s ease-out;
       }
+      .qz-qcard::after { content: ''; position: absolute; top: -62px; left: -62px; width: 130px; height: 130px; border-radius: 50%; background: rgba(244,160,35,0.07); pointer-events: none; }
       @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
       .qz-qnum {
         display: inline-flex;
@@ -342,7 +431,7 @@ const breadcrumbSchema = {
         border-radius: 50px;
         font-size: 14px;
         font-weight: 700;
-        margin-bottom: 16px;
+        margin-bottom: 18px;
       }
       .qz-qnum-dot {
         width: 8px; height: 8px;
@@ -351,21 +440,23 @@ const breadcrumbSchema = {
         flex-shrink: 0;
       }
       .qz-qtext {
-        font-size: 22px;
+        font-size: clamp(21px, 3.6vw, 27px);
         font-weight: 800;
         color: #1a3c5e;
-        line-height: 1.6;
-        margin-bottom: 22px;
+        line-height: 1.65;
+        margin-bottom: 24px;
         text-align: right;
+        text-wrap: pretty;
       }
-      .qz-options { display: flex; flex-direction: column; gap: 14px; }
+      .qz-options { display: grid; gap: 13px; }
       .qz-opt {
         display: flex;
         align-items: center;
         gap: 16px;
-        border: 2.5px solid #dce8f0;
+        min-height: 68px;
+        border: 2px solid #dce8f0;
         border-radius: 18px;
-        padding: 18px 20px;
+        padding: 12px 16px;
         font-family: 'Tajawal', sans-serif;
         font-size: 18px;
         font-weight: 700;
@@ -375,41 +466,27 @@ const breadcrumbSchema = {
         text-align: right;
         transition: all 0.18s ease;
         position: relative;
-        overflow: hidden;
         box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-      }
-      .qz-opt::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, rgba(244,160,35,0.08), transparent);
-        opacity: 0;
-        transition: opacity 0.2s;
       }
       .qz-opt:hover:not(:disabled) {
         border-color: #f4a023;
         transform: translateX(-4px);
         box-shadow: 0 6px 16px rgba(244,160,35,0.2);
+        background: #fffbf1;
       }
-      .qz-opt:hover:not(:disabled)::before { opacity: 1; }
       .qz-opt-letter {
-  width: 42px; height: 42px;
-  border-radius: 14px;
-  background: #f0f7ff;
-  border: 2px solid #dce8f0;
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  font-weight: 900;
-  font-size: 18px;
-  line-height: 1;
-  color: #1a3c5e;
-  flex-shrink: 0;
-  font-family: 'Tajawal', sans-serif;
-  /* هذان السطران هما الإصلاح */
-  padding-top: 3px;
-  text-align: center;
-}
+        width: 42px;
+        height: 42px;
+        border: 2px solid #dce8f0;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        color: #1a3c5e;
+        background: #f0f7ff;
+        font: 900 17px/1 'Tajawal', sans-serif;
+        text-align: center;
+      }
       .qz-opt-text { flex: 1; font-size: 19px; }
       .qz-opt.correct {
         border-color: #2e7d32;
@@ -419,12 +496,12 @@ const breadcrumbSchema = {
       }
       .qz-opt.correct .qz-opt-letter { background: #2e7d32; color: white; border-color: #2e7d32; }
       .qz-opt.wrong {
-        border-color: #c62828;
-        background: #fff5f5;
-        color: #b71c1c;
+        border-color: #e37b69;
+        background: #fff5f2;
+        color: #9f392c;
         animation: shake 0.4s ease-out;
       }
-      .qz-opt.wrong .qz-opt-letter { background: #c62828; color: white; border-color: #c62828; }
+      .qz-opt.wrong .qz-opt-letter { background: #d76051; color: white; border-color: #d76051; }
       @keyframes correctPop { 0%{transform:scale(1)} 40%{transform:scale(1.03)} 100%{transform:scale(1)} }
       @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
       .qz-feedback {
@@ -457,16 +534,18 @@ const breadcrumbSchema = {
         cursor: pointer;
         transition: all 0.2s;
         box-shadow: 0 4px 12px rgba(244,160,35,0.35);
-        letter-spacing: 0.5px;
       }
       .qz-next:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(244,160,35,0.45); }
       .qz-next:active { transform: scale(0.98); }
       .qz-result { display: none; text-align: center; animation: slideUp 0.5s ease-out; }
       .qz-result-inner {
+        max-width: 690px;
+        margin: 0 auto;
         background: white;
-        border-radius: 20px;
-        padding: 28px 20px;
-        box-shadow: 0 4px 20px rgba(26,60,94,0.08);
+        border: 1px solid #dfeaed;
+        border-radius: 27px;
+        padding: 32px 24px 28px;
+        box-shadow: 0 11px 34px rgba(26,60,94,0.1);
         position: relative;
         overflow: hidden;
       }
@@ -478,7 +557,9 @@ const breadcrumbSchema = {
         background: radial-gradient(circle, rgba(244,160,35,0.2) 0%, transparent 70%);
         pointer-events: none;
       }
-      .qz-result-dino { font-size: 64px; margin-bottom: 6px; position: relative; }
+      .qz-result-mascot { position: relative; width: 105px; margin: 0 auto 8px; }
+      .qz-result-dino { display: block; width: 96px; height: 96px; object-fit: cover; border: 3px solid #f4c46f; border-radius: 50%; background: #fff8e8; box-shadow: 0 10px 26px rgba(26,60,94,0.16); }
+      .qz-result-award { position: absolute; right: -7px; bottom: -2px; display: grid; width: 40px; height: 40px; place-items: center; border: 3px solid #fff; border-radius: 50%; background: #ffd166; font-size: 21px; box-shadow: 0 5px 14px rgba(0,0,0,0.14); }
       .qz-result-title { font-size: 25px; font-weight: 900; color: #1a3c5e; margin: 0 0 6px; }
       .qz-stars { display: flex; justify-content: center; gap: 6px; margin: 12px 0; }
       .qz-star {
@@ -492,7 +573,7 @@ const breadcrumbSchema = {
       .qz-score { font-size: 42px; font-weight: 900; color: #f4a023; line-height: 1; margin: 4px 0; }
       .qz-score-label { font-size: 15px; color: #888; margin-bottom: 12px; }
       .qz-result-msg { font-size: 17px; color: #555; margin-bottom: 20px; line-height: 1.6; }
-      .qz-result-btns { display: flex; flex-direction: column; gap: 10px; }
+      .qz-result-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
       .qz-btn-retry {
         padding: 16px;
         background: linear-gradient(135deg, #f4a023, #e08c10);
@@ -505,17 +586,32 @@ const breadcrumbSchema = {
         box-shadow: 0 4px 12px rgba(244,160,35,0.3);
       }
       .qz-btn-retry:hover { transform: translateY(-2px); }
+      .qz-btn-reread {
+        padding: 16px;
+        border: 1px solid #c9dce4;
+        border-radius: 16px;
+        color: #1a3c5e;
+        background: #eef6f8;
+        font-family: 'Tajawal', sans-serif;
+        font-size: 17px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .qz-btn-reread:hover { transform: translateY(-2px); background: #e2f0f3; }
       .qz-btn-more {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 6px;
-        padding: 16px;
-        background: linear-gradient(135deg, #1a3c5e, #0d2b45);
-        color: white; border: none;
-        border-radius: 16px;
+        grid-column: 1 / -1;
+        padding: 8px 14px;
+        color: #587080;
+        background: transparent;
+        border: none;
+        border-radius: 12px;
         font-family: 'Tajawal', sans-serif;
-        font-size: 17px; font-weight: 800;
+        font-size: 15px; font-weight: 700;
         cursor: pointer;
         transition: all 0.2s;
         text-decoration: none;
@@ -533,10 +629,30 @@ const breadcrumbSchema = {
       .qz-q-area { position: relative; }
 
       @media (max-width: 600px) {
-        .qz-qtext { font-size: 20px; }
-        .qz-opt { padding: 16px 18px; font-size: 17px; }
+        .qz-root { margin: 24px -8px; border-radius: 25px; }
+        .qz-header { min-height: 295px; padding: 56px 20px 70px; }
+        .qz-back { top: 13px; left: 13px; }
+        .qz-hero { grid-template-columns: 1fr; gap: 12px; margin-top: 0; text-align: center; }
+        .qz-guide { width: 88px; height: 88px; }
+        .qz-guide-wrap::before { width: 96px; height: 96px; }
+        .qz-heading { text-align: center; }
+        .qz-title { font-size: 29px; }
+        .qz-subtitle { font-size: 14px; }
+        .qz-rexo-run { width: calc(100% - 28px); margin-top: -25px; padding: 10px 12px; }
+        .qz-rexo-emoji { width: 39px; height: 39px; }
+        .qz-body { padding: 19px 14px 24px; }
+        .qz-qcard { padding: 22px 16px; border-radius: 22px; }
+        .qz-qtext { font-size: 21px; }
+        .qz-opt { min-height: 62px; padding: 11px 12px; font-size: 17px; }
         .qz-opt-letter { width: 38px; height: 38px; font-size: 16px; }
-        .qz-opt-text { font-size: 18px; }
+        .qz-opt-text { font-size: 17px; }
+        .qz-result-inner { padding: 28px 16px 24px; border-radius: 22px; }
+        .qz-result-btns { grid-template-columns: 1fr; }
+        .qz-btn-more { grid-column: auto; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .qz-star-dot, .qz-fill::after, .qz-qcard, .qz-result, .qz-opt.correct, .qz-opt.wrong, .qz-conf { animation: none !important; }
+        .qz-opt, .qz-next, .qz-btn-retry, .qz-btn-reread, .qz-btn-more, .qz-back { transition-duration: 0.01ms !important; }
       }
     </style>
   </head>
@@ -551,26 +667,33 @@ const breadcrumbSchema = {
 
     <main class="container">
       <section class="intro" id="story-intro">
-        <img class="intro-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGcJTrLMZgvJyOOyvxKrPGWHTkNBiRXsQZqG-Rud90ZeaKRjKzeRW3UN2fco_mH5TCJ6zDfk1RvnWMr8_9sdVaNL1SL6PFjyPMZ2JB4FmWPcFqhZlAaIHFT9TF5IBYQiSKAAFTBL0oRlV5uDlRyjxU_H08vL3qj_Wc1txMrOvTpdgeBJt_oaCBj151r50/s300/1000002869.png" alt="ريكسو" width="90" height="90" />
+        <img class="intro-img" src={rexsoImage} alt="ريكسو" width="90" height="90" />
         <h2>{frontmatter.title}</h2>
         <p set:html={frontmatter.introText || ''} />
         <div class="actions">
           <button class="btn btn-primary" id="btn-start-story">📖 ابدأ القصة</button>
-          <button class="btn btn-quiz" id="btn-start-quiz">🎯 اختبر ابنك</button>
         </div>
       </section>
 
-      <section class="qz-root" id="qz-root" style="display:none;">
+      <section class="qz-root" id="qz-root" hidden aria-labelledby="qz-title">
         <div class="qz-header">
           <div class="qz-stars-bg" id="stars-bg"></div>
-          <div class="qz-badge">🦖 اختبار ريكسو</div>
-          <h2 class="qz-title">هل أنت جاهز للتحدي؟ 🏆</h2>
-          <p class="qz-subtitle">أجب على الأسئلة واكسب النجوم!</p>
+          <button class="qz-back" id="qz-read-story" type="button"><span aria-hidden="true">↻</span> اقرأ القصة</button>
+          <div class="qz-hero">
+            <div class="qz-guide-wrap">
+              <img class="qz-guide" src={rexsoImage} alt="ريكسو يرافق الطفل في الاختبار" width="112" height="112" />
+            </div>
+            <div class="qz-heading">
+              <div class="qz-badge"><span aria-hidden="true">✦</span> تحدّي ريكسو</div>
+              <h2 class="qz-title" id="qz-title" tabindex="-1">مغامرة الأسئلة بدأت!</h2>
+              <p class="qz-subtitle">اختر الإجابة التي تتذكّرها، واجمع نجوم الحكاية مع ريكسو.</p>
+            </div>
+          </div>
         </div>
         <div class="qz-rexo-run">
-          <div class="qz-rexo-emoji" id="rexo">🦖</div>
+          <img class="qz-rexo-emoji" id="rexo" src={rexsoImage} alt="" width="44" height="44" />
           <div class="qz-track"><div class="qz-fill" id="prog"></div></div>
-          <div class="qz-track-end">🏆</div>
+          <div class="qz-track-end" aria-hidden="true">🏆</div>
         </div>
         <div class="qz-body">
           <div class="qz-q-area" id="q-area">
@@ -581,25 +704,27 @@ const breadcrumbSchema = {
               </div>
               <div class="qz-qtext" id="qtext">جارٍ تحميل الأسئلة...</div>
               <div class="qz-options" id="opts"></div>
-              <div class="qz-feedback" id="fb"></div>
-              <button class="qz-next" id="nxt">السؤال التالي 🦕</button>
+              <div class="qz-feedback" id="fb" role="status" aria-live="polite"></div>
+              <button class="qz-next" id="nxt" type="button">السؤال التالي <span aria-hidden="true">←</span></button>
             </div>
           </div>
           <div class="qz-result" id="res">
             <div class="qz-result-inner">
               <div class="qz-confetti-wrap" id="conf-wrap"></div>
               <div class="qz-result-glow"></div>
-              <div class="qz-result-dino" id="res-dino">🦖</div>
-              <h2 class="qz-result-title" id="res-title">أنت بطل القصص!</h2>
-              <div class="qz-stars" id="res-stars">
-                <span class="qz-star">⭐</span><span class="qz-star">⭐</span><span class="qz-star">⭐</span><span class="qz-star">⭐</span><span class="qz-star">⭐</span>
+              <div class="qz-result-mascot">
+                <img class="qz-result-dino" src={rexsoImage} alt="ريكسو يحتفل بالنتيجة" width="96" height="96" />
+                <span class="qz-result-award" id="res-award" aria-hidden="true">🏆</span>
               </div>
+              <h2 class="qz-result-title" id="res-title" tabindex="-1">أنت بطل القصص!</h2>
+              <div class="qz-stars" id="res-stars" aria-label="نجوم النتيجة"></div>
               <div class="qz-score" id="res-score">0 / 0</div>
               <div class="qz-score-label">نقاطك</div>
               <p class="qz-result-msg" id="res-msg">أحسنت!</p>
               <div class="qz-result-btns">
-                <button class="qz-btn-retry" id="retry-btn">🔄 حاول مرة أخرى</button>
-                <a href="/stories" class="qz-btn-more">📚 اكتشف قصصاً جديدة</a>
+                <button class="qz-btn-retry" id="retry-btn" type="button">↻ حاول مرة أخرى</button>
+                <button class="qz-btn-reread" id="result-read-story" type="button">📖 اقرأ القصة مجددًا</button>
+                <a href="/stories" class="qz-btn-more">📚 اكتشف قصصًا أخرى</a>
               </div>
             </div>
           </div>
@@ -613,7 +738,7 @@ const breadcrumbSchema = {
     </main>
 
     <div id="gallery-wrapper" style="display:none;">
-      <BookGallery3D pages={frontmatter.pages || []} slug={slug} isOpen={true} />
+      <BookGallery3D pages={frontmatter.pages || []} slug={slug} isOpen={true} hasQuiz={hasQuiz} />
     </div>
 
     <Footer />
@@ -624,7 +749,31 @@ const breadcrumbSchema = {
       const startStoryButton = document.getElementById('btn-start-story');
       const galleryWrapper = document.getElementById('gallery-wrapper');
       const storyOverlay = document.getElementById('story-overlay');
+      const storyIntro = document.getElementById('story-intro');
+      const quizRoot = document.getElementById('qz-root');
+      const quizTitle = document.getElementById('qz-title');
+      const qnum = document.getElementById('qnum');
+      const qtot = document.getElementById('qtot');
+      const qtext = document.getElementById('qtext');
+      const opts = document.getElementById('opts');
+      const fb = document.getElementById('fb');
+      const nxt = document.getElementById('nxt');
+      const prog = document.getElementById('prog');
+      const rexo = document.getElementById('rexo');
+      const qArea = document.getElementById('q-area');
+      const res = document.getElementById('res');
+      const resultStars = document.getElementById('res-stars');
+      const starsBg = document.getElementById('stars-bg');
+      const optionLabels = ['أ', 'ب', 'ج', 'د'];
+
       let previousBodyOverflow = '';
+      let currentIdx = 0;
+      let userScore = 0;
+      let totalQuestions = 0;
+
+      function toArabicDigits(value) {
+        return String(value).replace(/\d/g, digit => '٠١٢٣٤٥٦٧٨٩'[Number(digit)]);
+      }
 
       function openStoryReader() {
         if (!galleryWrapper || !storyOverlay) return;
@@ -641,173 +790,191 @@ const breadcrumbSchema = {
         storyOverlay.dispatchEvent(new CustomEvent('story-gallery-closed'));
       }
 
+      function showQuiz() {
+        if (!quizRoot || !storyIntro) return;
+        closeStoryReader();
+        storyIntro.style.display = 'none';
+        quizRoot.hidden = false;
+        startQuiz();
+        window.requestAnimationFrame(() => {
+          quizRoot.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          window.setTimeout(() => quizTitle?.focus(), 420);
+        });
+      }
+
+      function readStoryAgain() {
+        if (quizRoot) quizRoot.hidden = true;
+        if (storyIntro) storyIntro.style.display = '';
+        openStoryReader();
+      }
+
       startStoryButton?.addEventListener('click', openStoryReader);
       galleryWrapper?.addEventListener('story-gallery-close', closeStoryReader);
-
-      document.getElementById('btn-start-quiz').addEventListener('click', () => {
-        document.getElementById('story-intro').style.display = 'none';
-        document.getElementById('qz-root').style.display = 'block';
-        startQuiz();
-      });
-
-      const letters = ['أ', 'ب', 'ج', 'د'];
-      let currentIdx = 0;
-      let userScore = 0;
-      let totalQuestions = 0;
-
-      const qnum = document.getElementById('qnum');
-      const qtot = document.getElementById('qtot');
-      const qtext = document.getElementById('qtext');
-      const opts = document.getElementById('opts');
-      const fb = document.getElementById('fb');
-      const nxt = document.getElementById('nxt');
-      const prog = document.getElementById('prog');
-      const rexo = document.getElementById('rexo');
-      const qArea = document.getElementById('q-area');
-      const res = document.getElementById('res');
-      const starsBg = document.getElementById('stars-bg');
+      galleryWrapper?.addEventListener('story-quiz-start', showQuiz);
+      document.getElementById('qz-read-story')?.addEventListener('click', readStoryAgain);
+      document.getElementById('result-read-story')?.addEventListener('click', readStoryAgain);
 
       function startQuiz() {
-        if (!QUIZ_DATA || QUIZ_DATA.length === 0) {
-          qtext.textContent = '⚠️ لا توجد أسئلة متاحة لهذه القصة بعد.';
+        if (!Array.isArray(QUIZ_DATA) || QUIZ_DATA.length === 0) {
+          if (qtext) qtext.textContent = 'لا توجد أسئلة متاحة لهذه القصة بعد.';
           return;
         }
         totalQuestions = QUIZ_DATA.length;
-        qtot.textContent = totalQuestions;
         currentIdx = 0;
         userScore = 0;
-        res.style.display = 'none';
-        qArea.style.display = 'block';
-        rexo.style.transform = '';
-        createStars();
+        if (qtot) qtot.textContent = toArabicDigits(totalQuestions);
+        if (res) res.style.display = 'none';
+        if (qArea) qArea.style.display = 'block';
+        if (rexo) rexo.style.transform = '';
+        if (prog) prog.style.width = '0%';
+        if (resultStars) {
+          resultStars.replaceChildren();
+          for (let i = 0; i < totalQuestions; i += 1) {
+            const star = document.createElement('span');
+            star.className = 'qz-star';
+            star.textContent = '⭐';
+            resultStars.appendChild(star);
+          }
+        }
+        createSkyStars();
         showQuestion();
       }
 
-      function createStars() {
-        starsBg.innerHTML = '';
-        for (let i = 0; i < 18; i++) {
-          const d = document.createElement('div');
-          d.className = 'qz-star-dot';
-          const s = Math.random() * 3 + 1;
-          d.style.cssText = `width:${s}px;height:${s}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*2}s;animation-duration:${1.5+Math.random()*2}s`;
-          starsBg.appendChild(d);
+      function createSkyStars() {
+        if (!starsBg || starsBg.childElementCount > 0) return;
+        for (let i = 0; i < 20; i += 1) {
+          const star = document.createElement('span');
+          star.className = 'qz-star-dot';
+          const size = Math.random() * 3 + 1;
+          star.style.cssText = `width:${size}px;height:${size}px;top:${Math.random() * 100}%;left:${Math.random() * 100}%;animation-delay:${Math.random() * 2}s;animation-duration:${1.5 + Math.random() * 2}s`;
+          starsBg.appendChild(star);
         }
       }
 
       function updateProgress() {
-        const pct = (currentIdx / totalQuestions) * 100;
-        prog.style.width = pct + '%';
-        const shift = pct * 1.8;
-        rexo.style.transform = `translateX(-${shift}px) scaleX(-1)`;
+        if (!prog || totalQuestions === 0) return;
+        prog.style.width = `${(currentIdx / totalQuestions) * 100}%`;
       }
 
       function showQuestion() {
-        const q = QUIZ_DATA[currentIdx];
-        qnum.textContent = currentIdx + 1;
-        qtext.textContent = q.q;
-        opts.innerHTML = '';
+        const question = QUIZ_DATA[currentIdx];
+        if (!question || !qnum || !qtext || !opts || !fb || !nxt) return;
+        qnum.textContent = toArabicDigits(currentIdx + 1);
+        qtext.textContent = question.q;
+        opts.replaceChildren();
         fb.className = 'qz-feedback';
-        fb.innerHTML = '';
+        fb.replaceChildren();
         nxt.style.display = 'none';
+        nxt.textContent = currentIdx === totalQuestions - 1 ? 'شاهد نتيجتك 🏆' : 'السؤال التالي ←';
 
         const qcard = document.getElementById('qcard');
-        qcard.style.animation = 'none';
-        void qcard.offsetHeight;
-        qcard.style.animation = 'slideUp 0.4s ease-out';
+        if (qcard) {
+          qcard.style.animation = 'none';
+          void qcard.offsetHeight;
+          qcard.style.animation = 'slideUp 0.4s ease-out';
+        }
 
-        const arabicLetters = [' ① ', ' ② ', ' ③ ', ' ④ '];
-
-        q.opts.forEach((o, i) => {
-          const btn = document.createElement('button');
-          btn.className = 'qz-opt';
-          btn.dataset.i = i;
-          const letter = arabicLetters[i] || '•';
-          btn.innerHTML = `<span class="qz-opt-letter">${letter}</span><span class="qz-opt-text">${o}</span>`;
-          btn.addEventListener('click', () => answer(i, q.correct));
-          opts.appendChild(btn);
+        question.opts.forEach((option, index) => {
+          const button = document.createElement('button');
+          const marker = document.createElement('span');
+          const label = document.createElement('span');
+          button.type = 'button';
+          button.className = 'qz-opt';
+          button.dataset.i = String(index);
+          marker.className = 'qz-opt-letter';
+          marker.setAttribute('aria-hidden', 'true');
+          marker.textContent = optionLabels[index] || '•';
+          label.className = 'qz-opt-text';
+          label.textContent = option;
+          button.append(marker, label);
+          button.addEventListener('click', () => answer(index, question.correct));
+          opts.appendChild(button);
         });
         updateProgress();
       }
 
-      function answer(chosen, correct) {
-        document.querySelectorAll('.qz-opt').forEach(b => {
-          b.disabled = true;
-          const i = parseInt(b.dataset.i);
-          if (i === correct) b.classList.add('correct');
-          if (i === chosen && chosen !== correct) b.classList.add('wrong');
-        });
-        if (chosen === correct) {
-          userScore++;
-          fb.className = 'qz-feedback ok show';
-          fb.innerHTML = '<span class="qz-feedback-icon">🎉</span><span>ممتاز! إجابة صحيحة يا بطل!</span>';
-          rexo.textContent = '🦖';
-          rexo.style.transform += ' scale(1.3)';
-          setTimeout(() => { rexo.style.transform = rexo.style.transform.replace(' scale(1.3)', ''); }, 300);
-        } else {
-          fb.className = 'qz-feedback bad show';
-          fb.innerHTML = '<span class="qz-feedback-icon">💪</span><span>الإجابة الصحيحة باللون الأخضر — حاول مجدداً!</span>';
-        }
-        nxt.style.display = 'block';
+      function showFeedback(kind, icon, message) {
+        if (!fb) return;
+        const iconNode = document.createElement('span');
+        const messageNode = document.createElement('span');
+        iconNode.className = 'qz-feedback-icon';
+        iconNode.setAttribute('aria-hidden', 'true');
+        iconNode.textContent = icon;
+        messageNode.textContent = message;
+        fb.className = `qz-feedback ${kind} show`;
+        fb.replaceChildren(iconNode, messageNode);
       }
 
-      nxt.addEventListener('click', () => {
-        currentIdx++;
-        if (currentIdx < totalQuestions) { showQuestion(); }
-        else { finishQuiz(); }
+      function answer(chosen, correct) {
+        opts?.querySelectorAll('.qz-opt').forEach(button => {
+          button.disabled = true;
+          const index = Number(button.dataset.i);
+          if (index === correct) button.classList.add('correct');
+          if (index === chosen && chosen !== correct) button.classList.add('wrong');
+        });
+        if (chosen === correct) {
+          userScore += 1;
+          showFeedback('ok', '🎉', 'رائع! وجدت الإجابة الصحيحة.');
+          if (rexo) {
+            rexo.style.transform = 'scale(1.18) rotate(-5deg)';
+            window.setTimeout(() => { rexo.style.transform = ''; }, 360);
+          }
+        } else {
+          showFeedback('bad', '🌱', 'محاولة جميلة! الإجابة الصحيحة ملوّنة بالأخضر.');
+        }
+        if (nxt) nxt.style.display = 'block';
+      }
+
+      nxt?.addEventListener('click', () => {
+        currentIdx += 1;
+        if (currentIdx < totalQuestions) showQuestion();
+        else finishQuiz();
       });
 
-      document.getElementById('retry-btn').addEventListener('click', () => {
-        currentIdx = 0;
-        userScore = 0;
-        res.style.display = 'none';
-        qArea.style.display = 'block';
-        rexo.style.transform = '';
-        prog.style.width = '0%';
-        showQuestion();
-      });
+      document.getElementById('retry-btn')?.addEventListener('click', startQuiz);
 
       function finishQuiz() {
-        qArea.style.display = 'none';
-        res.style.display = 'block';
-        prog.style.width = '100%';
-        rexo.style.transform = `translateX(-${100 * 1.8}px) scaleX(-1)`;
+        if (qArea) qArea.style.display = 'none';
+        if (res) res.style.display = 'block';
+        if (prog) prog.style.width = '100%';
+        document.getElementById('res-score').textContent = `${toArabicDigits(userScore)} / ${toArabicDigits(totalQuestions)}`;
 
-        document.getElementById('res-score').textContent = userScore + ' / ' + totalQuestions;
-
-        const stars = document.querySelectorAll('.qz-star');
-        stars.forEach((s, i) => {
-          if (i < userScore) setTimeout(() => s.classList.add('lit'), i * 220);
+        resultStars?.querySelectorAll('.qz-star').forEach((star, index) => {
+          if (index < userScore) window.setTimeout(() => star.classList.add('lit'), index * 180);
         });
 
-        const pct = userScore / totalQuestions;
-        let dino, title, msg;
-        if (pct === 1) {
-          dino = '🦖🏆'; title = '🌟 أنت بطل القصص!';
-          msg = 'كل الإجابات صحيحة! ريكسو فخور بك جداً وأنت تستحق أكبر تاج!';
+        const percentage = userScore / totalQuestions;
+        let award = '💪';
+        let title = 'كل محاولة تجعلك أقوى!';
+        let message = 'يمكنك قراءة القصة مرة أخرى، ثم العودة لجمع نجوم أكثر.';
+        if (percentage === 1) {
+          award = '🏆';
+          title = 'أنت بطل الحكاية!';
+          message = 'كل الإجابات صحيحة! ريكسو فخور بتركيزك الرائع.';
           confetti();
-        } else if (pct >= 0.6) {
-          dino = '🦖⭐'; title = '🎉 رائع جداً!';
-          msg = 'أنت تعرف الكثير عن القصة! حاول مرة أخرى لتحصل على كل النجوم!';
-        } else {
-          dino = '🦖💪'; title = '💪 لا بأس، استمر!';
-          msg = 'اقرأ القصة مرة أخرى وعد للاختبار — ريكسو يؤمن بك!';
+        } else if (percentage >= 0.6) {
+          award = '⭐';
+          title = 'رائع جدًا!';
+          message = 'تذكّرت معظم المغامرة. حاول مرة أخرى لتجمع كل النجوم!';
         }
-        document.getElementById('res-dino').textContent = dino;
+        document.getElementById('res-award').textContent = award;
         document.getElementById('res-title').textContent = title;
-        document.getElementById('res-msg').textContent = msg;
+        document.getElementById('res-msg').textContent = message;
+        document.getElementById('res-title')?.focus?.();
       }
 
       function confetti() {
         const wrap = document.getElementById('conf-wrap');
-        const colors = ['#f4a023','#ffd166','#4caf50','#2196f3','#e53935','#9c27b0','#ff6f91'];
-        for (let i = 0; i < 60; i++) {
-          const c = document.createElement('div');
-          c.className = 'qz-conf';
+        if (!wrap) return;
+        const colors = ['#f4a023','#ffd166','#4caf50','#2196f3','#e56b6f','#9c6ade','#ff8fab'];
+        for (let i = 0; i < 50; i += 1) {
+          const piece = document.createElement('span');
+          piece.className = 'qz-conf';
           const size = 6 + Math.random() * 8;
-          c.style.cssText = `width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*colors.length)]};left:${Math.random()*100}%;animation-duration:${1.2+Math.random()*1.8}s;animation-delay:${Math.random()*0.8}s;border-radius:${Math.random()>0.5?'50%':'2px'}`;
-          wrap.appendChild(c);
+          piece.style.cssText = `width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random() * colors.length)]};left:${Math.random() * 100}%;animation-duration:${1.2 + Math.random() * 1.8}s;animation-delay:${Math.random() * 0.8}s;border-radius:${Math.random() > 0.5 ? '50%' : '2px'}`;
+          wrap.appendChild(piece);
         }
-        setTimeout(() => { wrap.innerHTML = ''; }, 4000);
+        window.setTimeout(() => wrap.replaceChildren(), 4000);
       }
     </script>
   </body>
