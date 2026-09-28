@@ -961,10 +961,10 @@ const breadcrumbSchema = {
         const resultTitle = document.getElementById('res-title');
         if (resultTitle) resultTitle.textContent = title;
         document.getElementById('res-msg').textContent = message;
-        window.requestAnimationFrame(() => {
+        window.setTimeout(() => {
           res?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          window.setTimeout(() => resultTitle?.focus({ preventScroll: true }), 420);
-        });
+          resultTitle?.focus({ preventScroll: true });
+        }, 80);
       }
 
       function confetti() {
