@@ -11,24 +11,33 @@ introText: 'في غابة قديمة بعيدة، بين الأشجار الضخ
 pages:
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108033/sa5r/1_hntqqm.jpg'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108036/sa5r/2_coegvk.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108043/sa5r/3_micx5j.jpg'
+  - frontText: >-
+      أهلاً بكم يا أصدقائي الصغار! أنا «ريكسو». هل تحبون المغامرات؟ اليوم سنعود بالزمن إلى الوراء ملايين السنين لنقابل صديقاً مميزاً جداً. إنه ليس أسرع ديناصور، ولا أطول ديناصور، لكنه بالتأكيد الأكثر صلابة! هل ترون ذلك الجبل الصغير المتحرك هناك بين الأشجار؟ دعونا نقترب منه لنتعرف عليه.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108038/sa5r/4_ltwsbc.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108039/sa5r/5_ujs0ek.jpg'
+  - frontText: >-
+      رحبوا بصديقنا «صخرة»، وهو من نوع «أنكيلوصورس». انظروا إلى ظهره، إنه مغطى بدرع عظمي قوي جداً! هذا الدرع يشبه البدلة الحديدية التي يرتديها الفرسان، وهو يحميه من أي خطر قد يقترب منه. لا توجد أنياب تستطيع اختراق هذا الدرع المتين.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108043/sa5r/6_zolrix.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108042/sa5r/7_tgoyen.jpg'
+  - frontText: >-
+      وعلى جانبي جسم «صخرة»، توجد أشواك حادة وكبيرة. هذه الأشواك تجعل من الصعب جداً على أي ديناصور آخر أن يقترب منه من الجوانب. «صخرة» يمشي وهو يشعر بالأمان التام؛ فجسمه كله عبارة عن حصن منيع يتحرك على أربع أرجل.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108042/sa5r/8_jj5maj.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108040/sa5r/9_tww852.jpg'
+  - frontText: >-
+      هل تعلمون ما هو المذهل حقاً؟ حتى جفون «صخرة» مدرعة! عندما يشعر بالخطر أو يريد النوم، يغلق عينيه الصغيرتين، وتصبح جفونه مثل أبواب حديدية صغيرة تحمي عينيه الرقيقتين. لا يوجد مكان في جسمه ليس له حماية.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108031/sa5r/10_flrxbw.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108030/sa5r/11_ovi103.jpg'
+  - frontText: >-
+      والآن، انظروا إلى ذيله الطويل. في نهاية هذا الذيل توجد كتلة عظمية ضخمة وثقيلة تشبه المطرقة! «صخرة» لا يستخدم هذه المطرقة لإيذاء الآخرين، بل هي وسيلته الدفاعية القوية. إذا حاول أحد مضايقته، فإنه يهز ذيله ليخبرهم: «ابتعدوا، أنا قوي!»
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108028/sa5r/12_afrboo.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108035/sa5r/13_yoxxap.jpg'
+  - frontText: >-
+      رغم كل هذه الأسلحة والدروع، «صخرة» هو ألطف ديناصور قد تقابلونه. هو لا يحب العراك أبداً، بل يقضي وقته في البحث عن النباتات اللذيذة والأعشاب الخضراء. إنه نباتي بامتياز، ويفضل تناول وجبة من السراخس على الدخول في أي شجار.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108033/sa5r/14_z2yj8x.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108032/sa5r/15_ccup0e.jpg'
+  - frontText: >-
+      وبسبب ثقل درعه العظمي ومطرقته الكبيرة، يمشي «صخرة» ببطء شديد. هو لا يحتاج للجري بسرعة؛ فمن سيجرؤ على مطاردة حصن متحرك؟ «صخرة» يستمتع بكل خطوة يخطوها، ويتأمل جمال الغابة من حوله بكل هدوء.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108035/sa5r/16_zz3c8q.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108033/sa5r/17_mamaxt.jpg'
+  - frontText: >-
+      فجأة، ظهر «زريق»، وهو ديناصور صغير وسريع يحب المشاكسة. حاول «زريق» القفز نحو «صخرة» ظناً منه أنه وجد فريسة سهلة، لكن «صخرة» لم يهرب ولم يخف، بل ثبت في مكانه بكل ثقة وهز ذيله الثقيل مرة واحدة فقط في الهواء.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108036/sa5r/18_gjmwfj.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108035/sa5r/19_mtphik.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp' 
+  - frontText: >-
+      لقد تعلمنا من صديقنا «صخرة» درساً رائعاً اليوم. القوة لا تعني دائماً الهجوم، بل تعني أن تكون قادراً على حماية نفسك والعيش بسلام مع الآخرين. أنا «ريكسو» فخور بصديقنا المدرع، وأتمنى أن تكونوا قد استمتعتم بالتعرف عليه. إلى اللقاء في مغامرة أخرى!
+    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp'
 quiz:
   - q: 'أين يعيش صخرة الأنكيلوصورس؟'
     opts: ['في البحر 🌊', 'في الغابة الكبيرة 🌿', 'في الصحراء 🏜️']

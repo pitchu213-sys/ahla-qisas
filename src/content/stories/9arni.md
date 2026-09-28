@@ -11,24 +11,33 @@ introText: '
 pages:
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282703/9arni/1_u51in2.jpg'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112954/latif/2_h1u25f.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282709/9arni/3_y8xauj.jpg'
+  - frontText: >-
+      أهلاً بكم يا مستكشفي الصغار! أنا ريكسو، رفيقكم في هذه الرحلة المشوقة. اليوم سننطلق في مهمة خاصة للبحث عن كائن فريد يُلقب بـ«الثور العملاق». هل أنتم جاهزون لخوض هذه المغامرة في غابات العصور القديمة؟ لنبدأ بالبحث بين هذه الأشجار العالية!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282708/9arni/4_vdf3vr.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282708/9arni/5_z7z6un.jpg'
+  - frontText: >-
+      انظروا تحت أقدامكم! هناك آثار أقدام كبيرة جداً على ضفة هذا النهر. هل تسمعون ذلك؟ إنه صوت «قضقضة» أوراق الشجر القادم من خلف تلك الشجيرات. يبدو أن «الثور العملاق» قريب جداً منا، فلنتحرك بحذر لنراه.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282707/9arni/6_mmq3a4.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282703/9arni/7_loeywy.jpg'
+  - frontText: >-
+      ها قد ظهر أخيراً! رحبوا بصديقنا «قرني»، وهو ديناصور من نوع «كارنوتوروس». انظروا إلى رأسه، ألا يشبه الثور؟ إنه يملك قرنين قويين فوق عينيه، وهذا هو السبب في تسميته بـ«الثور العملاق». يا له من مظهر مهيب وقوي!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282706/9arni/8_oe7e30.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282709/9arni/9_xhmtb8.jpg'
+  - frontText: >-
+      هذه القرون ليست للزينة فقط، بل يستخدمها «قرني» للدفاع عن نفسه إذا واجه أي خطر. وإذا نظرتم داخل فمه، ستجدون مجموعة من الأسنان القوية المصممة لطحن الطعام بشكل جيد. «قرني» يعرف كيف يهتم بنفسه وبغذائه جيداً.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282702/9arni/10_w7zg7j.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282704/9arni/11_sckr7b.jpg'
+  - frontText: >-
+      انظروا إلى يديه الأماميتين، إنهما صغيرتان جداً وتشبهان المجاديف! ورغم ضخامة جسمه، فإن «قرني» يتمتع بمهارة مذهلة؛ فهو يمشي ببطء على أطرافه الأربعة عندما يتجول، ولكن حين يريد الإسراع، فإنه يجري بسرعة كبيرة على رجليه الخلفيتين القويتين.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282702/9arni/12_hvny50.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282703/9arni/13_suihox.jpg'
+  - frontText: >-
+      «قرني» يحب عائلته كثيراً، فهو كائن اجتماعي لا يحب العيش وحيداً. انظروا، لقد جاء صديقه «صخري» لينضم إليه. هما يعيشان في عائلات كبيرة، لأن البقاء معاً يوفر لهما الأمان ويجعل العثور على الطعام ومراقبة المكان أسهل.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282701/9arni/14_psdpsa.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282706/9arni/15_kl4ztk.jpg'
+  - frontText: >-
+      انظروا إلى جلده، إنه سميك جداً وقوي ليحميه من العوامل الجوية وخدوش الغابة. وفوق رأسه، يمتلك «قرني» عرفاً صغيراً وجميلاً يمتد فوق جبهته. هذا العرف والجلد الملون يجعلان «قرني» مميزاً جداً بين بقية الديناصورات.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282706/9arni/16_hhdt7t.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282706/9arni/17_kwydmb.jpg'
+  - frontText: >-
+      هل كنتم تعلمون أن «قرني» سباح ماهر؟ إنه يحب النزول إلى الأنهار الضحلة ليبرد جسمه أو ليعبر إلى الجهة الأخرى. بفضل قوته وتوازنه، يستطيع السباحة والمشي وسط المياه برشاقة، مستمتعاً بانتعاش الماء تحت أشعة الشمس الدافئة.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282707/9arni/18_wh3jr1.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779282706/9arni/19_hhxlfy.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp' 
+  - frontText: >-
+      يا لها من رحلة رائعة يا مستكشفي! لقد تعرفنا على سر «الثور العملاق»، واكتشفنا عالماً مذهلاً من القوة والجمال. أتمنى أن تكونوا قد استمتعتم بصحبة «قرني». أنا ريكسو، أودعكم الآن على أمل اللقاء في مغامرة جديدة. إلى اللقاء!
+    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp'
 quiz:
   - q: 'ما هو اللقب الذي يُطلق على ديناصور "قرني" في القصة؟'
     opts: ['ملك الأنهار', 'الثور العملاق', 'السحلية ذات الأشواك']

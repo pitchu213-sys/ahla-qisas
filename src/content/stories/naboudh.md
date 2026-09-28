@@ -11,24 +11,33 @@ introText: '
 pages:
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284619/naboudh/1_bfmmn0.png'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284649/naboudh/2_p8qrj1.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284645/naboudh/3_j55qst.png'
+  - frontText: >-
+      أهلاً بكم يا أصدقاء! أنا ريكسو، رفيقكم في هذه المغامرة المذهلة داخل أجسامنا. هل كنتم تعلمون أن هناك بطلاً صغيراً يسكن داخل صدوركم ولا يتوقف عن العمل أبداً؟ دعوني أعرفكم على «نبوض»، القلب الودود الذي سيأخذنا اليوم في جولة سحرية لنتعرف على أسراره المدهشة!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284670/naboudh/4_o1cb9i.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284652/naboudh/5_gvjiij.png'
+  - frontText: >-
+      يتساءل ريكسو: «أين يسكن نبوض يا ترى؟» يسكن «نبوض» في منتصف صدوركم تماماً، ويميل قليلاً نحو جهة اليسار. إنه يحب بيته الدافئ والمحمي جيداً. إذا وضعتم أيديكم على صدوركم، ستسمعون صوته وهو ينبض بإيقاع منتظم: «دب، دب... دب، دب». هذا هو لحن الحياة الذي يعزفه نبوض كل يوم.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284670/naboudh/6_l8mbcd.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284655/naboudh/7_tq2mtq.png'
+  - frontText: >-
+      هل فكرتم يوماً في حجم «نبوض»؟ ريكسو يخبرنا بسر صغير: «نبوض» ليس ضخماً، لكنه قوي جداً! حجمه يقارب حجم قبضة يدكم الصغيرة. انظروا كيف يقارن «نبوض» نفسه بقبضة يد، فهو محرك صغير الحجم، ولكنه يقوم بعمل جبار ليجعل أجسامكم تتحرك وتلعب.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284674/naboudh/8_l51jtx.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284659/naboudh/9_keccjl.png'
+  - frontText: >-
+      «نبوض» ليس مجرد صديق، بل هو أقوى مضخة في العالم! وظيفته الأساسية هي دفع الدم المحمل بالأكسجين والغذاء إلى كل مكان في جسمكم، من قمة الرأس حتى أطراف أصابع القدمين. ريكسو يقول: «بدون ضخ نبوض المستمر، لن تمتلك عضلاتنا القوة للقفز أو الجري».
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284615/naboudh/10_cbh18d.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284609/naboudh/11_ulwtjz.png'
+  - frontText: >-
+      انظروا إلى هذه الطرق السريعة! الدم ينتقل عبر أنابيب تسمى الأوعية الدموية. ريكسو يشرح لنا: «هناك مسارات حمراء تحمل الأكسجين المنعش، ومسارات زرقاء تعود لنبوض ليرسلها إلى الرئتين وتتجدد». «نبوض» يعمل كشرطي مرور ينظم حركة المرور في هذه الأنفاق الملونة ببراعة.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284704/naboudh/12_rjhp5p.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284602/naboudh/13_rrdsh0.png'
+  - frontText: >-
+      عندما تبدؤون بالركض والقفز، يحتاج جسمكم إلى طاقة مضاعفة. في تلك اللحظة، يبدأ «نبوض» بالعمل بسرعة أكبر! «طاخ، طاخ، طاخ!» ريكسو يلاحظ أن «نبوض» يسابقكم في الجري ليضمن وصول القوة إلى أرجلكم وأيديكم بسرعة كبيرة. يا له من رياضي نشيط!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284625/naboudh/14_vs5z5t.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284612/naboudh/15_bkrnyn.png'
+  - frontText: >-
+      ولكن، بعد يوم طويل مليء باللعب، يحتاج الجسم للراحة. عندما تغرقون في نوم عميق، يهدأ «نبوض» وينبض ببطء ولطف. ريكسو يهمس: «نبوض لا ينام أبداً، لكنه يحب هذه اللحظات الهادئة ليرتاح قليلاً ويعيد شحن طاقته بينما تحلمون بأحلام جميلة».
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284654/naboudh/16_lniihx.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284618/naboudh/17_eqktqy.png'
+  - frontText: >-
+      ليبقى «نبوض» قوياً وبطلاً، يجب أن تساعدوه. ريكسو ينصحنا: «نبوض يحب الطعام الصحي!» التفاح المقرمش، البروكلي الأخضر، والماء النقي هي الوقود المفضل لنبوض. عندما تأكلون جيداً، يشعر «نبوض» بالسعادة والقوة ليضخ الدم بنشاط أكبر.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284669/naboudh/18_fdlsqn.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779284767/19_qjvfoc.png'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp' 
+  - frontText: >-
+      لقد انتهت رحلتنا مع «نبوض» اليوم، يا أبطال! ريكسو يشكر «نبوض» على كل ما يفعله لأجلنا. ولكن انتظروا، مغامرتنا في جسم الإنسان لم تنته بعد! في المرة القادمة، سنصعد إلى الأعلى، حيث تسكن الأفكار والذكاء. هل أنتم مستعدون لزيارة «الدماغ»؟ إلى اللقاء قريباً!
+    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp'
 quiz:
   - q: 'أين يسكن "نبّوض" في جسم الإنسان؟'
     opts: ['في الرأس', 'في منتصف الصدر مائلاً نحو اليسار', 'في البطن']

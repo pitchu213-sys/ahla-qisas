@@ -11,24 +11,33 @@ introText: '
 pages:
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266203/fares/1_tukfg4.png'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266213/fares/2_cc7l5t.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266212/fares/3_yixxyz.png'
+  - frontText: >-
+      أهلاً بكم يا أصدقائي الصغار! أنا ريكسو، مرشدكم في رحلة عبر الزمن. اليوم، سنبحث عن صديق مميز جداً يعيش بين الأشجار الكثيفة. إنه لا يشبه أي ديناصور آخر، فلديه زينة عجيبة فوق رقبته. هل تستطيعون مساعدتي في العثور عليه؟ هيا بنا نفتش خلف تلك السرخسيات العملاقة!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266213/fares/4_mi9xep.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266214/fares/5_spbdy2.png'
+  - frontText: >-
+      انظروا! ها هو صديقنا «فارس». إنه ديناصور من نوع «أمارجاصورس». يا له من اسم قوي، تماماً مثل صاحبه! فارس ليس ضخماً جداً كبقية أقاربه، لكنه يملك حضوراً مذهلاً. انظروا كيف يمشي بهدوء وثقة بين الزهور الملونة.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266215/fares/6_ssgmqz.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266199/fares/7_ap6d5e.png'
+  - frontText: >-
+      يا للهول! انظروا إلى رقبته! هل ترون تلك الأشواك العظمية؟ فارس يملك صفين متوازيين من الأشواك الطويلة التي تمتد من خلف رأسه وعلى طول رقبته حتى ظهره. إنها تبدو كأنها تيجان مزدوجة أو سيوف تحميه من الأعلى. أليس شكله رائعاً؟
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266211/fares/8_dz79wj.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266201/fares/9_oylbrc.png'
+  - frontText: >-
+      يعتقد العلماء أن هذه الأشواك كانت مغطاة بجلد رقيق، لتشبه «الشراع» الجميل. هذا الشراع يساعد فارس في تنظيم حرارة جسمه، أو ربما يستخدمه ليتباهى بجماله أمام أصدقائه في الغابة. انظروا كيف ترفرف صديقتنا «لولو»، الديناصور الطائر الصغير، حول شراعه معجبة به.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266215/fares/10_nhx8tx.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266197/fares/11_uib0hf.png'
+  - frontText: >-
+      هل لاحظتم شيئاً آخر؟ رقبة فارس قصيرة مقارنة بالديناصورات التي تشبهه. هو لا يحتاج لرقبة طويلة جداً لأنه يفضل تناول الطعام من الشجيرات القريبة من الأرض. فارس يثبت لنا أن لكل شكل مميز وظيفة خاصة تجعل صاحبه ناجحاً في حياته.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266204/fares/12_kzugfq.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266200/fares/13_jpqny3.png'
+  - frontText: >-
+      حان وقت الغداء! فارس يحب أكل النباتات الخضراء الطرية. هو يستخدم أسنانه الصغيرة لقطف الأوراق اللذيذة من الشجيرات. انظروا إليه وهو يمضغ بهدوء، بينما تقف «لولو» بجانبه لتلتقط بعض الثمار الساقطة على الأرض. يا له من غداء شهي ومسالم!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266209/fares/14_ohxkin.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266206/fares/15_jbzhyq.png'
+  - frontText: >-
+      لكن ماذا لو حاول ديناصور جائع مضايقة فارس؟ لا تقلقوا، ففارس شجاع جداً! هو يستخدم ظهره المليء بالأشواك ليرهب الأعداء، وإذا لزم الأمر، يلوح بذيله الطويل والقوي ليبعد أي خطر. حتى الديناصورات الكبيرة تفكر مرتين قبل الاقتراب من صاحب الأشواك.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266216/fares/16_vk8s7f.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266208/fares/17_l5f7os.png'
+  - frontText: >-
+      رغم أن فارس يبدو ثقيلاً، إلا أن جسده متوازن جداً وقوي. سيقانه المتينة تساعده على المشي لمسافات طويلة بحثاً عن الماء والعشب. «لولو» تحاول دائماً اللحاق به وهي تقفز فوق الصخور، ففارس لا يتوقف عن الاستكشاف أبداً.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266206/fares/18_vhmxs2.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779266207/fares/19_gcekum.png'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp' 
+  - frontText: >-
+      لقد استمتعت كثيراً برفقتكم في مغامرة البحث عن فارس. عالم الديناصورات مليء بالأسرار والمفاجآت، ودائماً هناك صديق جديد لنكتشفه. شكراً لكم يا أبطالي، ولا تنسوا أن تظلوا فضوليين دائماً. أنا ريكسو، أراكم في مغامرة قادمة. إلى اللقاء!
+    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp'
 quiz:
   - q: 'ما هو نوع الديناصور "فارس"؟'
     opts: ['أمارجاصورس', 'ترايسيراتوبس', 'براكيوصور']

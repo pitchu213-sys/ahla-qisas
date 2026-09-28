@@ -14,24 +14,33 @@ introText: 'هل رأيتم يوماً ديناصوراً يحمل على ظهر
 pages:
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192216/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/1_pgtpw8.jpg'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192224/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/2_tqnrb1.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192219/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/3_dhcttd.jpg'
+  - frontText: >-
+      مرحباً بكم يا أصدقائي المستكشفين! أنا «ريكسو». اليوم سنقابل ديناصوراً يتميز بأجمل زينة في الغابة. إنه لا يشبه أي ديناصور آخر رأيناه من قبل. هل أنتم مستعدون لاكتشاف سر الصفائح العظمية والمخالب الحادة؟ هيا بنا!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192221/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/4_rbbugr.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192222/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/5_aqzicl.jpg'
+  - frontText: >-
+      انظروا إلى هذا الظهر العجيب! هل ترون تلك الصفائح المثلثة الكبيرة التي تصطف فوق ظهره؟ هذا هو صديقنا «ترس»، الديناصور المعروف باسم «ستيجوسورس». اسم «ستيجوسورس» يعني «السحلية المغطاة بالأسقف».
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192221/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/6_ycjmjj.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192215/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/7_gce7cv.jpg'
+  - frontText: >-
+      لماذا يملك «ترس» هذه الصفائح على ظهره؟ يعتقد العلماء أنها ليست للدفاع فقط، بل تساعده أيضاً في تنظيم حرارة جسمه، فتمتص أشعة الشمس لتدفئه، أو تبرد جسمه في الأيام الحارة. إنه يملك نظام تكييف طبيعي!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192219/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/8_xp5awr.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192219/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/9_mcw1a6.jpg'
+  - frontText: >-
+      انظروا إلى رأس «ترس»، إنه صغير جداً ومنخفض قريباً من الأرض. ورغم أن جسمه ضخم مثل الحافلة، إلا أن دماغه صغير جداً، تقريباً بحجم حبة الجوز! لكن هذا لا يمنعه من أن يكون ديناصوراً ذكياً في البحث عن طعامه.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192213/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/10_gqznr6.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192222/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/11_nhmotp.jpg'
+  - frontText: >-
+      «ترس» صديق مسالم جداً، فهو يحب أكل النباتات والأعشاب القصيرة التي تنمو على الأرض. منقاره القوي يساعده على قضم الشجيرات الصغيرة بسهولة، وهو يقضي معظم يومه في المشي ببطء وهدوء وسط المراعي.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192220/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/12_ampt7s.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192219/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/13_gnbch6.jpg'
+  - frontText: >-
+      لكن احذروا! فرغم هدوئه، يملك «ترس» سلاحاً سرياً في نهاية ذيله الطويل. انظروا إلى تلك الأشواك الأربعة الحادة والقوية! يطلق عليها العلماء اسم «الثاغومايزر»، وهي كفيلة بإبعاد أي ديناصور مفترس يحاول مضايقته.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192216/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/14_amivyd.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192212/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/15_rrb1q9.jpg'
+  - frontText: >-
+      عندما يشعر «ترس» بالخطر، لا يهرب بعيداً، بل يلوح بذيله القوي يميناً ويساراً ليحمي نفسه. إنه يثبت لنا أن الشكل الجميل يمكن أن يكون درعاً قوياً وسلاحاً رائعاً عند الحاجة.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192210/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/16_qdlotj.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192215/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/17_vymkli.jpg'
+  - frontText: >-
+      هل تلاحظون أقدامه؟ الأرجل الخلفية أطول بكثير من الأرجل الأمامية، وهذا ما يجعل ظهره منحنياً إلى الأمام دائماً. هذا التصميم يساعده على إبقاء رأسه قريباً من طعامه المفضل على الأرض طوال الوقت.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192214/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/18_asd253.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779192213/%D8%AA%D8%B1%D8%B3_%20%D8%B5%D8%A7%D8%AD%D8%A8%20%D8%A7%D9%84%D8%B8%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D8%AD/19_zcduvq.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp' 
+  - frontText: >-
+      أنا «ريكسو» سعيد جداً لأنكم رافقتموني اليوم. انتظروني في رحلتنا القادمة لنكتشف معاً سراً جديداً من أسرار ما قبل التاريخ. إلى اللقاء يا أبطال!
+    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp'
 quiz:
   - q: 'ما الاسم العلمي لديناصور "ترس"؟'
     opts: ['أنكيلوصورس', 'ستيجوصورس', 'تيرانوصورس']
