@@ -13,24 +13,33 @@ introText: 'هل تظنون أن الديناصورات كلها تمشي على
 pages:
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114781/janah/1_p65vcy.png'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114810/janah/2_yfi1bd.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114810/janah/3_zpkfy3.png'
+  - frontText: >-
+      أهلاً بكم يا أصدقائي الصغار! أنا «ريكسو»، واليوم سنترك الأرض وننطلق في مغامرة عالية جداً. هل أنتم مستعدون؟ ارفعوا رؤوسكم وانظروا جيداً إلى السماء الزرقاء الواسعة؛ هل تلمحون شيئاً يطير هناك بين الغيوم؟
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114840/janah/4_t0yiln.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114830/janah/5_snrpnr.png'
+  - frontText: >-
+      هذا هو صديقنا «جناح»! إنه ديناصور طائر مذهل من نوع «بتروداكتيل». انظروا إليه وهو يقف بشموخ فوق تلك القمة الصخرية العالية، يراقب العالم من الأعلى بعينيه الذكيتين. إنه ملك السماء الحقيقي!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114834/janah/6_uvfhi9.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114828/janah/7_uk4fts.png'
+  - frontText: >-
+      هل تعرفون ماذا يعني اسم فصيلته «بتروداكتيل»؟ إنها تعني «إصبع الجناح»! انظروا كيف يمد «جناح» أحد جناحيه؛ إن جناحه الطويل يعتمد بالكامل على إصبع واحد طويل وقوي جداً يدعم هذا الغشاء الجلدي الذي يساعده على الطيران.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114839/janah/8_lpnu0q.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114823/janah/9_cyyqjx.png'
+  - frontText: >-
+      انظروا إلى وجه «جناح» الرائع! يمتلك منقاراً طويلاً جداً ومدبباً، يساعده على التقاط أهدافه بدقة. كما أن عينيه الكبيرتين تعملان مثل التلسكوب، فهو يستطيع رؤية السمكة الصغيرة في أعماق البحر وهو يحلق في أعالي السماء.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114811/janah/10_ujpbqw.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114750/janah/11_plgkav.png'
+  - frontText: >-
+      راقبوا هذا المشهد المذهل! «جناح» ينقض الآن من السماء بسرعة البرق نحو سطح الماء. بضربة واحدة دقيقة من منقاره، يصطاد سمكة فضية لامعة. إنه صياد ماهر جداً ولا يخطئ هدفه أبداً بفضل سرعته وخفته.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114782/janah/12_cct8sm.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114752/janah/13_p5xrl6.png'
+  - frontText: >-
+      هل تساءلتم يوماً كيف يمكنه الطيران طوال اليوم دون تعب؟ السر يكمن في عظامه! عظام «جناح» خفيفة جداً ومفرغة من الداخل مثل القصب، وهذا ما يجعله خفيفاً كأنه ريشة في الهواء رغم ضخامة جناحيه. سبحان الخالق!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114802/janah/14_vblibo.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114761/janah/15_uvpbi5.png'
+  - frontText: >-
+      عندما يشعر «جناح» بالتعب، فإنه يبحث عن أعلى مكان ممكن للراحة. بيته المفضل هو فوق هذه المنحدرات الجبلية الوعرة، حيث الهواء نقي وبارد، وحيث لا تستطيع الحيوانات الأخرى الوصول إليه. هنا يشعر بالأمان التام.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114765/janah/16_iv76v1.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114790/janah/17_gcvoyc.png'
+  - frontText: >-
+      انظروا كيف يلعب «جناح» مع الريح! هو لا يحتاج دائماً لتحريك جناحيه، بل يفردهما بهدوء ويترك التيارات الهوائية تحمله ليتزحلق في الهواء مثل الطائرة الورقية. إنه فنان في استخدام قوة الطبيعة لصالحه.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114807/janah/18_d2i5im.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779114797/janah/19_bzackz.png'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp' 
+  - frontText: >-
+      أنا «ريكسو» أودعكم الآن يا أصدقائي الصغار. أتمنى أن تكونوا قد استمتعتم باكتشاف أسرار الديناصور الطائر. انتظروني في مغامرة جديدة لنتعرف على صديق جديد من عالمنا القديم. مع السلامة!
+    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp'
 quiz:
   - q: 'ما نوع الديناصور "جناح"؟'
     opts: ['تيرانوصورس', 'بتروداكتيل', 'أنكيلوصورس']

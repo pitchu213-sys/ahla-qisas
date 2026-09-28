@@ -13,24 +13,33 @@ introText: 'هل تظنون ان كل الديناصورات ضخمة ومخيف
 pages:
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117137/compo/1_rt9tfk.jpg'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117144/compo/2_mbpjag.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117144/compo/3_u2ycgs.jpg'
+  - frontText: >-
+      أهلاً بكم يا أصدقائي المستكشفين! أنا «ريكسو». هل تظنون أن كل الديناصورات عملاقة ومخيفة وتجعل الأرض تهتز تحت أقدامها؟ اليوم سأثبت لكم العكس تماماً! سنبحث معاً عن واحد من أصغر الديناصورات في الغابة. هيا بنا نفتح أعيننا جيداً، لأن صديقنا اليوم صغير جداً وقد يختفي في لمح البصر!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117144/compo/4_n43uxk.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117146/compo/5_zfusu1.jpg'
+  - frontText: >-
+      ششش! انظروا هناك بين الشجيرات القصيرة! هل رأيتم شيئاً يتحرك بسرعة البرق؟ إنه ليس عصفوراً، ولا سحلية عادية، بل ديناصور حقيقي! دعونا نقترب بهدوء شديد وخطوات خفيفة لكي لا نخيفه ويتمكن من الهرب.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117146/compo/6_mr5mnf.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117147/compo/7_mgwigj.jpg'
+  - frontText: >-
+      رحبوا بصديقنا الصغير «سريع»، الديناصور المعروف باسم «كومبسوجناثس». أعلم أن اسمه طويل وصعب قليلاً، وهو يعني «الفك الأنيق»، لذا ما رأيكم أن نناديه «كومبي» لتسهيل الأمر؟ مرحباً بك يا كومبي!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117147/compo/8_m2c7vp.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117149/compo/9_pyhxdc.jpg'
+  - frontText: >-
+      تخيلوا يا أصدقائي أن «كومبي» صغير جداً لدرجة أن حجمه يقارب حجم الدجاجة التي نراها في المزرعة! وزنه خفيف جداً ولا يتعدى وزن قطة صغيرة، وهو من أصغر الديناصورات التي اكتشفناها على الإطلاق. إنه يبدو ظريفاً جداً!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117138/compo/10_tzvtbq.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117137/compo/11_ndrczp.jpg'
+  - frontText: >-
+      لكن لا تستهينوا به بسبب حجمه؛ فصديقنا «كومبي» عداء ماهر جداً! انظروا إلى أرجله الخلفية الطويلة والنحيفة؛ إنها تعمل مثل الزنبرك، وتساعده على الركض بسرعة فائقة جداً تفوق سرعة الكثير من الحيوانات.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117138/compo/12_i5tz9g.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117137/compo/13_zwjoyx.jpg'
+  - frontText: >-
+      هل تلاحظون ذيله الطويل؟ هذا الذيل يبلغ طوله أكثر من نصف طول جسمه! وهو ليس للزينة، بل يساعده بشكل كبير على حفظ توازنه وتغيير اتجاهه فجأة يميناً ويساراً أثناء الركض السريع دون أن يتعثر أو يقع.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117139/compo/14_eelmhl.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117144/compo/15_lpdq47.jpg'
+  - frontText: >-
+      يا ترى، ماذا يأكل ديناصور بهذا الحجم الصغير؟ «كومبي» من آكلي اللحوم، لكنه بالتأكيد لا يصطاد الديناصورات الكبيرة! بدلاً من ذلك، يستخدم أسنانه الصغيرة والحادة جداً لاصطياد الحشرات الكبيرة والسحالي الصغيرة التي تختبئ بين الصخور.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117141/compo/16_koufjz.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117153/compo/17_eylybm.jpg'
+  - frontText: >-
+      حجمه الصغير ميزة رائعة، فهو يساعده على التخفي ببراعة بين الأعشاب الطويلة وتحت أوراق الأشجار المتساقطة. عندما يشعر باقتراب ديناصور كبير، يختبئ بسرعة ولن يستطيع أحد العثور عليه. يمكننا القول إنه البطل الأول في لعبة الغميضة!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117139/compo/18_xtzcsk.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779117143/compo/19_bg2ixn.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp' 
+  - frontText: >-
+      أنا «ريكسو» استمتعت جداً بالبحث عن أصغر أصدقائنا معكم اليوم. عالم الديناصورات مليء بالمفاجآت، وفيه العملاق والصغير جداً. استعدوا لمغامرة جديدة قريباً، وإلى اللقاء يا أصدقائي الرائعين!
+    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp'
 quiz:
   - q: 'ما الاسم العلمي لديناصور كومبي؟'
     opts: ['تيرانوصورس', 'كومبسوجناثوس', 'انكيلوصورس']

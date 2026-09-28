@@ -10,24 +10,33 @@ introText: '
 pages:
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779280098/1_pk45uf.png'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278025/sabbah/2_jtaexc.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278026/sabbah/3_sxgq4s.jpg'
+  - frontText: >-
+      أهلاً بكم يا أصدقائي الصغار! أنا ريكسو، وسأكون دليلكم اليوم في رحلة عبر الزمن. هل أنتم مستعدون لمغامرة مائية مثيرة؟ اليوم سنعود ملايين السنين إلى الوراء، لنزور ضفاف الأنهار العظيمة ونقابل ملكاً فريداً جداً. إنه ليس ديناصوراً عادياً؛ فهو يعشق الماء كما يعشق اليابسة. انظروا هناك، خلف تلك السراخس العملاقة، تبدأ حكايتنا.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278026/sabbah/4_tdkgza.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278029/sabbah/5_rliqt8.jpg'
+  - frontText: >-
+      انظروا إلى ذلك الشراع الضخم الذي يبرز من فوق سطح الماء! رحبوا بصديقنا «سباح». هل تعلمون أنه أكبر ديناصور آكل للحوم عاش على الأرض؟ نعم، إنه أضخم حتى من «تي-ريكس»! لكن «سباح» يفضل قضاء وقته في الصيد في هذه المستنقعات والمجاري المائية الواسعة، حيث يسيطر بجماله وضخامته على المكان.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278025/sabbah/6_rb9iye.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278028/sabbah/7_vr9j4l.jpg'
+  - frontText: >-
+      اسم «سبينوصورس» يعني «السحلية ذات الأشواك»، وذلك بسبب هذا الشراع المذهل على ظهره. هل ترون ألوانه الزاهية؟ يتكون هذا الشراع من أشواك عظمية طويلة مغطاة بالجلد، وهو ليس للزينة فقط، بل يساعد «سباح» على تنظيم حرارة جسمه في شمس الغابة القوية، ويجعله يبدو قوياً ومهيباً أمام الجميع.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278028/sabbah/8_uyrsn8.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278029/sabbah/9_eetij0.jpg'
+  - frontText: >-
+      والآن، انظروا إلى وجه «سباح» المذهل. هل يذكركم بحيوان تعرفونه؟ نعم، إنه يشبه وجه التمساح تماماً! فكه طويل ونحيل، ومليء بالأسنان الحادة المخروطية. هذا الشكل الانسيابي مثالي جداً لاختراق الماء بسرعة واصطياد الأسماك المنزلقة. «سباح» يراقب سطح الماء بعينين ثاقبتين، لا يفوته أي شيء يتحرك.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278017/sabbah/10_rxqsej.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278017/sabbah/11_u4hfn9.jpg'
+  - frontText: >-
+      «سباح» يمتلك أسراراً مذهلة تساعده في الصيد. انظروا إلى أعلى رأسه، هل ترون فتحات أنفه؟ إنها تقع في مكان مرتفع لتسمح له بالتنفس حتى عندما يكون معظم وجهه تحت الماء! كما يمتلك في مقدمة منقاره حواساً قوية جداً تشعر بأدنى حركة للأسماك في الماء، تماماً مثل جهاز الرادار الطبيعي.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278019/sabbah/12_ru2myu.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278020/sabbah/13_gvgqt8.jpg'
+  - frontText: >-
+      انظروا إلى يديه القويتين! يمتلك «سباح» أذرعاً طويلة تنتهي بمخالب ضخمة ومنحنية. هذه المخالب هي أداته الطبيعية لانتشال الأسماك الكبيرة من قلب النهر. بضربة واحدة سريعة، يمكنه أن يمسك بوجبته المفضلة ويخرجها من الماء ببراعة فائقة. إنه صياد لا يقهر، يعتمد على قوته البدنية فقط.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278016/sabbah/14_rvm2g0.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278020/sabbah/15_qybrgf.jpg'
+  - frontText: >-
+      ولكن، كيف يسبح هذا العملاق؟ انظروا إلى أقدامه الخلفية. إنها مسطحة وعريضة، مع جلد رقيق يمتد بين أصابعه، تماماً مثل أقدام البط! هذه الأقدام «المكففة» تساعده على المشي فوق الطين الناعم دون أن يغرق، وتعمل كزعانف طبيعية قوية تدفعه عندما يقرر الغوص في الأعماق.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278021/sabbah/16_gvpzjh.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278022/sabbah/17_nv20og.jpg'
+  - frontText: >-
+      والمفاجأة الكبرى هي ذيله العظيم. انظروا كم هو طويل وعريض ومسطح! إنه جزء مذهل من جسده يعمل كالمجداف الطبيعي. عندما يهز «سباح» ذيله القوي من جانب إلى آخر، يندفع جسمه الضخم بقوة وسرعة داخل الماء. هذا الذيل هو المحرك الحقيقي الذي يجعل «سباح» ملكاً للأنهار والمستنقعات.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278020/sabbah/18_h0mlfd.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779278024/sabbah/19_ruhmbc.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp' 
+  - frontText: >-
+      لقد استمتعت كثيراً برفقتكم يا أصدقائي في هذه الرحلة المائية. أتمنى أن تكونوا قد أحببتم صديقنا «سباح» وتعرفتم على أسرار حياته المشوقة وكيف يستخدم جسده ببراعة. أنا ريكسو، وأقول لكم وداعاً الآن. وتذكروا دائماً أن المغامرة والبحث عن المعرفة لا ينتهيان أبداً. إلى اللقاء في رحلة أخرى عبر الزمن!
+    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp'
 quiz:
   - q: 'ما اسم الديناصور الذي يحمل شراعاً ضخماً على ظهره في هذه القصة؟'
     opts: ['تي-ريكس', 'سباح (السبينوصورس)', 'بالتيوصور']

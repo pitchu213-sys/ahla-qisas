@@ -13,24 +13,33 @@ introText: 'هل تتخيلون ديناصوراً رأسه يصل إلى الس
 pages:
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112943/latif/1_h6czkn.jpg'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112954/latif/2_h1u25f.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112952/latif/3_trbaid.jpg'
+  - frontText: >-
+      أهلاً بكم يا أصدقائي الصغار! أنا «ريكسو»، وسأكون دليلكم اليوم في رحلة مميزة جداً. هل أنتم مستعدون لمغامرة هادئة بعيداً عن الضجيج؟ هيا بنا نذهب إلى أعماق الغابة لنقابل عملاقاً لطيفاً يحب السلام.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112952/latif/4_pfjmmj.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112952/latif/5_bye384.jpg'
+  - frontText: >-
+      انظروا إلى هناك! بين الأشجار العالية، يظهر شيء طويل جداً يرتفع نحو السماء. هل ترون ذلك العنق؟ إنه يشبه الرافعة الضخمة تماماً! هذا هو صديقنا «لطيف» الذي بدأ يطل برأسه ليرحب بنا.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112952/latif/6_oj2wqd.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112954/latif/7_wcrup5.jpg'
+  - frontText: >-
+      صديقنا «لطيف» هو ديناصور من نوع «أباتوصورس»، ومعنى اسمه هو «السحلية المخادعة». تخيلوا يا أصدقائي مدى ضخامته؛ فجسمه الطويل يعادل طول حافلتين كبيرتين تقفان بجانب بعضهما! إنه حقاً عملاق مذهل.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112955/latif/8_uih7x0.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112954/latif/9_nktbha.jpg'
+  - frontText: >-
+      هل تعرفون لماذا يمتلك «لطيف» هذا العنق الطويل جداً؟ إنه يساعده على الوصول إلى أشهى وأطرى أوراق الأشجار العالية. بينما تعجز الحيوانات الأخرى عن الوصول إليها، يستمتع «لطيف» بوجبته الخضراء في أعالي الأشجار بكل سهولة.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112942/latif/10_cjbpfv.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112942/latif/11_hg1in0.jpg'
+  - frontText: >-
+      لا تخافوا من ضخامته؛ فصديقنا «لطيف» لا يأكل اللحوم أبداً، بل يحب النباتات فقط. انظروا إلى أسنانه؛ إنها ليست حادة، بل تشبه الملاعق الصغيرة، وهي مثالية لقطف ومضغ الأعشاب والأوراق اللذيذة.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112948/latif/12_gnic0i.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112949/latif/13_tznh4a.jpg'
+  - frontText: >-
+      انظروا إلى ذيله الطويل الذي ينتهي بطرف رفيع! هذا الذيل يشبه السوط تماماً، يستخدمه «لطيف» بذكاء ليحافظ على توازنه أثناء المشي، كما يمكنه استخدامه للدفاع عن نفسه بضربة قوية إذا حاول أحد إزعاجه.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112948/latif/14_cvvcfc.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779108032/sa5r/15_ccup0e.jpg'
+  - frontText: >-
+      وبسبب ضخامة جسمه الهائل، يمشي «لطيف» ببطء شديد. هو لا يحتاج للجري بسرعة؛ فمن سيجرؤ على مطاردة عملاق كهذا؟ «لطيف» يستمتع بكل خطوة يخطوها، ويتأمل جمال الغابة من حوله بكل هدوء.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112945/latif/16_fkwqdt.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112946/latif/17_s7vryf.jpg'
+  - frontText: >-
+      رغم جسده العملاق، إلا أن «لطيف» يمتلك رأساً صغيراً، وهو يحب العيش في مجموعات مع أصدقائه مثل «هادي». هم دائماً معاً، يستخدمون ذكاءهم للتعاون وحماية بعضهم البعض من أي خطر قد يقترب منهم.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112947/latif/18_nfkye8.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779112948/latif/19_djvycz.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp' 
+  - frontText: >-
+      لقد انتهت رحلتنا اليوم مع العملاق اللطيف. أتمنى أن تكونوا قد استمتعتم بصحبة «لطيف». أنا «ريكسو» أودعكم الآن، واستعدوا لمغامرة قادمة في أعالي السماء مع ديناصور طائر مذهل! مع السلامة يا أصدقائي.
+    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp'
 quiz:
   - q: 'ما معنى اسم "براكيوصور"؟'
     opts: ['سحلية الرقبة', 'سحلية الذراع', 'سحلية الظهر']

@@ -10,24 +10,33 @@ introText: 'هل تخيلتم يوماً ديناصوراً يمتلك درعا�
 pages:
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197562/trisirodops/1_u7h33i.jpg'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197567/trisirodops/2_s0f9zn.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197566/trisirodops/3_nnlcnk.jpg'
+  - frontText: >-
+      أهلاً بكم يا أصدقائي الصغار! أنا «ريكسو»، وسأكون دليلكم اليوم في رحلة مدهشة عبر الزمن لنكتشف أسرار عالم الديناصورات. هل أنتم مستعدون؟ اليوم سنتعرف على ديناصور فريد من نوعه، كان يتميز بقوته وشكله المذهل. هيا بنا ننتقل إلى الغابات الكثيفة حيث كانت تعيش هذه المخلوقات العجيبة!
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197570/trisirodops/4_zo1bu1.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197570/trisirodops/5_c0wdio.jpg'
+  - frontText: >-
+      انظروا تحت أقدامكم! هل ترون هذه الآثار العميقة في الطين؟ إنها آثار أقدام ضخمة ومستديرة. هذه الخطوات تعود لصديقنا الذي سنبحث عنه اليوم. يبدو أنه مر من هنا منذ وقت قصير، فآثار أقدامه تخبرنا بأنه ديناصور ثقيل الوزن ويمشي بثبات على الأرض. لنتبع هذه الآثار لنعرف إلى أين ستأخذنا.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197570/trisirodops/6_gxzofz.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197574/trisirodops/7_be5c0c.jpg'
+  - frontText: >-
+      ها هو صديقنا «قرنوش»! رحبوا بالديناصور «ترايسيراتوبس». انظروا إليه، إنه يبدو كوحيد قرن عملاق، لكنه أكبر بكثير. «قرنوش» ديناصور هادئ ويحب التجول وسط النباتات. هل تلاحظون ذلك الرأس الضخم؟ إنه واحد من أكبر الرؤوس في عالم الحيوانات التي عاشت على الأرض.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197575/trisirodops/8_lajeia.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197572/trisirodops/9_pbpajh.jpg'
+  - frontText: >-
+      أهم ما يميز «قرنوش» هو اسمه، فكلمة «ترايسيراتوبس» تعني «الوجه ذو القرون الثلاثة». انظروا جيداً إلى وجهه؛ لديه قرن صغير فوق أنفه، وقرنان طويلان وحادان فوق عينيه. هذه القرون ليست للزينة فقط، بل هي وسيلته القوية لحماية نفسه والتواصل مع أصدقائه في القطيع.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197562/trisirodops/10_sriglk.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197563/trisirodops/11_wq0sxe.jpg'
+  - frontText: >-
+      وخلف تلك القرون، يمتلك «قرنوش» درعاً عظمياً كبيراً يحيط برقبته يسمى «الكشكش». هذا الدرع يعمل مثل الترس الذي يحمله المحاربون القدماء؛ فهو يحمي رقبته الضعيفة من أي هجوم. كما أن هذا الدرع الملون يساعد «قرنوش» في لفت أنظار بقية الديناصورات من نوعه.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197569/trisirodops/12_j7fjvm.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197559/trisirodops/13_gmthxa.jpg'
+  - frontText: >-
+      هل تعتقدون أن «قرنوش» يحب أكل اللحوم؟ لا، أبداً! «قرنوش» من آكلي النباتات. انظروا إلى فمه، إنه يشبه منقار الببغاء! هذا المنقار القوي يساعده على قص الأغصان القاسية والنباتات الأرضية بسهولة، ثم يقوم بطحنها بأسنان خلفية قوية جداً ليأكل وجبته اللذيذة.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197561/trisirodops/14_psri4j.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197564/trisirodops/15_clfji7.jpg'
+  - frontText: >-
+      رغم أن «قرنوش» هادئ، إلا أنه شجاع جداً! إذا حاول ديناصور مفترس مثل «تي ريكس» الاقتراب منه، فإن «قرنوش» يخفض رأسه ويوجه قرونه الطويلة نحو الخطر. بفضل وزنه الذي يصل إلى 6 أطنان، أي مثل وزن فيلين كبيرين، لا يجرؤ الكثيرون على مواجهته.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197570/trisirodops/16_vidqac.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197564/trisirodops/17_ay1ukk.jpg'
+  - frontText: >-
+      «قرنوش» لا يعيش وحيداً، فهو يحب العيش ضمن مجموعات كبيرة تسمى «القطعان». في القطيع، يهتم الكبار بالصغار ويحمونهم. انظروا كيف يمشي «قرنوش» مع صديقه المفضل في الغابة؛ فهما يبحثان معاً عن أفضل أماكن العشب الأخضر والماء العذب.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197571/trisirodops/18_dc6n0j.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779197567/trisirodops/19_f7svac.jpg'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp' 
+  - frontText: >-
+      لقد انتهت مغامرتنا اليوم مع صديقنا «قرنوش». أتمنى أنكم استمتعتم بالتعرف على هذا العملاق ذي القرون الثلاثة! تذكروا دائماً أن الطبيعة مليئة بالأسرار التي تنتظر من يكتشفها. أنا «ريكسو» أودعكم الآن، وإلى اللقاء في رحلة جديدة مع ديناصور آخر مذهل!
+    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp'
 quiz:
   - q: 'ماذا يعني اسم "ترايسيراتوبس"؟'
     opts: ['الوجه ذو القرون الثلاثة', 'الديناصور السريع', 'الديناصور الضخم']

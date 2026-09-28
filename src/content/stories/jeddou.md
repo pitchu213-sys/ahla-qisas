@@ -10,24 +10,33 @@ introText: '
 pages:
   - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275391/jeddou/1_zia3m5.png'
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275420/jeddou/2_ydbkpv.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275459/jeddou/3_upxbko.jpg'
+  - frontText: >-
+      أهلاً بكم يا أصدقائي الصغار! أنا ريكسو، وسآخذكم اليوم في رحلة مذهلة عبر الزمن. هل أنتم مستعدون للعودة إلى عصر بعيد جداً؟ أغمضوا أعينكم وتخيلوا عالماً قديماً لم تروه من قبل، حيث بدأت أولى قصص العمالقة.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275479/jeddou/4_h8p7hg.jpg'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275489/jeddou/5_rdsuvk.png'
+  - frontText: >-
+      نحن الآن في وادٍ واسع ومغبر. الجو دافئ، والأرض مغطاة بالرمال والنباتات العشبية القديمة. في هذا المكان، عاشت ديناصورات مميزة جداً قبل ملايين السنين. هل تسمعون صوت الخطوات الرزينة التي تقترب منا وسط الغبار؟
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275407/jeddou/6_dcgyoh.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275396/jeddou/7_omyejr.png'
+  - frontText: >-
+      يا لها من رقبة طويلة وجميلة! بفضل هذه الرقبة المرنة، يستطيع «جدّو» الوصول إلى أشهى الأوراق في أعلى الأشجار العالية التي لا تصل إليها الديناصورات الصغيرة. هو لا يحتاج لسلم، فرقبته هي أطول وأقوى سلم في الغابة.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275483/jeddou/8_znwnbk.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275480/jeddou/9_euj1ym.png'
+  - frontText: >-
+      انظروا، إنه «جدّو»! هو من فصيلة «بلاتيوصور». «جدّو» ديناصور ضخم وهادئ، وهو من أوائل الديناصورات التي تعلمت كيف تنمو لتصبح عملاقة. انظروا كيف يقف بوقار على رجليه الخلفيتين، مراقباً الوادي بعينيه الهادئتين.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275400/jeddou/10_mhjoks.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275390/jeddou/11_o5qxlm.png'
+  - frontText: >-
+      انظروا إلى رأسه الصغير، فهو يحتوي على أسنان مخصصة لطحن النباتات القاسية. «جدّو» صديق للطبيعة؛ فهو نباتي يحب أكل الأعشاب والأوراق الخضراء فقط. هو يمضغ طعامه ببطء شديد، ويستمتع بكل قطعة يقطفها من أعالي الأشجار.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275491/jeddou/12_v86wmb.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275376/jeddou/13_s1xait.png'
+  - frontText: >-
+      هل تلاحظون ذيله الطويل والثقيل؟ إنه ليس للزينة فقط، بل هو «ميزان» «جدّو» السحري! هذا الذيل القوي يساعده على تحقيق توازن مثالي، ليبقى واقفاً على رجليه الخلفيتين بثبات دون أن يسقط للأمام أثناء بحثه عن الطعام.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275400/jeddou/14_isbfn6.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275474/jeddou/15_bm36fr.png'
+  - frontText: >-
+      أقدام «جدّو» الخلفية قوية جداً مثل أعمدة البناء. هو يفضل المشي على رجلين ليرى العالم من الأعلى، مما يجعله يبدو شجاعاً وقوياً. انظروا، لقد جاء صديقه «صخر» ليمشيا معاً في رحلتهما اليومية عبر الوادي.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275488/jeddou/16_wa0fak.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275408/jeddou/17_hrvpzf.png'
+  - frontText: >-
+      انظروا بدقة إلى يدي «جدّو»، فلديه خمس أصابع! المثير هو إبهامه المزود بمخلب قوي ومنحنٍ بحجم واقعي. هو يستخدمه بذكاء لسحب الأغصان القاسية نحو فمه، أو للحفر في الأرض بعناية بحثاً عن الجذور المغذية.
     back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275442/jeddou/18_g8elqz.png'
-  - front: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1779275440/jeddou/19_pvoecs.png'
-    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp' 
+  - frontText: >-
+      لقد انتهت رحلتنا الرائعة مع «جدّو» البلاتيوصور. أتمنى أن تكونوا قد أحببتم التعرف على أسرار جسده العجيب ومخالبه المفيدة. حان الوقت لأودعكم الآن، وانتظروني أنا «ريكسو» في مغامرة جديدة مع بطل آخر من عالم الماضي! وداعاً.
+    back: 'https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778593472/%D8%A7%D8%AD%D8%B0%D9%81_%D8%AC%D9%85%D9%84%D8%A9_the_202604171448_rfehgr.webp'
 quiz:
   - q: 'ما الذي يساعد جدو على الوصول إلى أوراق الأشجار العالية؟'
     opts: ['أسنانه الحادة', 'رقبته الطويلة', 'ذيله الثقيل']
