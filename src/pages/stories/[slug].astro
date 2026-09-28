@@ -278,7 +278,7 @@ const breadcrumbSchema = {
         transform: rotate(-2deg);
       }
       .qz-stars-bg { position: absolute; inset: 0; pointer-events: none; }
-      .qz-star-dot {
+      :global(.qz-star-dot) {
         position: absolute;
         border-radius: 50%;
         background: rgba(255,255,255,0.72);
@@ -449,7 +449,7 @@ const breadcrumbSchema = {
         text-wrap: pretty;
       }
       .qz-options { display: grid; gap: 13px; }
-      .qz-opt {
+      :global(.qz-opt) {
         display: flex;
         align-items: center;
         gap: 16px;
@@ -468,13 +468,13 @@ const breadcrumbSchema = {
         position: relative;
         box-shadow: 0 2px 6px rgba(0,0,0,0.04);
       }
-      .qz-opt:hover:not(:disabled) {
+      :global(.qz-opt:hover:not(:disabled)) {
         border-color: #f4a023;
         transform: translateX(-4px);
         box-shadow: 0 6px 16px rgba(244,160,35,0.2);
         background: #fffbf1;
       }
-      .qz-opt-letter {
+      :global(.qz-opt-letter) {
         width: 42px;
         height: 42px;
         border: 2px solid #dce8f0;
@@ -487,21 +487,21 @@ const breadcrumbSchema = {
         font: 900 17px/1 'Tajawal', sans-serif;
         text-align: center;
       }
-      .qz-opt-text { flex: 1; font-size: 19px; }
-      .qz-opt.correct {
+      :global(.qz-opt-text) { flex: 1; font-size: 19px; }
+      :global(.qz-opt.correct) {
         border-color: #2e7d32;
         background: #f1faf2;
         color: #1b5e20;
         animation: correctPop 0.4s ease-out;
       }
-      .qz-opt.correct .qz-opt-letter { background: #2e7d32; color: white; border-color: #2e7d32; }
-      .qz-opt.wrong {
+      :global(.qz-opt.correct .qz-opt-letter) { background: #2e7d32; color: white; border-color: #2e7d32; }
+      :global(.qz-opt.wrong) {
         border-color: #e37b69;
         background: #fff5f2;
         color: #9f392c;
         animation: shake 0.4s ease-out;
       }
-      .qz-opt.wrong .qz-opt-letter { background: #d76051; color: white; border-color: #d76051; }
+      :global(.qz-opt.wrong .qz-opt-letter) { background: #d76051; color: white; border-color: #d76051; }
       @keyframes correctPop { 0%{transform:scale(1)} 40%{transform:scale(1.03)} 100%{transform:scale(1)} }
       @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
       .qz-feedback {
@@ -518,7 +518,7 @@ const breadcrumbSchema = {
       .qz-feedback.show { display: flex; }
       .qz-feedback.ok { background: #e8f5e9; color: #2e7d32; }
       .qz-feedback.bad { background: #ffebee; color: #c62828; }
-      .qz-feedback-icon { font-size: 28px; flex-shrink: 0; }
+      :global(.qz-feedback-icon) { font-size: 28px; flex-shrink: 0; }
       .qz-next {
         display: none;
         width: 100%;
@@ -562,14 +562,14 @@ const breadcrumbSchema = {
       .qz-result-award { position: absolute; right: -7px; bottom: -2px; display: grid; width: 40px; height: 40px; place-items: center; border: 3px solid #fff; border-radius: 50%; background: #ffd166; font-size: 21px; box-shadow: 0 5px 14px rgba(0,0,0,0.14); }
       .qz-result-title { font-size: 25px; font-weight: 900; color: #1a3c5e; margin: 0 0 6px; }
       .qz-stars { display: flex; justify-content: center; gap: 6px; margin: 12px 0; }
-      .qz-star {
+      :global(.qz-star) {
         font-size: 30px;
         opacity: 0.25;
         transform: scale(0.8);
         transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
         filter: grayscale(1);
       }
-      .qz-star.lit { opacity: 1; transform: scale(1.15); filter: none; text-shadow: 0 0 12px rgba(244,160,35,0.6); }
+      :global(.qz-star.lit) { opacity: 1; transform: scale(1.15); filter: none; text-shadow: 0 0 12px rgba(244,160,35,0.6); }
       .qz-score { font-size: 42px; font-weight: 900; color: #f4a023; line-height: 1; margin: 4px 0; }
       .qz-score-label { font-size: 15px; color: #888; margin-bottom: 12px; }
       .qz-result-msg { font-size: 17px; color: #555; margin-bottom: 20px; line-height: 1.6; }
@@ -618,7 +618,7 @@ const breadcrumbSchema = {
       }
       .qz-btn-more:hover { transform: translateY(-2px); }
       .qz-confetti-wrap { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-      .qz-conf {
+      :global(.qz-conf) {
         position: absolute;
         width: 10px; height: 10px;
         top: -10px;
@@ -643,16 +643,16 @@ const breadcrumbSchema = {
         .qz-body { padding: 19px 14px 24px; }
         .qz-qcard { padding: 22px 16px; border-radius: 22px; }
         .qz-qtext { font-size: 21px; }
-        .qz-opt { min-height: 62px; padding: 11px 12px; font-size: 17px; }
-        .qz-opt-letter { width: 38px; height: 38px; font-size: 16px; }
-        .qz-opt-text { font-size: 17px; }
+        :global(.qz-opt) { min-height: 62px; padding: 11px 12px; font-size: 17px; }
+        :global(.qz-opt-letter) { width: 38px; height: 38px; font-size: 16px; }
+        :global(.qz-opt-text) { font-size: 17px; }
         .qz-result-inner { padding: 28px 16px 24px; border-radius: 22px; }
         .qz-result-btns { grid-template-columns: 1fr; }
         .qz-btn-more { grid-column: auto; }
       }
       @media (prefers-reduced-motion: reduce) {
-        .qz-star-dot, .qz-fill::after, .qz-qcard, .qz-result, .qz-opt.correct, .qz-opt.wrong, .qz-conf { animation: none !important; }
-        .qz-opt, .qz-next, .qz-btn-retry, .qz-btn-reread, .qz-btn-more, .qz-back { transition-duration: 0.01ms !important; }
+        :global(.qz-star-dot), .qz-fill::after, .qz-qcard, .qz-result, :global(.qz-opt.correct), :global(.qz-opt.wrong), :global(.qz-conf) { animation: none !important; }
+        :global(.qz-opt), .qz-next, .qz-btn-retry, .qz-btn-reread, .qz-btn-more, .qz-back { transition-duration: 0.01ms !important; }
       }
     </style>
   </head>
