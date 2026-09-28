@@ -962,7 +962,7 @@ const breadcrumbSchema = {
         if (resultTitle) resultTitle.textContent = title;
         document.getElementById('res-msg').textContent = message;
         window.setTimeout(() => {
-          res?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          res?.scrollIntoView({ behavior: 'auto', block: 'center' });
           resultTitle?.focus({ preventScroll: true });
         }, 80);
       }
