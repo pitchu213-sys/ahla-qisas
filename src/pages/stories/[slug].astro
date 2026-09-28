@@ -570,7 +570,7 @@ const breadcrumbSchema = {
         filter: grayscale(1);
       }
       :global(.qz-star.lit) { opacity: 1; transform: scale(1.15); filter: none; text-shadow: 0 0 12px rgba(244,160,35,0.6); }
-      .qz-score { font-size: 42px; font-weight: 900; color: #f4a023; line-height: 1; margin: 4px 0; }
+      .qz-score { direction: ltr; unicode-bidi: isolate; font-size: 42px; font-weight: 900; color: #f4a023; line-height: 1; margin: 4px 0; }
       .qz-score-label { font-size: 15px; color: #888; margin-bottom: 12px; }
       .qz-result-msg { font-size: 17px; color: #555; margin-bottom: 20px; line-height: 1.6; }
       .qz-result-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -958,9 +958,13 @@ const breadcrumbSchema = {
           message = 'تذكّرت معظم المغامرة. حاول مرة أخرى لتجمع كل النجوم!';
         }
         document.getElementById('res-award').textContent = award;
-        document.getElementById('res-title').textContent = title;
+        const resultTitle = document.getElementById('res-title');
+        if (resultTitle) resultTitle.textContent = title;
         document.getElementById('res-msg').textContent = message;
-        document.getElementById('res-title')?.focus?.();
+        window.requestAnimationFrame(() => {
+          res?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          window.setTimeout(() => resultTitle?.focus({ preventScroll: true }), 420);
+        });
       }
 
       function confetti() {
