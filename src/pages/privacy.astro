@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 const pageTitle = "سياسة الخصوصية";
 const pageDescription = "تعرف على كيفية تعامل موقع أحلى القصص للأطفال مع بياناتك وخصوصيتك. سياسة خصوصية شفافة وآمنة للأطفال والعائلات.";
 const pageImage = "/images/default-og.jpg";
-const teamImage = "/logo.png";
+const teamImage = "/logo-320.webp";
 ---
 
 <Layout title={pageTitle} description={pageDescription} image={pageImage}>
@@ -125,7 +125,7 @@ const teamImage = "/logo.png";
 
       <!-- AUTHOR BIO -->
       <div class="author-bio" itemscope itemtype="https://schema.org/Person">
-        <img src={teamImage} class="author-img" alt="فريق أحلى القصص للأطفال" itemprop="image">
+        <img src={teamImage} class="author-img" alt="فريق أحلى القصص للأطفال" itemprop="image" width="80" height="80" loading="lazy" decoding="async">
         <div class="author-info">
           <h3 itemprop="name">فريق أحلى القصص للأطفال</h3>
           <p itemprop="description">متخصصون في إنتاج محتوى عربي تعليمي وترفيهي للأطفال من 2 إلى 10 سنوات. نؤمن أن كل طفل يستحق قصة بلغته الأم مع ريكسو 🦖</p>

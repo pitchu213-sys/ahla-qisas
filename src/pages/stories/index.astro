@@ -1,6 +1,7 @@
 ---
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import { cloudinaryImage } from '../../utils/images';
 
 const storyFiles = import.meta.glob('../../content/stories/*.md', { eager: true });
 
@@ -20,7 +21,7 @@ const allStories = Object.entries(storyFiles).map(([path, mod]) => {
     title: frontmatter.title ?? 'قصة أطفال',
     description: frontmatter.description ?? '',
     category: frontmatter.category ?? 'قصص أخرى',
-    image
+    image: image ? cloudinaryImage(image, 'w_220,h_320,c_fill') : ''
   };
 });
 

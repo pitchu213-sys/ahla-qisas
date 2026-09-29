@@ -523,8 +523,7 @@ const collectionSchema = {
         </div>
       ) : (
         shorts.map((short, i) => {
-          const thumb = short.thumbnail
-            || `https://img.youtube.com/vi/${short.videoId}/maxresdefault.jpg`;
+          const thumb = `https://img.youtube.com/vi/${short.videoId}/mqdefault.jpg`;
           const catClass = catColors[short.category] || 'cat-y';
           const bgClasses = ['sc-1','sc-2','sc-3','sc-4','sc-5','sc-6'];
           const bgClass = bgClasses[i % 6];
@@ -540,11 +539,15 @@ const collectionSchema = {
               <div class="scard-frame">
                 <div class="scard-inner">
                   {short.videoId ? (
-                    <div
-                      style={`background-image:url('${thumb}');background-size:cover;background-position:center;width:100%;height:100%;`}
-                      role="img"
-                      aria-label={short.title}
-                    ></div>
+                    <img
+                      class="scard-thumb-img"
+                      src={thumb}
+                      alt={short.title}
+                      loading="lazy"
+                      decoding="async"
+                      width="320"
+                      height="180"
+                    />
                   ) : (
                     <div class={`scard-thumb-placeholder ${bgClass}`}>🎬</div>
                   )}

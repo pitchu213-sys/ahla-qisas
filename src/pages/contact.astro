@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 const pageTitle = "تواصل معنا";
 const pageDescription = "صفحة التواصل مع فريق أحلى القصص للأطفال. يمكنك إرسال استفساراتك، اقتراحاتك، أو طلبات التعاون.";
 const pageImage = "/images/default-og.jpg";
-const teamImage = "/logo.png";
+const teamImage = "/logo-320.webp";
 ---
 
 <Layout title={pageTitle} description={pageDescription} image={pageImage}>
@@ -35,7 +35,7 @@ const teamImage = "/logo.png";
     <div class="container">
       <!-- ترحيب ريكسو -->
       <div class="rexo-welcome">
-        <img src={teamImage} alt="ريكسو - أحلى القصص للأطفال">
+        <img src={teamImage} alt="ريكسو - أحلى القصص للأطفال" width="120" height="120" loading="lazy" decoding="async">
         <div>
           <h2>أهلاً! أنا <span>ريكسو</span> 🦖</h2>
           <p>فريقنا يرحب بك ويسعد بالرد على جميع استفساراتك في أقرب وقت ممكن. لا تتردد في التواصل معنا!</p>
