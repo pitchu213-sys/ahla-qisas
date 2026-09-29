@@ -4,4 +4,5 @@ description: 'من الأقوى يا ترى؟ قلب الديناصور الضخ
 videoId: '__pu-8L5o4c'
 thumbnail: 'https://img.youtube.com/vi/__pu-8L5o4c/maxresdefault.jpg'
 date: '2026-04-23'
+category: 'جسم الإنسان'
 ---

@@ -8,6 +8,8 @@ const videos = Object.entries(videoFiles).map(([path, mod]) => ({
   ...mod.frontmatter
 }));
 
+const videoCategories = [...new Set(videos.map((video) => video.category).filter(Boolean))];
+
 const categoryColors = {
   'جسم الإنسان': 'tag-red',
   'الديناصورات': 'tag-green',
@@ -524,12 +526,10 @@ const collectionSchema = {
       <input type="text" id="searchInput" placeholder="ابحث في الفيديوهات..." />
     </div>
     <div class="filters">
-      <button class="flt active" data-cat="all">الكل</button>
-      <button class="flt" data-cat="جسم الإنسان">جسم الإنسان</button>
-      <button class="flt" data-cat="الديناصورات">الديناصورات</button>
-      <button class="flt" data-cat="الفضاء">الفضاء</button>
-      <button class="flt" data-cat="الطبيعة">الطبيعة</button>
-      <button class="flt" data-cat="مهارات">مهارات</button>
+      <button class="flt active" data-cat="all" aria-pressed="true">الكل</button>
+      {videoCategories.map((category) => (
+        <button class="flt" data-cat={category} aria-pressed="false">{category}</button>
+      ))}
     </div>
   </div>
 
@@ -584,6 +584,10 @@ const collectionSchema = {
           );
         })
       )}
+      <div class="empty" id="filterEmpty" data-nosnippet hidden>
+        <div style="font-size:48px">🔎</div>
+        <p>لا توجد فيديوهات تطابق هذا البحث.</p>
+      </div>
     </div>
   </div>
 
@@ -593,18 +597,23 @@ const collectionSchema = {
     const searchInput = document.getElementById('searchInput');
     const filterBtns  = document.querySelectorAll('.flt');
     const cards       = document.querySelectorAll('.vcard');
+    const filterEmpty = document.getElementById('filterEmpty');
 
     let activeCat = 'all';
     let searchVal = '';
 
     function filterCards() {
+      let visibleCount = 0;
       cards.forEach(card => {
         const title = (card.dataset.title || '').toLowerCase();
         const cat   = card.dataset.cat || '';
         const matchSearch = title.includes(searchVal);
         const matchCat    = activeCat === 'all' || cat === activeCat;
-        card.style.display = matchSearch && matchCat ? 'flex' : 'none';
+        const shouldShow = matchSearch && matchCat;
+        card.style.display = shouldShow ? 'flex' : 'none';
+        if (shouldShow) visibleCount += 1;
       });
+      if (filterEmpty) filterEmpty.hidden = visibleCount !== 0 || cards.length === 0;
     }
 
     searchInput?.addEventListener('input', e => {
@@ -614,8 +623,12 @@ const collectionSchema = {
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
+        filterBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
         activeCat = btn.dataset.cat || 'all';
         filterCards();
       });
