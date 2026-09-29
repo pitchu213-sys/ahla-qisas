@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 const pageTitle = "من نحن";
 const pageDescription = "تعرف على فريق ريكسو وقصتنا في تقديم قصص أطفال عربية هادفة وتعليمية للأعمار الصغيرة.";
 const pageImage = "/images/default-og.jpg";
-const teamImage = "/logo.png";
+const teamImage = "/logo-320.webp";
 ---
 
 <Layout title={pageTitle} description={pageDescription} image={pageImage}>
@@ -35,7 +35,7 @@ const teamImage = "/logo.png";
     <div class="container">
       <!-- بطاقة ريكسو: نعيد استخدام about-card و about-text -->
       <div class="about-card" style="text-align: center; margin-bottom: 2rem;">
-        <img src={teamImage} alt="ريكسو - أحلى القصص للأطفال" class="about-img" style="width: 150px; margin: 0 auto 1.5rem;">
+        <img src={teamImage} alt="ريكسو - أحلى القصص للأطفال" class="about-img" style="width: 150px; margin: 0 auto 1.5rem;" width="150" height="150" loading="lazy" decoding="async">
         <div class="about-text">
           <h2>تعرّف على <span style="color: var(--gold);">ريكسو!</span></h2>
           <p>ريكسو هو ديناصور صغير ظريف ومحبوب، يُرافق أطفالنا في كل قصة ومغامرة. بأسلوبه المرح وصوته الجميل، يجعل ريكسو كل حلقة تجربة لا تُنسى!</p>

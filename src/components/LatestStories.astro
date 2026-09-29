@@ -1,4 +1,6 @@
 ---
+import { cloudinaryImage } from '../utils/images';
+
 // جلب جميع القصص من ملفات Markdown
 const storyFiles = import.meta.glob('../content/stories/*.md', { eager: true });
 const allStories = Object.entries(storyFiles).map(([path, mod]) => ({
@@ -19,17 +21,33 @@ const latestStories = allStories.slice(0, 4);
       latestStories.map(story => {
         // استخراج صورة الغلاف (أول صفحة أمامية)
         const firstPage = story.pages?.[0]?.front || '';
-        const thumbnail = firstPage.startsWith('http')
+        const thumbnailSource = firstPage.startsWith('http')
           ? firstPage
           : firstPage
             ? `/images/stories/${story.slug}/${firstPage}`
             : '';
+        const thumbnail = thumbnailSource
+          ? cloudinaryImage(thumbnailSource, 'w_600,h_338,c_fill')
+          : '';
+        const thumbnailSmall = thumbnailSource
+          ? cloudinaryImage(thumbnailSource, 'w_320,h_180,c_fill')
+          : '';
 
         return (
           <a href={`/stories/${story.slug}`} class="story-card">
             <div class="card-thumb">
               {thumbnail ? (
-                <img src={thumbnail} alt={story.title} class="card-img" loading="lazy" />
+                <img
+                  src={thumbnail}
+                  srcset={`${thumbnailSmall} 320w, ${thumbnail} 600w`}
+                  sizes="(max-width: 768px) calc(50vw - 32px), 251px"
+                  alt={story.title}
+                  class="card-img"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="338"
+                />
               ) : (
                 '📖'
               )}

@@ -543,8 +543,7 @@ const collectionSchema = {
         </div>
       ) : (
         videos.map(video => {
-          const thumb = video.thumbnail
-            || `https://img.youtube.com/vi/${video.videoId}/maxresdefault.jpg`;
+          const thumb = `https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg`;
           return (
             <a
               href={`/videos/${video.slug}`}
@@ -553,11 +552,14 @@ const collectionSchema = {
               data-cat={video.category || ''}
             >
               <div class="vcard-thumb">
-                <div
-                  style={`background-image:url('${thumb}');background-size:cover;background-position:center;width:100%;height:100%;`}
-                  role="img"
-                  aria-label={video.title}
-                ></div>
+                <img
+                  src={thumb}
+                  alt={video.title}
+                  loading="lazy"
+                  decoding="async"
+                  width="320"
+                  height="180"
+                />
                 <div class="vcard-overlay">
                   <div class="play-btn">▶</div>
                 </div>

@@ -1,4 +1,6 @@
 ---
+import { cloudinaryImage } from '../../utils/images';
+
 export interface Props {
   pages: Array<{ front?: string; frontText?: string; back?: string; backText?: string }>;
   slug: string;
@@ -33,9 +35,11 @@ function getTextDensity(text?: string): 'short' | 'medium' | 'dense' {
 }
 
 const optimizedPages = safePages.map((page, index) => ({
-  front: getImagePath(page.front),
+  front: cloudinaryImage(getImagePath(page.front), 'w_1024,c_limit'),
+  frontMobile: cloudinaryImage(getImagePath(page.front), 'w_640,c_limit'),
   frontText: page.frontText,
-  back: getImagePath(page.back),
+  back: cloudinaryImage(getImagePath(page.back), 'w_1024,c_limit'),
+  backMobile: cloudinaryImage(getImagePath(page.back), 'w_640,c_limit'),
   backText: page.backText,
   scene: index + 1,
   accent: (index % 3) + 1,
@@ -55,7 +59,7 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
       }
     : {
         kind: 'image',
-        src: page.front,
+        src: page.frontMobile,
         alt: `المشهد ${page.scene} - صورة القصة`,
         scene: page.scene,
         accent: page.accent,
@@ -76,7 +80,7 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
   if (page.back) {
     return [front, {
       kind: 'image',
-      src: page.back,
+      src: page.backMobile,
       alt: `المشهد ${page.scene} - الصفحة الخلفية`,
       scene: page.scene,
       accent: page.accent,
@@ -150,15 +154,17 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
               </div>
             ) : (
               <div class="story-page-face story-page-front">
-                <img
-                  src={page.front}
-                  alt={`المشهد ${index + 1} - صورة القصة`}
-                  loading={index === 0 ? 'eager' : 'lazy'}
-                  decoding="async"
-                  fetchpriority={index === 0 ? 'high' : 'auto'}
-                  width="512"
-                  height="800"
-                />
+                <picture>
+                  <source media="(max-width: 680px)" srcset={page.frontMobile} />
+                  <img
+                    src={page.front}
+                    alt={`المشهد ${index + 1} - صورة القصة`}
+                    loading="lazy"
+                    decoding="async"
+                    width="512"
+                    height="800"
+                  />
+                </picture>
                 <span class="page-light" aria-hidden="true"></span>
               </div>
             )}
@@ -177,7 +183,10 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
               </div>
             ) : page.back ? (
               <div class="story-page-face story-page-back">
-                <img src={page.back} alt={`المشهد ${index + 1} - الصفحة الخلفية`} loading="lazy" decoding="async" width="512" height="800" />
+                <picture>
+                  <source media="(max-width: 680px)" srcset={page.backMobile} />
+                  <img src={page.back} alt={`المشهد ${index + 1} - الصفحة الخلفية`} loading="lazy" decoding="async" width="512" height="800" />
+                </picture>
                 <span class="page-light" aria-hidden="true"></span>
               </div>
             ) : (
@@ -525,7 +534,8 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
     background: repeating-linear-gradient(9deg, rgba(89, 60, 27, 0.025) 0 1px, transparent 1px 4px), radial-gradient(circle at 28% 17%, rgba(255, 255, 255, 0.5), transparent 34%);
     mix-blend-mode: multiply;
   }
-  .story-page-face > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .story-page-face > picture { display: block; width: 100%; height: 100%; }
+  .story-page-face > picture > img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .story-page-back { transform: rotateY(180deg); box-shadow: inset 13px 0 24px rgba(86, 54, 25, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.55); }
   .page-light { position: absolute; inset: 0; z-index: 8; pointer-events: none; opacity: 0; background: linear-gradient(90deg, transparent 18%, rgba(255, 255, 255, 0.62) 48%, rgba(77, 45, 20, 0.22) 70%, transparent 88%); }
   .is-turning .page-light { animation: page-light-sweep 0.78s ease both; }
@@ -900,7 +910,7 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
         mobileTurnPage.style.transform = '';
         mobileTurnPage.style.visibility = '';
       }
-      if (slides[0]) renderMobileSurface(mobileBasePage, slides[0]);
+      if (isMobileMode() && slides[0]) renderMobileSurface(mobileBasePage, slides[0]);
       updateStatus();
     }
     function waitForAnimation() {
@@ -1075,6 +1085,6 @@ const readerSlides: ReaderSlide[] = optimizedPages.flatMap((page) => {
       if (overlay.getAttribute('aria-hidden') === 'false') resetReader();
       updateStatus();
     });
-    resetReader();
+    updateStatus();
   })();
 </script>

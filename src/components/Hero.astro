@@ -1,5 +1,8 @@
 
 ---
+import { cloudinaryImage } from '../utils/images';
+
+const rexoImage = 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778920064/ChatGPT_Image_16_mai_2026_09_26_58_ggbwy3.png';
 ---
 
 <section class="hero">
@@ -14,7 +17,17 @@
     </div>
     <div class="hero-image">
       <div class="glow"></div>
-      <img src="https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778920064/ChatGPT_Image_16_mai_2026_09_26_58_ggbwy3.png" alt="ريكسو الديناصور" class="rexo" />
+      <img
+        src={cloudinaryImage(rexoImage, 'w_640,c_limit')}
+        srcset={`${cloudinaryImage(rexoImage, 'w_420,c_limit')} 420w, ${cloudinaryImage(rexoImage, 'w_640,c_limit')} 640w, ${cloudinaryImage(rexoImage, 'w_840,c_limit')} 840w`}
+        sizes="(max-width: 768px) 80vw, 420px"
+        width="420"
+        height="630"
+        alt="ريكسو الديناصور"
+        class="rexo"
+        decoding="async"
+        fetchpriority="high"
+      />
     </div>
   </div>
   <svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none">

@@ -8,6 +8,10 @@ const articles = Object.entries(articleFiles).map(([path, mod]) => ({
   ...mod.frontmatter
 }));
 
+const articleThumbnail = (url: string) => url
+  .replace(/\/s\d+\//, '/s640/')
+  .replace(/=w\d+/, '=w640');
+
 
 const pageTitle = 'مقالات تربية الأطفال والقراءة والنوم | مكتبة الوالدين';
 const pageDescription = 'مقالات عربية عملية للوالدين حول تربية الأطفال، القراءة، النوم، الخيال وتنظيم وقت الشاشات.';
@@ -306,6 +310,7 @@ const collectionSchema = {
       aspect-ratio: 16/9;
       display: block;
       background-color: var(--soft);
+      object-fit: cover;
     }
     .acard-img-placeholder {
       width: 100%;
@@ -493,12 +498,15 @@ const collectionSchema = {
               data-cat={article.category || ''}
             >
               {article.heroImage ? (
-  <div
+  <img
     class="acard-img"
-    style={`background-image: url('${article.heroImage}'); background-size: cover; background-position: center; aspect-ratio: 16/9;`}
-    role="img"
-    aria-label={article.title}
-  ></div>
+    src={articleThumbnail(article.heroImage)}
+    alt={article.title}
+    loading="lazy"
+    decoding="async"
+    width="640"
+    height="360"
+  />
 ) : (
   <div class="acard-img-placeholder">📝</div>
 )}
