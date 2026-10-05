@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   // هذا السطر مهم جداً لأكواد SEO، لا تحذفه
-  site: 'https://ahla-qisas.vercel.app', 
+  site: 'https://ahla-qisas.com',
   // أزلنا Sitemap مؤقتاً لحل مشكلة البناء
   integrations: [
     mdx(),
