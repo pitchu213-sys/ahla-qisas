@@ -36,6 +36,8 @@ const absoluteImageURL = new URL(image, Astro.site).href;
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
+    {Astro.url.pathname === '/' && <link rel="preload" as="image" href="https://res.cloudinary.com/dvmkrs2jb/image/upload/w_1600,c_limit,f_auto,q_auto/v1778756784/ChatGPT_Image_14_mai_2026_12_05_52_maaej9.png" media="(min-width: 769px)" fetchpriority="high" />}
+    {Astro.url.pathname === '/' && <link rel="preload" as="image" href="https://res.cloudinary.com/dvmkrs2jb/image/upload/w_800,c_limit,f_auto,q_auto/v1778756784/ChatGPT_Image_14_mai_2026_12_05_52_maaej9.png" media="(max-width: 768px)" fetchpriority="high" />}
     
     <!-- ========== Open Graph (لضبط شكل الرابط عند المشاركة في واتساب، فيسبوك، تليجرام) ========== -->
     <meta property="og:type" content={type} />
@@ -63,7 +65,8 @@ const absoluteImageURL = new URL(image, Astro.site).href;
     <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap"></noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
     <!-- أيقونة الموقع (Favicon) - تأكد من وجود ملف favicon.svg في مجلد public -->
@@ -107,22 +110,6 @@ const absoluteImageURL = new URL(image, Astro.site).href;
   <body>
     <slot />
     
-    <!-- نجوم الخلفية (من إعداداتك الأصلية) -->
-    <script>
-      function makeStars(id, count){
-        const c = document.getElementById(id); 
-        if(!c) return;
-        for(let i=0;i<count;i++){
-          const s = document.createElement('span');
-          s.className = 'star';
-          const size = (i%3)+2;
-          s.style.cssText = `top:${(i*37)%100}%;left:${(i*53)%100}%;width:${size}px;height:${size}px;animation-delay:${(i%5)*.6}s`;
-          c.appendChild(s);
-        }
-      }
-      makeStars('stars',40);
-      makeStars('stars2',25);
-      makeStars('stars3',15);
-    </script>
+ipt>
   </body>
 </html>
