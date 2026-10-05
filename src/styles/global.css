@@ -31,7 +31,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .social.yt{background:#ef4444} .social.tk{background:#000} .social.fb{background:#2563eb} .social.wa{background:#22c55e}
 
 /* Hero */
-.hero{position:relative;overflow:hidden;background-image: url('https://res.cloudinary.com/dvmkrs2jb/image/upload/f_auto,q_auto/v1778756784/ChatGPT_Image_14_mai_2026_12_05_52_maaej9.png');
+.hero{position:relative;overflow:hidden;background-image: url('https://res.cloudinary.com/dvmkrs2jb/image/upload/w_1600,c_limit,f_auto,q_auto/v1778756784/ChatGPT_Image_14_mai_2026_12_05_52_maaej9.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;color:#fff;padding:3rem 0 8rem}
@@ -455,6 +455,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .about-inner{grid-template-columns:1fr;text-align:center}
   .footer-grid{grid-template-columns:repeat(2,1fr)}
 }
+@media (max-width:768px){.hero{background-image:url('https://res.cloudinary.com/dvmkrs2jb/image/upload/w_800,c_limit,f_auto,q_auto/v1778756784/ChatGPT_Image_14_mai_2026_12_05_52_maaej9.png')}}
 @media (max-width:640px){
   .hero-grid{grid-template-columns:1fr}
   .hero-text{text-align:center;order:2}
