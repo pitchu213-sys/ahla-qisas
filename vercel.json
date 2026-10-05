@@ -1,15 +1,20 @@
 {
-    "$schema": "https://openapi.vercel.sh/vercel.json",
-    "redirects": [
-      {
-        "source": "/articles/child's-imagination",
-        "destination": "/articles/child-imagination",
-        "permanent": true
-      },
-      {
-        "source": "/articles/story%20suitable",
-        "destination": "/articles/choosing-story-by-age",
-        "permanent": true
-      }
-    ]
-  }
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/articles/kid-sleep-tips",
+      "destination": "/articles/how-to-help-your-child-love-reading",
+      "permanent": true
+    },
+    {
+      "source": "/articles/child's-imagination",
+      "destination": "/articles/child-imagination",
+      "permanent": true
+    },
+    {
+      "source": "/articles/story%20suitable",
+      "destination": "/articles/choosing-story-by-age",
+      "permanent": true
+    }
+  ]
+}
