@@ -5,7 +5,7 @@
   --bg:#f7f5fb; --text:#1a1547; --muted:#6b6783; --border:#e5e1ee;
 }
 html{scroll-behavior:smooth}
-body{font-family:'Tajawal','Cairo',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
