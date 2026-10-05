@@ -7,6 +7,10 @@ const pageTitle = "من نحن";
 const pageDescription = "تعرف على فريق ريكسو وقصتنا في تقديم قصص أطفال عربية هادفة وتعليمية للأعمار الصغيرة.";
 const pageImage = "/images/default-og.jpg";
 const teamImage = "/logo-320.webp";
+const storyCount = Object.keys(import.meta.glob("../content/stories/*.md")).length;
+const articleCount = Object.keys(import.meta.glob("../content/articles/*.mdx")).length;
+const videoCount = Object.keys(import.meta.glob("../content/videos/*.md")).length;
+const shortCount = Object.keys(import.meta.glob("../content/shorts/*.md")).length;
 ---
 
 <Layout title={pageTitle} description={pageDescription} image={pageImage}>
@@ -25,7 +29,7 @@ const teamImage = "/logo-320.webp";
           وجهتك العربية الأولى للقصص والمحتوى التعليمي الترفيهي للأطفال
         </p>
         <div class="hero-meta" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; font-size: 0.85rem; opacity: 0.8;">
-          <span>📅 <time datetime="2026-03-26">آخر تحديث: 26 مارس 2026</time></span>
+          <span>📅 <time datetime="2026-10-05">آخر تحديث: 5 أكتوبر 2026</time></span>
           <span>✍️ فريق أحلى القصص للأطفال</span>
           <span>📖 وقت القراءة: 5 دقائق</span>
         </div>
@@ -118,7 +122,11 @@ const teamImage = "/logo-320.webp";
       <div class="features" style="display: block; margin-bottom: 2rem;">
         <h2 style="font-size: 1.5rem; font-weight: 900; color: var(--night1); margin-bottom: 1rem;">📊 أحلى القصص بالأرقام</h2>
         <div class="stats-grid">
-          <div class="stat-item"><span class="s-num">+10</span><span>قصة مصورة</span></div>
+          <div class="stat-item"><span class="s-num">{storyCount}</span><span>قصة منشورة</span></div>
+          <div class="stat-item"><span class="s-num">{articleCount}</span><span>مقالة منشورة</span></div>
+          <div class="stat-item"><span class="s-num">{videoCount}</span><span>فيديو تعليمي</span></div>
+          <div class="stat-item"><span class="s-num">{shortCount}</span><span>فيديو قصير</span></div>
+        </div>
           <div class="stat-item"><span class="s-num">+10</span><span>مقالة تربوية</span></div>
           <div class="stat-item"><span class="s-num">+10</span><span>فيديو قصير</span></div>
           <div class="stat-item"><span class="s-num">100%</span><span>محتوى عربي</span></div>
