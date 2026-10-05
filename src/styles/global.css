@@ -34,7 +34,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .hero{position:relative;overflow:hidden;background-image: url('https://res.cloudinary.com/dvmkrs2jb/image/upload/w_1600,c_limit,f_auto,q_auto/v1778756784/ChatGPT_Image_14_mai_2026_12_05_52_maaej9.png');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;color:#fff;padding:3rem 0 8rem}
+  background-attachment: scroll;color:#fff;padding:3rem 0 8rem}
 .stars{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .star{position:absolute;background:#fff;border-radius:50%;box-shadow:0 0 6px rgba(255,255,255,.8);animation:twinkle 3s ease-in-out infinite}
 @keyframes twinkle{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
