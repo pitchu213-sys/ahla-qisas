@@ -27,10 +27,10 @@ const latestStories = allStories.slice(0, 4);
             ? `/images/stories/${story.slug}/${firstPage}`
             : '';
         const thumbnail = thumbnailSource
-          ? cloudinaryImage(thumbnailSource, 'w_600,h_338,c_fill')
+          ? cloudinaryImage(thumbnailSource, 'w_600,h_338,c_fill', 'q_auto:eco')
           : '';
         const thumbnailSmall = thumbnailSource
-          ? cloudinaryImage(thumbnailSource, 'w_320,h_180,c_fill')
+          ? cloudinaryImage(thumbnailSource, 'w_320,h_180,c_fill', 'q_auto:eco')
           : '';
 
         return (
