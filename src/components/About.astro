@@ -3,6 +3,9 @@
 import { cloudinaryImage } from '../utils/images';
 
 const rexoImage = 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778920064/ChatGPT_Image_16_mai_2026_09_26_58_ggbwy3.png';
+const rexoSmall = cloudinaryImage(rexoImage, 'w_220,c_limit');
+const rexoMedium = cloudinaryImage(rexoImage, 'w_320,c_limit');
+const rexoLarge = cloudinaryImage(rexoImage, 'w_400,c_limit');
 ---
 
 <section class="container about-wrap">
@@ -10,7 +13,9 @@ const rexoImage = 'https://res.cloudinary.com/dvmkrs2jb/image/upload/v1778920064
     <div class="stars" id="stars2"></div>
     <div class="about-inner">
       <img
-        src={cloudinaryImage(rexoImage, 'w_440,c_limit')}
+        src={rexoLarge}
+        srcset={`${rexoSmall} 220w, ${rexoMedium} 320w, ${rexoLarge} 400w`}
+        sizes="(max-width: 768px) 90vw, 220px"
         alt="ريكسو"
         class="float about-img"
         width="220"
