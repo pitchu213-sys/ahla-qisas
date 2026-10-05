@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ahla-qisas.vercel.app/sitemap-index.xml
+Sitemap: https://ahla-qisas.com/sitemap-index.xml
